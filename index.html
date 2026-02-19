@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sneha Chelimilla — Product Manager & Product Operations Leader specializing in AI & data products. Kellogg MBA · IIT Graduate · 8+ years shipping products that drive business outcomes." />
+  <meta name="keywords" content="Product Manager, Product Operations, AI Products, Data Products, Kellogg MBA, Senior PM, Product Ops Manager" />
+  <title>Sneha Chelimilla | PM & Product Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --dark:         #080e1a;
+      --dark-2:       #0d1629;
+      --dark-border:  rgba(255,255,255,0.07);
+      --blue:         #2563eb;
+      --blue-light:   #60a5fa;
+      --blue-dark:    #1d4ed8;
+      --blue-glow:    rgba(37,99,235,0.14);
+      --white:        #ffffff;
+      --off-white:    #f8fafc;
+      --text:         #0f172a;
+      --muted:        #64748b;
+      --dim:          #94a3b8;
+      --border:       #e2e8f0;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:    0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg:    0 12px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
+    img { display: block; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      background: rgba(8,14,26,0.97); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--dark-border);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 2rem;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 1rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+    .nav-logo span { color: var(--blue-light); }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      color: var(--dim); font-size: 0.8125rem; font-weight: 500;
+      padding: 0.5rem 0.875rem; border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: #fff; }
+    .nav-cta {
+      background: var(--blue); color: #fff !important;
+      padding: 0.4rem 1rem !important; border-radius: 6px !important;
+      font-weight: 600 !important; font-size: 0.8125rem !important;
+    }
+    .nav-cta:hover { background: var(--blue-dark) !important; }
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: 0.25s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse at 10% 50%, rgba(37,99,235,0.16) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 10%, rgba(37,99,235,0.08) 0%, transparent 45%);
+      display: flex; align-items: center;
+      padding: 8rem 2rem 6rem;
+      position: relative; overflow: hidden;
+    }
+    /* Subtle dot grid */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1140px; margin: 0 auto; width: 100%;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 4rem;
+      position: relative; z-index: 1;
+    }
+    .hero-text { flex: 1; min-width: 0; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid rgba(37,99,235,0.4);
+      background: rgba(37,99,235,0.1);
+      color: var(--blue-light);
+      padding: 0.35rem 0.875rem; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 1.625rem;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .hero-name {
+      font-size: clamp(2.875rem, 6.5vw, 5rem);
+      font-weight: 900; color: #fff;
+      letter-spacing: -0.04em; line-height: 1.0;
+      margin-bottom: 1rem;
+    }
+    .hero-role {
+      font-size: clamp(1.0625rem, 2vw, 1.25rem);
+      font-weight: 500; color: var(--blue-light);
+      letter-spacing: -0.01em; margin-bottom: 1.25rem;
+    }
+    .hero-tagline {
+      font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
+      color: #94a3b8; line-height: 1.8;
+      max-width: 520px; margin-bottom: 2.25rem;
+    }
+    .hero-tagline strong { color: #cbd5e1; font-weight: 500; }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.8125rem 1.5rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.9rem;
+      transition: all 0.18s; white-space: nowrap;
+    }
+    .btn-solid { background: var(--blue); color: #fff; }
+    .btn-solid:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); transform: translateY(-1px); }
+
+    /* Hero photo */
+    .hero-photo-col { flex-shrink: 0; }
+    .hero-photo-frame {
+      position: relative; width: 280px; height: 280px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--blue), rgba(96,165,250,0.4));
+    }
+    .hero-photo-frame::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      box-shadow: 0 0 60px rgba(37,99,235,0.25), 0 24px 48px rgba(0,0,0,0.5);
+    }
+    .hero-photo {
+      width: 100%; height: 100%; border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      display: block;
+      border: 4px solid var(--dark);
+    }
+
+    /* ── STATS ── */
+    #stats {
+      background: var(--dark-2);
+      border-top: 1px solid var(--dark-border);
+      border-bottom: 1px solid var(--dark-border);
+    }
+    .stats-row {
+      max-width: 1140px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat {
+      padding: 2.25rem 1.5rem; text-align: center;
+      border-right: 1px solid var(--dark-border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-val {
+      font-size: 2.25rem; font-weight: 800; color: #fff;
+      letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.375rem;
+    }
+    .stat-val em { color: var(--blue-light); font-style: normal; }
+    .stat-desc { font-size: 0.78rem; color: var(--dim); font-weight: 500; line-height: 1.45; }
+
+    /* ── SHARED SECTION SHELL ── */
+    section { padding: 6rem 2rem; }
+    .inner { max-width: 1140px; margin: 0 auto; }
+    .eyebrow {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.5rem;
+    }
+    .eyebrow-light { color: var(--blue-light); }
+    .heading {
+      font-size: clamp(1.625rem, 2.8vw, 2.25rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      color: var(--text); margin-bottom: 0.75rem; line-height: 1.2;
+    }
+    .heading-light { color: #fff; }
+    .subhead {
+      font-size: 1rem; color: var(--muted);
+      max-width: 560px; line-height: 1.75;
+    }
+    .subhead-light { color: var(--dim); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--off-white); }
+    .about-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start; margin-top: 3rem;
+    }
+    .about-bio p {
+      font-size: 0.9375rem; color: var(--muted);
+      line-height: 1.85; margin-bottom: 1.125rem;
+    }
+    .about-bio p strong { color: var(--text); font-weight: 600; }
+    .seeking-label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin: 1.75rem 0 0.75rem;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      background: rgba(37,99,235,0.08);
+      color: var(--blue-dark);
+      border: 1px solid rgba(37,99,235,0.18);
+      padding: 0.3rem 0.875rem; border-radius: 999px;
+      font-size: 0.78rem; font-weight: 600;
+    }
+
+    .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .acard {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.125rem 1.375rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .acard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .acard-num {
+      font-size: 0.7rem; font-weight: 800; color: var(--blue);
+      letter-spacing: 0.05em; margin-top: 0.1rem; flex-shrink: 0;
+      min-width: 28px;
+    }
+    .acard h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .acard p  { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── CORE COMPETENCIES ── */
+    #competencies { background: var(--white); }
+    .comp-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .comp-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.25rem;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .comp-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .comp-card:hover {
+      border-color: rgba(37,99,235,0.3);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+    .comp-card:hover::before { opacity: 1; }
+    .comp-num {
+      font-size: 0.7rem; font-weight: 800; color: var(--blue);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.875rem;
+    }
+    .comp-card h3 {
+      font-size: 1.125rem; font-weight: 800;
+      letter-spacing: -0.02em; margin-bottom: 0.625rem; color: var(--text);
+    }
+    .comp-card > p {
+      font-size: 0.875rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem;
+    }
+    .comp-proof {
+      list-style: none; display: flex; flex-direction: column; gap: 0.425rem;
+    }
+    .comp-proof li {
+      font-size: 0.8125rem; color: var(--text);
+      padding-left: 1.25rem; position: relative; line-height: 1.5;
+    }
+    .comp-proof li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--blue); font-size: 0.7rem; top: 0.15em;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--off-white); }
+    .exp-stack { margin-top: 3rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .xcard {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem 2rem 2rem 2.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative; overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .xcard::before {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--blue);
+    }
+    .xcard:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .xcard-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 1rem;
+      margin-bottom: 0.2rem; flex-wrap: wrap;
+    }
+    .xcard-co { font-size: 1rem; font-weight: 800; color: var(--text); }
+    .xcard-date {
+      font-size: 0.75rem; color: var(--muted);
+      background: var(--off-white); border: 1px solid var(--border);
+      padding: 0.2rem 0.7rem; border-radius: 999px;
+      font-weight: 500; white-space: nowrap; flex-shrink: 0;
+    }
+    .xcard-title {
+      font-size: 0.875rem; font-weight: 600;
+      color: var(--blue); margin-bottom: 0.15rem;
+    }
+    .xcard-loc {
+      font-size: 0.75rem; color: var(--muted); margin-bottom: 1.125rem;
+    }
+    .xcard-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .xcard-list li {
+      font-size: 0.85rem; color: var(--muted);
+      line-height: 1.65; padding-left: 1.375rem; position: relative;
+    }
+    .xcard-list li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: var(--blue); font-size: 0.65rem; top: 0.22em;
+    }
+    .xcard-list li strong { color: var(--text); font-weight: 600; }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--dark); }
+    #education .heading { color: #fff; }
+    .edu-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .ecard {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--dark-border);
+      border-radius: 14px; padding: 2rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .ecard:hover { background: rgba(255,255,255,0.07); transform: translateY(-2px); }
+    .ecard-school { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 0.1rem; }
+    .ecard-uni { font-size: 0.75rem; color: var(--dim); margin-bottom: 0.375rem; }
+    .ecard-deg { font-size: 0.875rem; font-weight: 600; color: var(--blue-light); margin-bottom: 0.15rem; }
+    .ecard-yr { font-size: 0.75rem; color: var(--dim); margin-bottom: 1rem; }
+    .ecard-list { list-style: none; display: flex; flex-direction: column; gap: 0.375rem; }
+    .ecard-list li {
+      font-size: 0.8rem; color: var(--dim);
+      padding-left: 1rem; position: relative; line-height: 1.55;
+    }
+    .ecard-list li::before {
+      content: '·'; position: absolute; left: 0;
+      color: var(--blue-light); font-size: 1.25rem; line-height: 0.9;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--white); }
+    .skills-layout {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 3rem; margin-top: 3rem;
+    }
+    .skill-col h3 {
+      font-size: 0.8125rem; font-weight: 700;
+      color: var(--text); margin-bottom: 1rem;
+      padding-bottom: 0.625rem;
+      border-bottom: 2px solid var(--blue);
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .stag {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      color: var(--text); padding: 0.3rem 0.7rem;
+      border-radius: 6px; font-size: 0.78rem; font-weight: 500;
+      transition: all 0.15s; cursor: default;
+    }
+    .stag:hover {
+      background: rgba(37,99,235,0.07);
+      border-color: rgba(37,99,235,0.35);
+      color: var(--blue-dark);
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--dark); }
+    #services .heading { color: #fff; }
+    .srv-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .scard {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--dark-border);
+      border-radius: 14px; padding: 2rem;
+      display: flex; flex-direction: column;
+      transition: all 0.22s;
+    }
+    .scard:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(37,99,235,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(37,99,235,0.15);
+    }
+    .scard-icon { font-size: 2rem; margin-bottom: 1.125rem; }
+    .scard h3 { font-size: 1.0625rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .scard > p { font-size: 0.86rem; color: var(--dim); line-height: 1.75; margin-bottom: 1.375rem; flex: 1; }
+    .scard-list { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .scard-list li {
+      font-size: 0.8rem; color: #cbd5e1;
+      padding-left: 1.25rem; position: relative; line-height: 1.5;
+    }
+    .scard-list li::before {
+      content: '✓'; position: absolute; left: 0;
+      color: #4ade80; font-size: 0.7rem; font-weight: 700; top: 0.15em;
+    }
+    .scard-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      background: var(--blue); color: #fff;
+      padding: 0.7rem 1.25rem; border-radius: 7px;
+      font-weight: 600; font-size: 0.8375rem;
+      transition: all 0.18s;
+    }
+    .scard-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+    /* ── BLOG ── */
+    #blog { background: var(--off-white); }
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .bcard {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .bcard:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .bcard-top {
+      height: 140px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bcard-top.c1 { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+    .bcard-top.c2 { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+    .bcard-top.c3 { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+    .bcard-top.c4 { background: linear-gradient(135deg, #fef9c3, #fef08a); }
+    .bcard-top.c5 { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
+    .bcard-top.c6 { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+    .bcard-top-inner {
+      display: flex; flex-direction: column; align-items: center; gap: 0.375rem;
+    }
+    .bcard-top-icon { font-size: 2rem; line-height: 1; }
+    .bcard-top-cat {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(0,0,0,0.4);
+    }
+    .bcard-body { padding: 1.375rem; flex: 1; display: flex; flex-direction: column; }
+    .bcard-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.625rem; }
+    .bcard-tag {
+      background: rgba(37,99,235,0.09); color: var(--blue-dark);
+      border: 1px solid rgba(37,99,235,0.18);
+      padding: 0.18rem 0.55rem; border-radius: 999px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .bcard-time { font-size: 0.73rem; color: var(--muted); }
+    .bcard h3 {
+      font-size: 0.9rem; font-weight: 700; color: var(--text);
+      line-height: 1.4; margin-bottom: 0.5rem;
+    }
+    .bcard p {
+      font-size: 0.8rem; color: var(--muted); line-height: 1.65;
+      flex: 1; margin-bottom: 1rem;
+    }
+    .bcard-link {
+      font-size: 0.8rem; font-weight: 700; color: var(--blue);
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      transition: gap 0.2s;
+    }
+    .bcard-link:hover { gap: 0.55rem; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--dark);
+      background-image: radial-gradient(ellipse at 50% 100%, rgba(37,99,235,0.2) 0%, transparent 55%);
+      text-align: center;
+    }
+    #contact .heading { color: #fff; }
+    #contact .subhead { color: var(--dim); margin: 0 auto 3rem; }
+    .contact-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .clink {
+      display: inline-flex; align-items: center; gap: 0.625rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--dark-border);
+      color: #fff; padding: 0.875rem 1.625rem;
+      border-radius: 10px; font-weight: 600; font-size: 0.875rem;
+      transition: all 0.18s;
+    }
+    .clink:hover { background: rgba(255,255,255,0.09); border-color: rgba(37,99,235,0.5); transform: translateY(-2px); }
+    .clink-icon { font-size: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050810;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding: 1.5rem 2rem; text-align: center;
+    }
+    footer p { color: #2d3748; font-size: 0.775rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero-photo { width: 220px; height: 220px; }
+      .hero-photo-frame { width: 220px; height: 220px; }
+      .comp-grid  { grid-template-columns: 1fr; }
+      .srv-row    { grid-template-columns: 1fr; }
+      .blog-grid  { grid-template-columns: repeat(2, 1fr); }
+      .stats-row  { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-bottom: 1px solid var(--dark-border); }
+      .stat:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(8,14,26,0.99);
+        border-bottom: 1px solid var(--dark-border);
+        padding: 0.5rem 0;
+      }
+      .nav-links.open a { padding: 0.75rem 2rem; border-radius: 0; font-size: 0.9375rem; }
+      .nav-toggle { display: flex; }
+      .hero-inner { flex-direction: column-reverse; gap: 2.5rem; }
+      .hero-photo-frame { width: 180px; height: 180px; }
+      .hero-photo { width: 100%; height: 100%; }
+      .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .edu-row     { grid-template-columns: 1fr; }
+      .skills-layout { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 4rem 1.25rem; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+      .stat { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Sneha <span>Chelimilla</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#competencies">Expertise</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Available for PM Roles
+      </div>
+      <h1 class="hero-name">Sneha<br>Chelimilla</h1>
+      <p class="hero-role">Product Manager &amp; Product Operations Leader — AI &amp; Data</p>
+      <p class="hero-tagline">
+        I ship AI products that users adopt and build the operational systems that scale them.<br>
+        <strong>Kellogg MBA (Dean's List) · IIT Graduate · 8+ years</strong> at the intersection of product, operations, and technology.
+      </p>
+      <div class="hero-actions">
+        <a href="#experience" class="btn btn-solid">View My Work</a>
+        <a href="https://www.linkedin.com/in/sneha-chelimilla/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+        <a href="Sneha_Ch_Resume_Product.pdf" download class="btn btn-ghost">Resume ↓</a>
+      </div>
+    </div>
+    <div class="hero-photo-col">
+      <div class="hero-photo-frame">
+        <img src="SnehaCh.jpg" alt="Sneha Chelimilla — Product Manager" class="hero-photo" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<section id="stats">
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-val">8<em>+</em></div>
+      <div class="stat-desc">Years in Product &amp; Tech</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">$750<em>M+</em></div>
+      <div class="stat-desc">Business Value Influenced</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">7<em>+</em></div>
+      <div class="stat-desc">AI &amp; Data Products Shipped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">400<em>%</em></div>
+      <div class="stat-desc">Max Product Adoption Growth Achieved</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="inner">
+    <div class="eyebrow">About</div>
+    <h2 class="heading">Product Manager &amp; Product Ops Leader with an engineer's<br>precision and a strategist's lens</h2>
+    <div class="about-layout">
+      <div class="about-bio">
+        <p>
+          I'm a <strong>Product Manager and Product Operations Leader</strong> with 8+ years of experience building AI-powered products and the operational systems that scale them. My track record spans automotive (Mercedes-Benz), management consulting (Strategy&amp; / PwC), and high-growth tech startups (Vorto.ai).
+        </p>
+        <p>
+          I combine <strong>engineering depth from IIT Hyderabad</strong> with <strong>strategic and financial thinking from Kellogg (Northwestern)</strong>. The result: I can lead product discovery in the morning, own the sprint with engineering in the afternoon, and present the business case to the C-suite in the evening.
+        </p>
+        <p>
+          I excel at both sides of the product equation: defining <em>what</em> to build (PM) and engineering <em>how</em> the team builds and operates it at scale (Product Ops) — from PLM governance and tooling to feedback loops and launch readiness.
+        </p>
+        <p class="seeking-label">Targeting roles as</p>
+        <div class="tag-row">
+          <span class="tag">Product Manager</span>
+          <span class="tag">Senior Product Manager</span>
+          <span class="tag">Product Operations Manager</span>
+          <span class="tag">Group PM</span>
+          <span class="tag">AI Product Manager</span>
+          <span class="tag">Head of Product Operations</span>
+        </div>
+      </div>
+
+      <div class="about-cards">
+        <div class="acard">
+          <div class="acard-num">01</div>
+          <div>
+            <h4>AI Product Specialist</h4>
+            <p>Shipped AI-driven invoice classification, automated dispatching, and ML analytics platforms with 90%+ production accuracy.</p>
+          </div>
+        </div>
+        <div class="acard">
+          <div class="acard-num">02</div>
+          <div>
+            <h4>0→1 Greenfield Builder</h4>
+            <p>Founded Mercedes-Benz's AI Solutions division from scratch; scaled it to 70% org-wide adoption and 400% growth in 5 years.</p>
+          </div>
+        </div>
+        <div class="acard">
+          <div class="acard-num">03</div>
+          <div>
+            <h4>Data-Driven Decision Maker</h4>
+            <p>Architected SQL-based KPI frameworks and executive dashboards that drove $1B+ in C-level operational decisions.</p>
+          </div>
+        </div>
+        <div class="acard">
+          <div class="acard-num">04</div>
+          <div>
+            <h4>Cross-Functional Operator</h4>
+            <p>Consistently led 55+ stakeholder ecosystems across engineering, finance, operations, and IT — aligning teams on complex, multi-quarter initiatives.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CORE COMPETENCIES ── -->
+<section id="competencies">
+  <div class="inner">
+    <div class="eyebrow">Core Competencies</div>
+    <h2 class="heading">Where I drive the most product impact</h2>
+    <p class="subhead">Four disciplines across PM and Product Operations where I've consistently delivered measurable, user-centered outcomes.</p>
+    <div class="comp-grid">
+
+      <div class="comp-card">
+        <div class="comp-num">01 — Discovery &amp; Research</div>
+        <h3>Product Discovery &amp; User Research</h3>
+        <p>I start with the problem, not the solution. I lead structured discovery to deeply understand user needs, validate hypotheses early, and ensure every roadmap item is grounded in evidence — not assumptions.</p>
+        <ul class="comp-proof">
+          <li>Led discovery across Ops, Planning &amp; Finance at Vorto.ai to define automated dispatching vision</li>
+          <li>Conducted 50+ user interviews at Mercedes-Benz; boosted WAU 300% and NPS 35 pts in 2 months</li>
+          <li>Ran structured A/B testing programs across 7+ analytics products</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-num">02 — Strategy &amp; Roadmapping</div>
+        <h3>Roadmapping &amp; Prioritization</h3>
+        <p>I translate product vision into a prioritized, stakeholder-aligned roadmap. I use data to drive prioritization decisions, write PRDs that engineers trust, and maintain clarity across quarterly planning cycles.</p>
+        <ul class="comp-proof">
+          <li>Defined vision and roadmap for 7+ ML-based analytics products at Mercedes-Benz</li>
+          <li>Engaged 55+ stakeholders across engineering, finance, and IT to align on delivery milestones</li>
+          <li>Developed product strategy that contributed to $100K revenue in 3 months at Relivable</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-num">03 — AI &amp; Data Products</div>
+        <h3>AI &amp; Data Product Development</h3>
+        <p>I have hands-on experience defining, scoping, and shipping AI-powered products — from LLM-based automation to ML classification models. I bridge the gap between data science and business value.</p>
+        <ul class="comp-proof">
+          <li>Shipped AI invoice classification and damage attribution at 90% accuracy (5x processing velocity)</li>
+          <li>Founded and scaled an AI Solutions division at a Fortune 500; drove $5M/year in efficiencies</li>
+          <li>Built AI productivity tooling at PwC saving $2.5M/year in organizational project delivery</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-num">04 — Product Operations</div>
+        <h3>Product Operations &amp; Lifecycle Governance</h3>
+        <p>I build the operating system behind the product — PLM frameworks, cross-functional workflows, data quality standards, and feedback loops that keep AI products healthy, adoption growing, and teams executing at speed.</p>
+        <ul class="comp-proof">
+          <li>Orchestrated standardized PLM framework at Vorto.ai, aligning Ops, Planning, Finance from discovery through post-launch; increased capacity 15%</li>
+          <li>Managed AI model feedback loops and data quality ops, sustaining 90% production accuracy and 5x processing velocity</li>
+          <li>Led enterprise-wide adoption of low-code analytics platform at Mercedes-Benz, securing $5M/year in operational efficiency</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="inner">
+    <div class="eyebrow">Career</div>
+    <h2 class="heading">Work Experience</h2>
+    <p class="subhead">A track record of shipping products and driving measurable outcomes across industries.</p>
+    <div class="exp-stack">
+
+      <div class="xcard">
+        <div class="xcard-top">
+          <div class="xcard-co">Vorto.ai — AI-driven Supply Chain Platform</div>
+          <div class="xcard-date">Jul 2025 – Oct 2025</div>
+        </div>
+        <div class="xcard-title">Product Manager (Leadership Development Program)</div>
+        <div class="xcard-loc">Denver, CO</div>
+        <ul class="xcard-list">
+          <li><strong>Product Discovery:</strong> Led discovery across Ops, Planning, and Finance teams; defined product vision for automated dispatching workflows, increasing ecosystem capacity and resource throughput by 15%.</li>
+          <li><strong>AI Product Ownership:</strong> Shipped AI-driven invoice classification and damage attribution features with 90% accuracy — accelerating financial processing velocity by 5x.</li>
+          <li><strong>0→1 Enterprise Initiative:</strong> Led digitization and automation of the Repair &amp; Maintenance org spanning 20+ facilities, reducing friction and improving time-to-value by 70%.</li>
+          <li><strong>Cross-Functional Execution:</strong> Built an automated service orchestration workflow enabling real-time coordination across drivers, facilities, and vendors — increasing operational velocity by 50%.</li>
+        </ul>
+      </div>
+
+      <div class="xcard">
+        <div class="xcard-top">
+          <div class="xcard-co">Strategy&amp; (PwC) — Strategy &amp; Value Creation Group</div>
+          <div class="xcard-date">Aug 2024 – Jul 2025</div>
+        </div>
+        <div class="xcard-title">Senior Consultant</div>
+        <div class="xcard-loc">Chicago, IL</div>
+        <ul class="xcard-list">
+          <li><strong>AI Productivity Product:</strong> Developed an AI-based internal ops toolkit automating analytical workflows — accelerating project delivery by 20% and saving $2.5M/year.</li>
+          <li><strong>Data Strategy:</strong> Designed technology platform integration frameworks for $5B+ mergers, enhancing data observability and enabling 18% synergy capture.</li>
+          <li><strong>KPI Frameworks:</strong> Architected SQL-based performance dashboards influencing C-level decisions on $1B+ in operational improvements.</li>
+          <li><strong>Executive Storytelling:</strong> Developed data-backed business cases that secured client buy-in for $750M+ in value creation initiatives.</li>
+        </ul>
+      </div>
+
+      <div class="xcard">
+        <div class="xcard-top">
+          <div class="xcard-co">Relivable — B2C VR Technology Startup</div>
+          <div class="xcard-date">Jan 2024 – Mar 2024</div>
+        </div>
+        <div class="xcard-title">Go-to-Market &amp; Product Strategy Intern</div>
+        <div class="xcard-loc">Chicago, IL</div>
+        <ul class="xcard-list">
+          <li><strong>GTM Strategy:</strong> Crafted go-to-market strategy through market research and customer segmentation, driving successful product positioning and launch.</li>
+          <li><strong>Customer Journey Optimization:</strong> Implemented CRM-driven lead tracking and contract automation; boosted conversion by 50% and NPS by 30 points.</li>
+          <li><strong>Revenue Impact:</strong> Contributed to $100K revenue generation within the first 3 months of launch.</li>
+        </ul>
+      </div>
+
+      <div class="xcard">
+        <div class="xcard-top">
+          <div class="xcard-co">Mercedes-Benz</div>
+          <div class="xcard-date">Jul 2017 – Jun 2022</div>
+        </div>
+        <div class="xcard-title">Product Manager, AI and Data Product Development</div>
+        <div class="xcard-loc">Bengaluru, India</div>
+        <ul class="xcard-list">
+          <li><strong>0→1 AI Division:</strong> Founded and scaled a greenfield AI Solutions division; grew product adoption by 400% across 70% of the organization by aligning ML capabilities with high-value business needs.</li>
+          <li><strong>Product Strategy:</strong> Defined vision, roadmap, and feature strategy for 7+ ML-based analytics webapps; engaged 55+ stakeholders across engineering, finance, and IT.</li>
+          <li><strong>User Research &amp; Experimentation:</strong> Drove 50+ user interviews and structured A/B testing — boosting WAU by 300% and NPS by 35 points within 2 months.</li>
+          <li><strong>Platform Adoption:</strong> Led enterprise migration to low-code analytics platform, securing $5M/year in efficiencies and reducing engineering overhead by 27% ($1.8M/year).</li>
+          <li><strong>Program Management:</strong> Led customer experience program across 10+ carlines — reducing complaints by 15% and warranty costs by 20%.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── EDUCATION ── -->
+<section id="education">
+  <div class="inner">
+    <div class="eyebrow eyebrow-light">Education</div>
+    <h2 class="heading heading-light">Academic Background</h2>
+    <div class="edu-row">
+
+      <div class="ecard">
+        <div class="ecard-school">Kellogg School of Management</div>
+        <div class="ecard-uni">Northwestern University · Evanston, IL</div>
+        <div class="ecard-deg">Master of Business Administration (MBA)</div>
+        <div class="ecard-yr">Aug 2022 – Jun 2024</div>
+        <ul class="ecard-list">
+          <li>Majors: Strategy, Operations, Finance</li>
+          <li>Dean's List 2023</li>
+          <li>Courses: Product Management, Marketing Analytics, Data Analytics with LLM, Software Development</li>
+        </ul>
+      </div>
+
+      <div class="ecard">
+        <div class="ecard-school">Indian Institute of Technology (IIT)</div>
+        <div class="ecard-uni">Hyderabad, India</div>
+        <div class="ecard-deg">Integrated M.Tech &amp; B.Tech</div>
+        <div class="ecard-yr">Aug 2012 – Jun 2017</div>
+        <ul class="ecard-list">
+          <li>Full scholarship by the Ministry of Education, India</li>
+          <li>Teaching Assistant to 110 post-graduate students</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="inner">
+    <div class="eyebrow">Skills</div>
+    <h2 class="heading">Tools &amp; Expertise</h2>
+    <div class="skills-layout">
+
+      <div class="skill-col">
+        <h3>Technical</h3>
+        <div class="tags">
+          <span class="stag">SQL (Advanced)</span>
+          <span class="stag">Python</span>
+          <span class="stag">Excel</span>
+          <span class="stag">PowerBI</span>
+          <span class="stag">Tableau</span>
+          <span class="stag">Jira</span>
+          <span class="stag">Figma</span>
+          <span class="stag">Asana</span>
+          <span class="stag">Alteryx</span>
+          <span class="stag">Dataiku</span>
+          <span class="stag">R</span>
+        </div>
+      </div>
+
+      <div class="skill-col">
+        <h3>Product Management &amp; Ops</h3>
+        <div class="tags">
+          <span class="stag">Product Discovery</span>
+          <span class="stag">Roadmapping</span>
+          <span class="stag">PRDs &amp; Prioritization</span>
+          <span class="stag">OKR Frameworks</span>
+          <span class="stag">PLM Governance</span>
+          <span class="stag">KPI Ownership</span>
+          <span class="stag">A/B Testing</span>
+          <span class="stag">User Research</span>
+          <span class="stag">Go-to-Market</span>
+          <span class="stag">Process Standardization</span>
+          <span class="stag">Cross-functional Leadership</span>
+          <span class="stag">Executive Communication</span>
+        </div>
+      </div>
+
+      <div class="skill-col">
+        <h3>AI &amp; Data</h3>
+        <div class="tags">
+          <span class="stag">AI Product Management</span>
+          <span class="stag">LLM Workflows</span>
+          <span class="stag">ML Product Development</span>
+          <span class="stag">Data Strategy</span>
+          <span class="stag">Analytics Platforms</span>
+          <span class="stag">Process Automation</span>
+          <span class="stag">Data Observability</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="inner">
+    <div class="eyebrow eyebrow-light">Work With Me</div>
+    <h2 class="heading heading-light">PM Career Services</h2>
+    <p class="subhead subhead-light">Drawing on 8+ years in product, an IIT engineering background, and a Kellogg MBA — I help ambitious professionals break into and accelerate their Product Management careers.</p>
+    <div class="srv-row">
+
+      <div class="scard">
+        <div class="scard-icon">🧭</div>
+        <h3>PM Career Strategy</h3>
+        <p>A focused 1:1 session to map your path into product management — clarifying your positioning, identifying gaps, and building a concrete action plan tailored to your background.</p>
+        <ul class="scard-list">
+          <li>Target role &amp; industry alignment</li>
+          <li>Skills gap analysis and roadmap</li>
+          <li>Networking and recruiter outreach strategy</li>
+          <li>Perspective from IIT + Kellogg + multi-industry PM</li>
+          <li>45-min video call + written follow-up notes</li>
+        </ul>
+        <a href="mailto:snehachelimilla.sc@gmail.com?subject=PM Career Strategy Session" class="scard-btn">Book a Session →</a>
+      </div>
+
+      <div class="scard">
+        <div class="scard-icon">📄</div>
+        <h3>PM Resume Review</h3>
+        <p>A thorough line-by-line review of your resume with edits to sharpen PM impact language, quantify outcomes, and pass recruiter and ATS screens at top tech companies.</p>
+        <ul class="scard-list">
+          <li>Line-by-line written feedback</li>
+          <li>Impact-first bullet rewriting (STAR method)</li>
+          <li>ATS keyword optimization for PM roles</li>
+          <li>PM-specific positioning and framing</li>
+          <li>48-hour turnaround + one revision round</li>
+        </ul>
+        <a href="mailto:snehachelimilla.sc@gmail.com?subject=PM Resume Review Request" class="scard-btn">Request a Review →</a>
+      </div>
+
+      <div class="scard">
+        <div class="scard-icon">🎤</div>
+        <h3>PM Mock Interview</h3>
+        <p>Realistic PM interview practice — product sense, metrics, strategy, execution, and behavioral questions — with structured feedback to sharpen your framing and delivery.</p>
+        <ul class="scard-list">
+          <li>Product sense &amp; product design questions</li>
+          <li>Metrics, estimation &amp; data questions</li>
+          <li>Behavioral (STAR) &amp; leadership stories</li>
+          <li>Strategy &amp; execution case scenarios</li>
+          <li>60-min session + written debrief document</li>
+        </ul>
+        <a href="mailto:snehachelimilla.sc@gmail.com?subject=PM Mock Interview Request" class="scard-btn">Schedule a Session →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── BLOG ── -->
+<section id="blog">
+  <div class="inner">
+    <div class="eyebrow">PM Insights</div>
+    <h2 class="heading">From the Blog</h2>
+    <p class="subhead">Perspectives on product management, AI products, career transitions, and building at the intersection of data and business.</p>
+    <div class="blog-grid">
+
+      <div class="bcard">
+        <div class="bcard-top c1">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🗺️</span>
+            <span class="bcard-top-cat">Career</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">Career</span>
+            <span class="bcard-time">5 min read</span>
+          </div>
+          <h3>From Engineer to Product Manager: What No One Tells You</h3>
+          <p>The transition from technical roles to PM isn't just a title change — it's a full mental model shift. Here's what I learned going from IIT to building AI products at Mercedes-Benz.</p>
+          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: Engineer to PM" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard-top c2">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🤖</span>
+            <span class="bcard-top-cat">AI Products</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">AI Products</span>
+            <span class="bcard-time">7 min read</span>
+          </div>
+          <h3>How to Ship AI Features That Hold 90%+ Accuracy in Production</h3>
+          <p>Demo accuracy means nothing. Here's the feedback loop, data quality standards, and cross-functional workflow we used at Vorto.ai to maintain 90%+ accuracy in production.</p>
+          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: AI Accuracy in Prod" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard-top c3">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">📋</span>
+            <span class="bcard-top-cat">Resume</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">Resume</span>
+            <span class="bcard-time">4 min read</span>
+          </div>
+          <h3>The One PM Resume Mistake That's Costing You Interviews</h3>
+          <p>After reviewing dozens of PM resumes, I keep seeing the same issue: activities listed instead of outcomes delivered. A simple framework to rewrite every bullet with real impact.</p>
+          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: PM Resume Mistake" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard-top c4">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🎯</span>
+            <span class="bcard-top-cat">PM Craft</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">PM Craft</span>
+            <span class="bcard-time">6 min read</span>
+          </div>
+          <h3>How I Write PRDs That Engineering Teams Actually Read</h3>
+          <p>Most PRDs are either too vague or too long. Here's the lean structure I've refined across 7+ product launches that keeps scope clear, reduces back-and-forth, and accelerates delivery.</p>
+          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: Writing PRDs" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard-top c5">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🎓</span>
+            <span class="bcard-top-cat">MBA</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">MBA</span>
+            <span class="bcard-time">8 min read</span>
+          </div>
+          <h3>Is an MBA Worth It for PMs? An Honest Take After Kellogg</h3>
+          <p>The ROI isn't just the network or brand — it's how you learn to frame problems, build business cases, and communicate with executives. My unfiltered take, two years out of Kellogg.</p>
+          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: MBA for PMs" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard-top c6">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🚀</span>
+            <span class="bcard-top-cat">0→1</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">0→1</span>
+            <span class="bcard-time">5 min read</span>
+          </div>
+          <h3>5 Lessons From Building an AI Product Division at a Fortune 500</h3>
+          <p>Launching a new product inside a large enterprise is very different from a startup. Here's what made the difference when I built Mercedes-Benz's AI Solutions division from scratch.</p>
+          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: 0to1 at Enterprise" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="inner">
+    <div class="eyebrow eyebrow-light">Get in Touch</div>
+    <h2 class="heading heading-light">Open to PM &amp; Product Operations opportunities</h2>
+    <p class="subhead">
+      I'm actively looking for Product Manager and Product Operations Manager roles where I can build AI-powered products,
+      own the operational systems that scale them, and drive measurable business outcomes. Let's connect.
+    </p>
+    <div class="contact-row">
+      <a href="mailto:snehachelimilla.sc@gmail.com" class="clink">
+        <span class="clink-icon">✉</span>
+        snehachelimilla.sc@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/sneha-chelimilla/" target="_blank" rel="noopener" class="clink">
+        <span class="clink-icon">in</span>
+        LinkedIn Profile
+      </a>
+      <a href="tel:+12063555207" class="clink">
+        <span class="clink-icon">☎</span>
+        +1 (206) 355-5207
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 Sneha Chelimilla &nbsp;·&nbsp; Product Manager &amp; Product Operations · AI &amp; Data Products · Kellogg MBA · IIT</p>
+</footer>
+
+<script>
+  // Nav scroll shadow
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // Mobile nav toggle
+  const toggle = document.getElementById('navToggle');
+  const links  = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => links.classList.remove('open'))
+  );
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navAs    = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navAs.forEach(a => a.classList.remove('active'));
+        const hit = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (hit) hit.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-35% 0px -60% 0px' });
+  sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
