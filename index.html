@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Sneha Chelimilla — Product Manager & Product Operations Leader specializing in AI & data products. Kellogg MBA · IIT Graduate · 8+ years shipping products that drive business outcomes." />
+  <meta name="description" content="Sneha Chelimilla — Product Manager & Product Operations Leader specializing in AI & data products. Kellogg MBA · IIT Graduate · 6+ years shipping products that drive business outcomes." />
   <meta name="keywords" content="Product Manager, Product Operations, AI Products, Data Products, Kellogg MBA, Senior PM, Product Ops Manager" />
   <title>Sneha Chelimilla | PM & Product Operations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,19 +13,19 @@
   <style>
     /* ── DESIGN TOKENS ── */
     :root {
-      --dark:         #080e1a;
-      --dark-2:       #0d1629;
+      --dark:         #0a120a;
+      --dark-2:       #111a11;
       --dark-border:  rgba(255,255,255,0.07);
-      --blue:         #2563eb;
-      --blue-light:   #60a5fa;
-      --blue-dark:    #1d4ed8;
-      --blue-glow:    rgba(37,99,235,0.14);
+      --blue:         #6b8f4a;
+      --blue-light:   #9fbb80;
+      --blue-dark:    #4e6b33;
+      --blue-glow:    rgba(107,143,74,0.14);
       --white:        #ffffff;
-      --off-white:    #f8fafc;
+      --off-white:    #f5f8f1;
       --text:         #0f172a;
       --muted:        #64748b;
       --dim:          #94a3b8;
-      --border:       #e2e8f0;
+      --border:       #dce8d4;
       --shadow-sm:    0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md:    0 4px 20px rgba(0,0,0,0.08);
       --shadow-lg:    0 12px 40px rgba(0,0,0,0.12);
@@ -41,7 +41,7 @@
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 200;
-      background: rgba(8,14,26,0.97); backdrop-filter: blur(16px);
+      background: rgba(10,18,10,0.97); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--dark-border);
       transition: box-shadow 0.3s;
     }
@@ -77,8 +77,8 @@
       min-height: 100vh;
       background: var(--dark);
       background-image:
-        radial-gradient(ellipse at 10% 50%, rgba(37,99,235,0.16) 0%, transparent 50%),
-        radial-gradient(ellipse at 90% 10%, rgba(37,99,235,0.08) 0%, transparent 45%);
+        radial-gradient(ellipse at 10% 50%, rgba(107,143,74,0.16) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 10%, rgba(107,143,74,0.08) 0%, transparent 45%);
       display: flex; align-items: center;
       padding: 8rem 2rem 6rem;
       position: relative; overflow: hidden;
@@ -100,8 +100,8 @@
     .hero-text { flex: 1; min-width: 0; }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      border: 1px solid rgba(37,99,235,0.4);
-      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(107,143,74,0.4);
+      background: rgba(107,143,74,0.1);
       color: var(--blue-light);
       padding: 0.35rem 0.875rem; border-radius: 999px;
       font-size: 0.75rem; font-weight: 600;
@@ -143,7 +143,7 @@
       transition: all 0.18s; white-space: nowrap;
     }
     .btn-solid { background: var(--blue); color: #fff; }
-    .btn-solid:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+    .btn-solid:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(107,143,74,0.35); }
     .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
     .btn-ghost:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.05); transform: translateY(-1px); }
 
@@ -153,11 +153,11 @@
       position: relative; width: 280px; height: 280px;
       border-radius: 50%;
       padding: 4px;
-      background: linear-gradient(135deg, var(--blue), rgba(96,165,250,0.4));
+      background: linear-gradient(135deg, var(--blue), rgba(159,187,128,0.4));
     }
     .hero-photo-frame::after {
       content: ''; position: absolute; inset: 0; border-radius: 50%;
-      box-shadow: 0 0 60px rgba(37,99,235,0.25), 0 24px 48px rgba(0,0,0,0.5);
+      box-shadow: 0 0 60px rgba(107,143,74,0.25), 0 24px 48px rgba(0,0,0,0.5);
     }
     .hero-photo {
       width: 100%; height: 100%; border-radius: 50%;
@@ -227,9 +227,9 @@
     }
     .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .tag {
-      background: rgba(37,99,235,0.08);
+      background: rgba(107,143,74,0.08);
       color: var(--blue-dark);
-      border: 1px solid rgba(37,99,235,0.18);
+      border: 1px solid rgba(107,143,74,0.18);
       padding: 0.3rem 0.875rem; border-radius: 999px;
       font-size: 0.78rem; font-weight: 600;
     }
@@ -273,7 +273,7 @@
       opacity: 0; transition: opacity 0.2s;
     }
     .comp-card:hover {
-      border-color: rgba(37,99,235,0.3);
+      border-color: rgba(107,143,74,0.3);
       box-shadow: var(--shadow-lg);
       transform: translateY(-3px);
     }
@@ -398,8 +398,8 @@
       transition: all 0.15s; cursor: default;
     }
     .stag:hover {
-      background: rgba(37,99,235,0.07);
-      border-color: rgba(37,99,235,0.35);
+      background: rgba(107,143,74,0.07);
+      border-color: rgba(107,143,74,0.35);
       color: var(--blue-dark);
     }
 
@@ -463,12 +463,12 @@
       height: 140px;
       display: flex; align-items: center; justify-content: center;
     }
-    .bcard-top.c1 { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
-    .bcard-top.c2 { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
-    .bcard-top.c3 { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
-    .bcard-top.c4 { background: linear-gradient(135deg, #fef9c3, #fef08a); }
-    .bcard-top.c5 { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
-    .bcard-top.c6 { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+    .bcard-top.c1 { background: linear-gradient(135deg, #eef4e8, #d6e8c0); }
+    .bcard-top.c2 { background: linear-gradient(135deg, #e6f0dc, #cee4b4); }
+    .bcard-top.c3 { background: linear-gradient(135deg, #ddebd0, #c4dca8); }
+    .bcard-top.c4 { background: linear-gradient(135deg, #d4e4c4, #bcd498); }
+    .bcard-top.c5 { background: linear-gradient(135deg, #c8dcb8, #b0cc88); }
+    .bcard-top.c6 { background: linear-gradient(135deg, #bcd4a8, #a0c078); }
     .bcard-top-inner {
       display: flex; flex-direction: column; align-items: center; gap: 0.375rem;
     }
@@ -480,8 +480,8 @@
     .bcard-body { padding: 1.375rem; flex: 1; display: flex; flex-direction: column; }
     .bcard-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.625rem; }
     .bcard-tag {
-      background: rgba(37,99,235,0.09); color: var(--blue-dark);
-      border: 1px solid rgba(37,99,235,0.18);
+      background: rgba(107,143,74,0.09); color: var(--blue-dark);
+      border: 1px solid rgba(107,143,74,0.18);
       padding: 0.18rem 0.55rem; border-radius: 999px;
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
     }
@@ -504,7 +504,7 @@
     /* ── CONTACT ── */
     #contact {
       background: var(--dark);
-      background-image: radial-gradient(ellipse at 50% 100%, rgba(37,99,235,0.2) 0%, transparent 55%);
+      background-image: radial-gradient(ellipse at 50% 100%, rgba(107,143,74,0.2) 0%, transparent 55%);
       text-align: center;
     }
     #contact .heading { color: #fff; }
@@ -518,12 +518,12 @@
       border-radius: 10px; font-weight: 600; font-size: 0.875rem;
       transition: all 0.18s;
     }
-    .clink:hover { background: rgba(255,255,255,0.09); border-color: rgba(37,99,235,0.5); transform: translateY(-2px); }
+    .clink:hover { background: rgba(255,255,255,0.09); border-color: rgba(107,143,74,0.5); transform: translateY(-2px); }
     .clink-icon { font-size: 1rem; }
 
     /* ── FOOTER ── */
     footer {
-      background: #050810;
+      background: #050d05;
       border-top: 1px solid rgba(255,255,255,0.04);
       padding: 1.5rem 2rem; text-align: center;
     }
@@ -545,7 +545,7 @@
       .nav-links.open {
         display: flex; flex-direction: column;
         position: absolute; top: 100%; left: 0; right: 0;
-        background: rgba(8,14,26,0.99);
+        background: rgba(10,18,10,0.99);
         border-bottom: 1px solid var(--dark-border);
         padding: 0.5rem 0;
       }
@@ -592,10 +592,10 @@
   <div class="hero-inner">
     <div class="hero-text">
       <h1 class="hero-name">Sneha<br>Chelimilla</h1>
-      <p class="hero-role">Product Manager &amp; Product Operations Leader — AI &amp; Data</p>
+      <p class="hero-role">Product Manager &amp; Product Operations Leader - AI &amp; Data</p>
       <p class="hero-tagline">
         I ship AI products that users adopt and build the operational systems that scale them.<br>
-        <strong>Kellogg MBA (Dean's List) · IIT Graduate · 8+ years</strong> at the intersection of product, operations, and technology.
+        <strong>Kellogg MBA (Dean's List) · IIT Graduate · 6+ years</strong> at the intersection of product, operations, and technology.
       </p>
       <div class="hero-actions">
         <a href="#experience" class="btn btn-solid">View My Work</a>
@@ -620,7 +620,7 @@
     <div class="about-layout">
       <div class="about-bio">
         <p>
-          I'm a <strong>Product Manager and Product Operations Leader</strong> with 8+ years of experience building AI-powered products and the operational systems that scale them. My track record spans automotive (Mercedes-Benz), management consulting (Strategy&amp; / PwC), and high-growth tech startups (Vorto.ai).
+          I'm a <strong>Product Manager and Product Operations Leader</strong> with 6+ years of experience building AI-powered products and the operational systems that scale them. My track record spans automotive (Mercedes-Benz), management consulting (Strategy&amp; / PwC), and high-growth tech startups (Vorto.ai).
         </p>
         <p>
           I combine <strong>engineering depth from IIT Hyderabad</strong> with <strong>strategic and financial thinking from Kellogg (Northwestern)</strong>. The result: I can lead product discovery in the morning, own the sprint with engineering in the afternoon, and present the business case to the C-suite in the evening.
@@ -921,95 +921,6 @@
         </div>
       </div>
 
-      <div class="bcard">
-        <div class="bcard-top c2">
-          <div class="bcard-top-inner">
-            <span class="bcard-top-icon">🤖</span>
-            <span class="bcard-top-cat">AI Products</span>
-          </div>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-meta">
-            <span class="bcard-tag">AI Products</span>
-            <span class="bcard-time">7 min read</span>
-          </div>
-          <h3>How to Ship AI Features That Hold 90%+ Accuracy in Production</h3>
-          <p>Demo accuracy means nothing. Here's the feedback loop, data quality standards, and cross-functional workflow we used at Vorto.ai to maintain 90%+ accuracy in production.</p>
-          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: AI Accuracy in Prod" class="bcard-link">Read More →</a>
-        </div>
-      </div>
-
-      <div class="bcard">
-        <div class="bcard-top c3">
-          <div class="bcard-top-inner">
-            <span class="bcard-top-icon">📋</span>
-            <span class="bcard-top-cat">Resume</span>
-          </div>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-meta">
-            <span class="bcard-tag">Resume</span>
-            <span class="bcard-time">4 min read</span>
-          </div>
-          <h3>The One PM Resume Mistake That's Costing You Interviews</h3>
-          <p>After reviewing dozens of PM resumes, I keep seeing the same issue: activities listed instead of outcomes delivered. A simple framework to rewrite every bullet with real impact.</p>
-          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: PM Resume Mistake" class="bcard-link">Read More →</a>
-        </div>
-      </div>
-
-      <div class="bcard">
-        <div class="bcard-top c4">
-          <div class="bcard-top-inner">
-            <span class="bcard-top-icon">🎯</span>
-            <span class="bcard-top-cat">PM Craft</span>
-          </div>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-meta">
-            <span class="bcard-tag">PM Craft</span>
-            <span class="bcard-time">6 min read</span>
-          </div>
-          <h3>How I Write PRDs That Engineering Teams Actually Read</h3>
-          <p>Most PRDs are either too vague or too long. Here's the lean structure I've refined across 7+ product launches that keeps scope clear, reduces back-and-forth, and accelerates delivery.</p>
-          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: Writing PRDs" class="bcard-link">Read More →</a>
-        </div>
-      </div>
-
-      <div class="bcard">
-        <div class="bcard-top c5">
-          <div class="bcard-top-inner">
-            <span class="bcard-top-icon">🎓</span>
-            <span class="bcard-top-cat">MBA</span>
-          </div>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-meta">
-            <span class="bcard-tag">MBA</span>
-            <span class="bcard-time">8 min read</span>
-          </div>
-          <h3>Is an MBA Worth It for PMs? An Honest Take After Kellogg</h3>
-          <p>The ROI isn't just the network or brand — it's how you learn to frame problems, build business cases, and communicate with executives. My unfiltered take, two years out of Kellogg.</p>
-          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: MBA for PMs" class="bcard-link">Read More →</a>
-        </div>
-      </div>
-
-      <div class="bcard">
-        <div class="bcard-top c6">
-          <div class="bcard-top-inner">
-            <span class="bcard-top-icon">🚀</span>
-            <span class="bcard-top-cat">0→1</span>
-          </div>
-        </div>
-        <div class="bcard-body">
-          <div class="bcard-meta">
-            <span class="bcard-tag">0→1</span>
-            <span class="bcard-time">5 min read</span>
-          </div>
-          <h3>5 Lessons From Building an AI Product Division at a Fortune 500</h3>
-          <p>Launching a new product inside a large enterprise is very different from a startup. Here's what made the difference when I built Mercedes-Benz's AI Solutions division from scratch.</p>
-          <a href="mailto:snehachelimilla.sc@gmail.com?subject=Blog: 0to1 at Enterprise" class="bcard-link">Read More →</a>
-        </div>
-      </div>
 
     </div>
   </div>
