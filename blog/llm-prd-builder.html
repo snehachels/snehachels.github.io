@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A Kellogg side project turned into my most-used PM tool. The honest story of building an LLM-powered PRD generator — what works, what doesn't, and what it taught me about writing requirements." />
+  <title>I Built a PRD Generator with LLMs — Here's What It Actually Does Well | Sneha Chelimilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:       #6b8f4a;
+      --blue-light: #9fbb80;
+      --blue-dark:  #4e6b33;
+      --white:      #ffffff;
+      --off-white:  #f5f8f1;
+      --text:       #0f172a;
+      --muted:      #64748b;
+      --dim:        #94a3b8;
+      --border:     #dce8d4;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+      --header-bg:  linear-gradient(135deg, #c8dcb8, #b0cc88);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 600; color: var(--blue);
+      transition: gap 0.15s;
+    }
+    .back-link:hover { gap: 0.65rem; }
+    .site-name {
+      font-size: 0.8rem; font-weight: 700; color: var(--muted);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    .article-hero {
+      background: var(--header-bg);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .article-hero-inner { max-width: 720px; margin: 0 auto; }
+    .article-icon { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
+    .article-category {
+      display: inline-block;
+      background: rgba(107,143,74,0.12); color: var(--blue-dark);
+      border: 1px solid rgba(107,143,74,0.25);
+      padding: 0.22rem 0.7rem; border-radius: 999px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 1.25rem;
+    }
+    .article-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800; line-height: 1.25;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .article-subtitle {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.65; margin-bottom: 1.75rem;
+    }
+    .article-meta {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.25rem; font-size: 0.8rem; color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .article-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+    .article-body h2 {
+      font-size: 1.35rem; font-weight: 800;
+      color: var(--text); margin: 2.5rem 0 0.875rem;
+      line-height: 1.3;
+    }
+    .article-body h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--text); margin: 2rem 0 0.625rem;
+    }
+    .article-body p {
+      font-size: 1rem; color: #334155;
+      line-height: 1.8; margin-bottom: 1.25rem;
+    }
+    .article-body ul, .article-body ol {
+      margin: 0 0 1.25rem 1.5rem;
+    }
+    .article-body li {
+      font-size: 1rem; color: #334155;
+      line-height: 1.75; margin-bottom: 0.4rem;
+    }
+    .article-body blockquote {
+      border-left: 3px solid var(--blue);
+      margin: 1.75rem 0; padding: 0.75rem 1.5rem;
+      background: rgba(107,143,74,0.05);
+      border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p {
+      font-size: 1.05rem; font-style: italic;
+      color: var(--muted); margin: 0;
+    }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body hr {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    .callout {
+      background: rgba(107,143,74,0.07);
+      border: 1px solid rgba(107,143,74,0.2);
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+    .callout p { margin: 0; font-size: 0.95rem; color: var(--blue-dark); }
+
+    .code-block {
+      background: #0f172a;
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0; overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8rem; color: #94a3b8;
+      line-height: 1.65; margin: 0;
+      white-space: pre-wrap;
+    }
+    .code-block .kw { color: #9fbb80; }
+    .code-block .str { color: #fbbf24; }
+    .code-block .cm { color: #475569; }
+
+    .two-col-list {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin: 1.25rem 0;
+    }
+    .tcl-box {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.125rem;
+    }
+    .tcl-box h4 {
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--text); margin-bottom: 0.625rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+    .tcl-box ul { margin: 0; padding-left: 1rem; }
+    .tcl-box li { font-size: 0.85rem; margin-bottom: 0.35rem; }
+    .tcl-good h4 { color: var(--blue-dark); }
+    .tcl-bad h4  { color: #b45309; }
+
+    .article-footer {
+      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .article-footer p {
+      font-size: 0.875rem; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .footer-back {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 700; color: var(--blue);
+      border: 1px solid rgba(107,143,74,0.3);
+      padding: 0.625rem 1.25rem; border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .footer-back:hover {
+      background: rgba(107,143,74,0.07);
+      border-color: var(--blue);
+    }
+
+    @media (max-width: 600px) {
+      .article-hero { padding: 3rem 1.25rem 2.25rem; }
+      .article-body { padding: 2.5rem 1.25rem 4rem; }
+      .top-bar { padding: 0 1.25rem; }
+      .two-col-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-bar">
+    <a href="../index.html#side-projects" class="back-link">← Back to Side Projects</a>
+    <span class="site-name">Sneha Chelimilla</span>
+  </nav>
+
+  <header class="article-hero">
+    <div class="article-hero-inner">
+      <div class="article-icon">🛠️</div>
+      <span class="article-category">Side Project</span>
+      <h1 class="article-title">I Built a PRD Generator with LLMs — Here's What It Actually Does Well</h1>
+      <p class="article-subtitle">A Kellogg side project turned into my most-used PM tool. The honest story of what works, what doesn't, and what building it taught me about writing requirements.</p>
+      <div class="article-meta">
+        <span>📅 March 2026</span>
+        <span>⏱ 7 min read</span>
+        <span>🏷 LLMs · PM Tools · Side Project</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-body">
+
+    <p>Writing Product Requirements Documents is one of the most important things a PM does — and, hour for hour, one of the most frustrating. Not because the thinking is hard. By the time I sit down to write a PRD, I've usually done weeks of discovery, I know the problem inside and out, and I have a clear picture of what needs to be built. The frustration is the translation: taking all that mental context and turning it into a structured, readable document that a diverse set of stakeholders can act on.</p>
+
+    <p>That process takes me 4–6 hours per PRD when done properly. In fall 2023, I was taking a course at Kellogg called <em>Data Analytics with LLMs</em> — and simultaneously staring down a backlog of product briefs for a B2B SaaS project I was working on. I had a specific problem and a new tool. I thought: what if I could use an LLM to generate the first draft, and spend my own energy reviewing and refining rather than generating?</p>
+
+    <p>What followed was four months of iteration that produced something genuinely useful. Here's the honest account.</p>
+
+    <h2>Version 1: The naive approach</h2>
+
+    <p>The first version was a Python script and a plain-text prompt file. I created a structured intake form — 15 questions about the product problem, the target user, the constraints, the success metrics, the out-of-scope items — and wrote a prompt that instructed the LLM to generate a PRD skeleton from those inputs.</p>
+
+    <p>The prompt looked roughly like this:</p>
+
+    <div class="code-block">
+      <pre><span class="cm"># Intake form answers passed as variables</span>
+<span class="kw">SYSTEM:</span> You are an experienced product manager writing a PRD for an
+internal software product. Use the following context to generate a
+structured product requirements document in the format below.
+
+<span class="kw">USER:</span>
+Problem statement: <span class="str">{problem}</span>
+Target user: <span class="str">{user}</span>
+Business objective: <span class="str">{objective}</span>
+Key constraints: <span class="str">{constraints}</span>
+Success metrics: <span class="str">{metrics}</span>
+
+<span class="kw">Generate a PRD with sections:</span>
+- Executive Summary
+- Problem Statement
+- User Research Evidence
+- Proposed Solution
+- Scope &amp; Out of Scope
+- Success Metrics
+- Acceptance Criteria
+- Open Questions</pre>
+    </div>
+
+    <p>The output was directionally right and specifically wrong. The structure was correct. The headers were in the right places. But the content was generic in a way that made it actively misleading. The model would produce phrases like <em>"users will be able to accomplish their goals more efficiently"</em> — technically true, completely useless in a PRD. The "User Research Evidence" section was fabricated. The acceptance criteria were so high-level they could apply to any software product ever built.</p>
+
+    <p>The fundamental problem: I was asking the model to act as a brain when it had no material to work with. I was giving it structure and asking it to fill the structure with content. But the content is the whole point of a PRD. The model doesn't know my users, my tech stack, or what our team means by "launch."</p>
+
+    <h2>Iteration 1: Context injection</h2>
+
+    <p>The fix was conceptual rather than technical: stop treating the LLM as a generator and start treating it as an editor. Instead of asking it to produce content, give it raw material and ask it to synthesize and structure that material.</p>
+
+    <p>The revised approach: before running the prompt, I would dump in raw context — interview notes, data findings, Slack conversation excerpts, competitive research snippets, the most relevant parts of prior PRDs. Then the prompt would instruct the model to <em>pull from this context</em> to populate each section, rather than generating content from nothing.</p>
+
+    <p>Quality improved substantially. The model was good at pulling key quotes from interview notes and placing them as evidence in the "User Research" section. It was good at identifying what multiple stakeholders had said about the same feature when I gave it their raw comments. It was surprisingly good at generating a first draft of acceptance criteria from a feature description — the mechanical translation from "the system should…" to a testable criterion.</p>
+
+    <blockquote>
+      <p>The quality of LLM output for any structured document task is almost entirely determined by the quality and specificity of the context you give it. Garbage in, polished-sounding garbage out.</p>
+    </blockquote>
+
+    <h2>Iteration 2: Section-by-section chaining</h2>
+
+    <p>The second iteration came from noticing that asking the model to generate a complete PRD in a single prompt produced lower-quality output than prompting section by section. The "Problem Statement" section needed the model to be precise and specific, which required a different prompting strategy than the "Out of Scope" section, which benefited from the model being expansive and anticipatory.</p>
+
+    <p>I broke the generation into a chain of prompts: one per PRD section, each with its own context window optimized for that section's purpose. The chain would run sequentially, with each section's output passing context forward to the next.</p>
+
+    <p>This is where the project started to feel like actual product design rather than prompt hacking. I was designing the information architecture of the generation process: what context does this section need? What's the failure mode if I give it too little? What's the output format that makes downstream sections easier to generate?</p>
+
+    <div class="callout">
+      <p><strong>Meta-lesson:</strong> Prompt engineering for a multi-step document task is structurally identical to product design for a multi-step workflow. Define the input. Define the output. Define the transformation. Make the failure modes explicit. Iterate on the transformation, not the inputs.</p>
+    </div>
+
+    <h2>What the tool actually does well (and what it doesn't)</h2>
+
+    <div class="two-col-list">
+      <div class="tcl-box tcl-good">
+        <h4>Works well</h4>
+        <ul>
+          <li>First draft of acceptance criteria from a feature description (saves ~45 min per PRD)</li>
+          <li>Extracting key quotes from interview notes and placing them in context</li>
+          <li>"Out of scope" section — anticipates what engineers might assume is in scope</li>
+          <li>First draft of success metrics from a problem statement</li>
+          <li>Structured competitive comparison from raw notes or URLs</li>
+          <li>Identifying contradictions in stakeholder requirements when given raw notes</li>
+        </ul>
+      </div>
+      <div class="tcl-box tcl-bad">
+        <h4>Doesn't work well</h4>
+        <ul>
+          <li>Anything requiring institutional knowledge it doesn't have (your tech debt, your team's capacity, your strategic priorities)</li>
+          <li>Nuanced prioritization — it produces a list but won't know what matters given your specific context</li>
+          <li>Novel product thinking — it synthesizes well but doesn't generate insights</li>
+          <li>Knowing when a requirement is infeasible for your specific stack</li>
+          <li>Replacing the "why" — it can structure the "what," not generate the reasoning</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>The surprising realization</h2>
+
+    <p>The most valuable thing I got out of building this tool wasn't the tool itself. It was what building it forced me to understand about PRDs.</p>
+
+    <p>To write a prompt chain that produces useful output, I had to be explicit about what each section of a PRD actually needs to communicate — not in abstract terms, but specifically: what is the reader of this section trying to decide, and what information do they need to make that decision well? That level of clarity about the purpose of each section made me a better PRD author even when I wasn't using the tool.</p>
+
+    <p>The discipline of writing a structured intake form that an LLM could act on also improved my discovery process. The intake form was essentially a checklist of the questions that any good PRD should be able to answer. If I couldn't answer one of the intake questions, I knew I had a gap in my discovery — not because the LLM told me so, but because I'd made the question explicit.</p>
+
+    <blockquote>
+      <p>The tool is a mirror. It shows you what your requirements actually say, stripped of the prose that makes them sound more complete than they are. That's useful even when the output isn't.</p>
+    </blockquote>
+
+    <h2>Where it is now</h2>
+
+    <p>I still use a version of the tool for the first 90 minutes of every major PRD. It's evolved significantly from the Kellogg prototype — the context injection is more structured, the prompt chains are longer, and I've tuned specific sections based on which ones consistently needed the most revision. Two other PMs from Kellogg have adapted the approach for their own contexts.</p>
+
+    <p>The code itself is not polished, not public, and not a product. It was a side project built for a specific, personal problem. I deliberately didn't try to turn it into something generalizable — that would have been a different, larger project. The right scope for a side project is the scope that solves the problem you actually have.</p>
+
+    <p>If you're a PM thinking about experimenting with LLM-assisted requirements writing, start with your intake form. Decide what questions a complete PRD for your context needs to answer, write those questions down explicitly, and then answer them before you touch a prompt. The quality of what comes out is almost entirely determined by the quality of what goes in.</p>
+
+    <hr>
+
+    <p><em>This project was built during my MBA at the Kellogg School of Management (2023–2024), drawing on coursework in Data Analytics with LLMs and practical experience writing PRDs across product and consulting roles. The approach has continued to evolve since then.</em></p>
+
+  </main>
+
+  <footer class="article-footer">
+    <p>Written by Sneha Chelimilla · PM & Product Operations Leader</p>
+    <a href="../index.html#side-projects" class="footer-back">← Back to Side Projects</a>
+  </footer>
+
+</body>
+</html>

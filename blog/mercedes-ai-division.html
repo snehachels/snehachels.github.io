@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="How I founded Mercedes-Benz's AI Solutions division from zero — the discovery process, product strategy, and what drove 400% adoption across 70% of the organization." />
+  <title>Building Mercedes-Benz's AI Solutions Division from Scratch | Sneha Chelimilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:       #6b8f4a;
+      --blue-light: #9fbb80;
+      --blue-dark:  #4e6b33;
+      --white:      #ffffff;
+      --off-white:  #f5f8f1;
+      --text:       #0f172a;
+      --muted:      #64748b;
+      --dim:        #94a3b8;
+      --border:     #dce8d4;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+      --header-bg:  linear-gradient(135deg, #ddebd0, #c4dca8);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 600; color: var(--blue);
+      transition: gap 0.15s;
+    }
+    .back-link:hover { gap: 0.65rem; }
+    .site-name {
+      font-size: 0.8rem; font-weight: 700; color: var(--muted);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    .article-hero {
+      background: var(--header-bg);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .article-hero-inner { max-width: 720px; margin: 0 auto; }
+    .article-icon { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
+    .article-category {
+      display: inline-block;
+      background: rgba(107,143,74,0.12); color: var(--blue-dark);
+      border: 1px solid rgba(107,143,74,0.25);
+      padding: 0.22rem 0.7rem; border-radius: 999px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 1.25rem;
+    }
+    .article-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800; line-height: 1.25;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .article-subtitle {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.65; margin-bottom: 1.75rem;
+    }
+    .article-meta {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.25rem; font-size: 0.8rem; color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .article-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+    .article-body h2 {
+      font-size: 1.35rem; font-weight: 800;
+      color: var(--text); margin: 2.5rem 0 0.875rem;
+      line-height: 1.3;
+    }
+    .article-body h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--text); margin: 2rem 0 0.625rem;
+    }
+    .article-body p {
+      font-size: 1rem; color: #334155;
+      line-height: 1.8; margin-bottom: 1.25rem;
+    }
+    .article-body ul, .article-body ol {
+      margin: 0 0 1.25rem 1.5rem;
+    }
+    .article-body li {
+      font-size: 1rem; color: #334155;
+      line-height: 1.75; margin-bottom: 0.4rem;
+    }
+    .article-body blockquote {
+      border-left: 3px solid var(--blue);
+      margin: 1.75rem 0; padding: 0.75rem 1.5rem;
+      background: rgba(107,143,74,0.05);
+      border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p {
+      font-size: 1.05rem; font-style: italic;
+      color: var(--muted); margin: 0;
+    }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body hr {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    .callout {
+      background: rgba(107,143,74,0.07);
+      border: 1px solid rgba(107,143,74,0.2);
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+    .callout p { margin: 0; font-size: 0.95rem; color: var(--blue-dark); }
+
+    .stat-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin: 2rem 0;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .num {
+      font-size: 1.75rem; font-weight: 800;
+      color: var(--blue); letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-item .label {
+      font-size: 0.72rem; color: var(--muted);
+      font-weight: 500; line-height: 1.4;
+    }
+
+    .article-footer {
+      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .article-footer p {
+      font-size: 0.875rem; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .footer-back {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 700; color: var(--blue);
+      border: 1px solid rgba(107,143,74,0.3);
+      padding: 0.625rem 1.25rem; border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .footer-back:hover {
+      background: rgba(107,143,74,0.07);
+      border-color: var(--blue);
+    }
+
+    @media (max-width: 600px) {
+      .article-hero { padding: 3rem 1.25rem 2.25rem; }
+      .article-body { padding: 2.5rem 1.25rem 4rem; }
+      .top-bar { padding: 0 1.25rem; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-bar">
+    <a href="../index.html#past-projects" class="back-link">← Back to Past Projects</a>
+    <span class="site-name">Sneha Chelimilla</span>
+  </nav>
+
+  <header class="article-hero">
+    <div class="article-hero-inner">
+      <div class="article-icon">🏭</div>
+      <span class="article-category">Product Deep-Dive</span>
+      <h1 class="article-title">Building Mercedes-Benz's AI Solutions Division from Scratch</h1>
+      <p class="article-subtitle">From a mandate with no roadmap to 400% adoption and $5M/year in efficiencies — what the five-year build actually looked like from the inside.</p>
+      <div class="article-meta">
+        <span>📅 March 2026</span>
+        <span>⏱ 8 min read</span>
+        <span>🏷 Mercedes-Benz · AI Products · 0→1</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-body">
+
+    <p>In 2017, I joined Mercedes-Benz as an engineer who had decided she wanted to be in product. The brief I was handed was both exciting and borderline paralyzing: <strong>"leverage AI and data to drive better decisions across the organization."</strong> There was no team, no product map, no budget template, and no prior art internally to copy from. My first job was to figure out what we were actually building — and for whom.</p>
+
+    <p>Five years later, the division had 7+ ML-based analytics products in production, 70% of the organization using at least one of them, and $5M/year in operational efficiencies running through the platform. This is the honest account of how that happened.</p>
+
+    <div class="stat-strip">
+      <div class="stat-item">
+        <div class="num">400%</div>
+        <div class="label">product adoption growth</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">70%</div>
+        <div class="label">org-wide reach</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">$5M</div>
+        <div class="label">efficiencies per year</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">7+</div>
+        <div class="label">ML products shipped</div>
+      </div>
+    </div>
+
+    <h2>Starting from zero means starting with research</h2>
+
+    <p>Before I touched a product brief, I spent three months doing pure discovery. Fifty-plus structured interviews across engineering, finance, procurement, manufacturing, and after-sales. The goal wasn't to validate ideas — we didn't have any yet. It was to understand where the real pain was. Where were high-stakes decisions being made on gut feel because data wasn't accessible? What reporting workflows were so manual that people dreaded Monday mornings? Where could a small improvement in decision speed compound into a large improvement in business outcomes?</p>
+
+    <p>The answers clustered around a few themes: warranty analytics, parts procurement decision-making, and manufacturing quality tracking. These weren't the flashiest AI applications. But they were where business impact was real and attributable — and where AI could provide clear, measurable value that stakeholders would actually feel.</p>
+
+    <blockquote>
+      <p>The best product ideas don't come from brainstorming. They come from watching smart people do painful things manually and asking why those things have to be painful.</p>
+    </blockquote>
+
+    <h2>Choosing the first product</h2>
+
+    <p>Product one was a warranty analytics application. The existing process was painful in a very visible way: analysts exported raw data from SAP into Excel, built custom pivot tables by hand, and emailed reports to managers. Time-to-insight was measured in days. Accuracy varied based on who built the pivot table. Anomaly detection — spotting unusual warranty claim patterns before they escalated into large-scale recalls — wasn't happening at all because no one had the bandwidth.</p>
+
+    <p>The ML model we built could surface warranty anomalies within hours of the data being available, flagging carlines with unusual failure patterns and surfacing them to the right stakeholders automatically. The time-to-insight improvement was roughly 10x. The accuracy improvement was harder to measure but visible in reduced escalations.</p>
+
+    <p>The decision to start here was deliberate. The baseline was visibly bad and the improvement could be demonstrated in a single room, side by side. That made stakeholder buy-in tractable in a way it wouldn't have been for a more abstract AI application. I've learned since that the best first product in a division-building context is always the one where the before-and-after story tells itself.</p>
+
+    <h2>Building in the open: user research as the product engine</h2>
+
+    <p>What I didn't anticipate was how much product iteration would be driven by users rather than by us. After the first launch, we established a monthly feedback cycle: 10–15 structured interviews per month, open-ended questions about workflow friction, and live walkthroughs of the product where we watched users use it rather than asking them to describe how they used it.</p>
+
+    <p>Within two months of the first product's launch, WAU improved by 300% and NPS jumped 35 points. Not because we added features. Because we removed friction. Users showed us that they were abandoning workflows halfway through because the navigation required too many clicks for the most common action. They showed us that the most valuable output wasn't the dashboard — it was a weekly automated digest they could forward directly to their manager. They showed us that the threshold for "anomaly flagged" was wrong for two of the carlines because of known seasonal variation we hadn't accounted for.</p>
+
+    <div class="callout">
+      <p><strong>Key pattern:</strong> The first version of any enterprise analytics product is almost always too complex. Users don't want more features — they want their specific question answered, faster, with less friction between them and the answer. Iteration velocity matters more than version 1 completeness.</p>
+    </div>
+
+    <p>The monthly interview cycle became the engine of the division's product quality. We built it into the operating model, not as a nice-to-have but as a required input to every quarterly roadmap review. Every product brief had to include a user research section. Every feature decision had to reference either an interview insight or an A/B test result.</p>
+
+    <h2>The low-code platform bet</h2>
+
+    <p>By year two, we had three products in production and a growing team. But we had a capacity problem: every new product required engineering resources for work that was increasingly becoming templated — data connectors, visualization layers, access controls, user management. We were spending engineering cycles on infrastructure, not on the AI logic that actually created value.</p>
+
+    <p>We made a bet on a low-code analytics platform (Dataiku) that would let data scientists and business analysts build and deploy analytical apps without requiring a full engineering sprint for each one. The logic was straightforward: if we could reduce the marginal cost of shipping a new analytics product, we could ship more of them, and the division's value to the business would compound faster.</p>
+
+    <p>This decision had a six-month internal sales cycle. The platform licensing cost was significant and required executive-level approval. Building the business case meant being rigorous about two numbers: the fully loaded cost of the current approach (engineering hours × hourly rate × number of products per year) and the projected savings at scale (reduced engineering hours × projected product volume over three years). The ROI was unambiguous — but only once you did the math explicitly. Nobody had done it before.</p>
+
+    <p>The outcome: $5M/year in operational efficiencies across the platform, a 27% reduction in engineering overhead (saving $1.8M/year), and a product velocity that increased roughly 4x. The bet paid off.</p>
+
+    <h2>400% adoption: what growth actually looked like</h2>
+
+    <p>By 2022, 70% of the organization was using at least one product from the AI Solutions division. That number looks clean in retrospect. Getting there was anything but. Adoption came from three things that don't show up in a product roadmap:</p>
+
+    <h3>1. Executive sponsorship as a product feature</h3>
+
+    <p>Enterprise software adoption lives and dies on executive visibility. I maintained a monthly digest that went to senior leaders — three bullet points on adoption metrics, one highlight use case, one upcoming product milestone. It took 45 minutes a month to write. The compounding effect on organizational willingness to adopt new products was enormous. When a VP mentioned the AI division in a quarterly business review, their teams noticed.</p>
+
+    <h3>2. Champions in every business unit</h3>
+
+    <p>We identified power users in each major function — the analyst in finance who loved the dashboard, the operations lead who had figured out a use of the platform we hadn't planned. We invested in these people: early access to new features, direct access to the product team, occasional co-authorship of case studies. They became the primary adoption engine in their own organizations, and their credibility was worth 10x any company-wide announcement.</p>
+
+    <h3>3. Onboarding built into the product roadmap</h3>
+
+    <p>This sounds obvious and almost nobody does it. We treated onboarding as a product deliverable, not a post-launch activity. Every product had a structured training plan, a set of enablement materials, and a designated "first use" experience designed to get a user to their first real insight within 15 minutes. Adoption dies in the gap between a launch announcement and a user actually changing their workflow. We built a bridge across that gap for every product.</p>
+
+    <h2>What I'd do differently</h2>
+
+    <p>I'm proud of what we built. I'm also honest about where we left performance on the table:</p>
+
+    <ul>
+      <li><strong>Formal product review cadences earlier.</strong> For the first two years, stakeholder buy-in was largely informal — good relationships with key people. That works until there's a leadership change. Formalizing the review process sooner would have made the division more durable.</li>
+      <li><strong>Data quality standards as a first-class product concern.</strong> Model accuracy is meaningless if the underlying data is inconsistent. We learned this the hard way on two products that underperformed due to upstream data issues we hadn't audited. Today I build data quality review into every discovery phase.</li>
+      <li><strong>Hiring a dedicated PM earlier.</strong> Wearing both the PM and program management hats worked at three products. It didn't work at seven. I should have made the case for a second PM earlier than I did.</li>
+    </ul>
+
+    <h2>The lesson that stayed with me</h2>
+
+    <p>Building a division inside a large company is itself a product problem. The product isn't just the software — it's the operating model: who reviews the roadmap, how data quality gets owned, what happens when a model goes wrong in production, how new use cases get discovered and prioritized. The PM who thrives in this environment isn't just good at writing PRDs. They're good at designing systems.</p>
+
+    <p>The most technically impressive product we shipped wasn't the one that drove the most adoption. The thing that drove adoption was operational discipline: regular user research, a clear prioritization process, a platform that lowered the cost of shipping, and a communication cadence that kept executives invested. None of that is glamorous. All of it is leverage.</p>
+
+    <hr>
+
+    <p><em>This account covers my work as Product Manager, AI and Data Product Development at Mercedes-Benz (2017–2022), where I founded and led the AI Solutions division. Views are my own.</em></p>
+
+  </main>
+
+  <footer class="article-footer">
+    <p>Written by Sneha Chelimilla · PM & Product Operations Leader</p>
+    <a href="../index.html#past-projects" class="footer-back">← Back to Past Projects</a>
+  </footer>
+
+</body>
+</html>

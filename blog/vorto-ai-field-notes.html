@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Six months inside Vorto.ai's product team — what we built, what broke, and what 90% AI accuracy actually means when you're the PM shipping it." />
+  <title>Field Notes: Shipping AI Automation at a Supply Chain Startup | Sneha Chelimilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:       #6b8f4a;
+      --blue-light: #9fbb80;
+      --blue-dark:  #4e6b33;
+      --white:      #ffffff;
+      --off-white:  #f5f8f1;
+      --text:       #0f172a;
+      --muted:      #64748b;
+      --dim:        #94a3b8;
+      --border:     #dce8d4;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+      --header-bg:  linear-gradient(135deg, #d4e4c4, #bcd498);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; }
+
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 600; color: var(--blue);
+      transition: gap 0.15s;
+    }
+    .back-link:hover { gap: 0.65rem; }
+    .site-name {
+      font-size: 0.8rem; font-weight: 700; color: var(--muted);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    .article-hero {
+      background: var(--header-bg);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .article-hero-inner { max-width: 720px; margin: 0 auto; }
+    .article-icon { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
+    .article-category {
+      display: inline-block;
+      background: rgba(107,143,74,0.12); color: var(--blue-dark);
+      border: 1px solid rgba(107,143,74,0.25);
+      padding: 0.22rem 0.7rem; border-radius: 999px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 1.25rem;
+    }
+    .article-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800; line-height: 1.25;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .article-subtitle {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.65; margin-bottom: 1.75rem;
+    }
+    .article-meta {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.25rem; font-size: 0.8rem; color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    .article-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+    .article-body h2 {
+      font-size: 1.35rem; font-weight: 800;
+      color: var(--text); margin: 2.5rem 0 0.875rem;
+      line-height: 1.3;
+    }
+    .article-body h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--text); margin: 2rem 0 0.625rem;
+    }
+    .article-body p {
+      font-size: 1rem; color: #334155;
+      line-height: 1.8; margin-bottom: 1.25rem;
+    }
+    .article-body ul, .article-body ol {
+      margin: 0 0 1.25rem 1.5rem;
+    }
+    .article-body li {
+      font-size: 1rem; color: #334155;
+      line-height: 1.75; margin-bottom: 0.4rem;
+    }
+    .article-body blockquote {
+      border-left: 3px solid var(--blue);
+      margin: 1.75rem 0; padding: 0.75rem 1.5rem;
+      background: rgba(107,143,74,0.05);
+      border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p {
+      font-size: 1.05rem; font-style: italic;
+      color: var(--muted); margin: 0;
+    }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body hr {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    .callout {
+      background: rgba(107,143,74,0.07);
+      border: 1px solid rgba(107,143,74,0.2);
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+    .callout p { margin: 0; font-size: 0.95rem; color: var(--blue-dark); }
+
+    .stat-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin: 2rem 0;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .num {
+      font-size: 1.75rem; font-weight: 800;
+      color: var(--blue); letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-item .label {
+      font-size: 0.72rem; color: var(--muted);
+      font-weight: 500; line-height: 1.4;
+    }
+
+    .project-tag {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem; border-radius: 6px;
+      font-size: 0.78rem; font-weight: 600; color: var(--text);
+      margin: 0.25rem 0.25rem 0 0;
+    }
+
+    .article-footer {
+      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .article-footer p {
+      font-size: 0.875rem; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .footer-back {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.875rem; font-weight: 700; color: var(--blue);
+      border: 1px solid rgba(107,143,74,0.3);
+      padding: 0.625rem 1.25rem; border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .footer-back:hover {
+      background: rgba(107,143,74,0.07);
+      border-color: var(--blue);
+    }
+
+    @media (max-width: 600px) {
+      .article-hero { padding: 3rem 1.25rem 2.25rem; }
+      .article-body { padding: 2.5rem 1.25rem 4rem; }
+      .top-bar { padding: 0 1.25rem; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-bar">
+    <a href="../index.html#past-projects" class="back-link">← Back to Past Projects</a>
+    <span class="site-name">Sneha Chelimilla</span>
+  </nav>
+
+  <header class="article-hero">
+    <div class="article-hero-inner">
+      <div class="article-icon">🚚</div>
+      <span class="article-category">Product Deep-Dive</span>
+      <h1 class="article-title">Field Notes: Shipping AI Automation at a Supply Chain Startup</h1>
+      <p class="article-subtitle">Six months inside Vorto.ai's product team — what we built, what broke, and what 90% AI accuracy actually means when you're the PM shipping it.</p>
+      <div class="article-meta">
+        <span>📅 March 2026</span>
+        <span>⏱ 6 min read</span>
+        <span>🏷 Vorto.ai · AI Automation · Supply Chain</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-body">
+
+    <p>I joined Vorto.ai's product team in July 2025 as part of a leadership development program. Vorto is an AI-driven supply chain platform that matches shippers with carriers, automates dispatching, and manages the operational complexity of moving bulk materials across large-scale transportation networks. When I arrived, the core matching platform was working — but the operational layer around it (finance, maintenance, vendor management) was largely manual.</p>
+
+    <p>What followed was six months of the most concentrated product work I've done: two major AI initiatives running in parallel, a genuine 0→1 build for an organization that had never used digital tooling, and a crash course in what separates AI products that work from ones that just have good demo accuracy.</p>
+
+    <div class="stat-strip">
+      <div class="stat-item">
+        <div class="num">90%</div>
+        <div class="label">AI classification accuracy</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">5x</div>
+        <div class="label">financial processing velocity</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">70%</div>
+        <div class="label">time-to-value improvement</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">50%</div>
+        <div class="label">increase in operational velocity</div>
+      </div>
+    </div>
+
+    <h2>Project 1: Automated dispatching workflows</h2>
+
+    <p>Dispatchers at Vorto faced a coordination problem that scaled badly with the size of the network. They used a mix of spreadsheets, phone calls, and institutional knowledge to route drivers to facilities based on availability, load requirements, distance, compliance status, and a dozen other variables. The process worked — barely — when the network was small. As volume grew, dispatchers became the bottleneck.</p>
+
+    <p>My first task was discovery: three weeks of structured interviews with dispatchers, operations managers, and the drivers they coordinated. I wanted to understand not just what the process looked like, but what the dispatchers actually cared about. What made a "good" dispatching decision in their mental model? What were the failure modes they were most worried about?</p>
+
+    <p>The critical insight came in week two: dispatchers didn't want automation that made decisions for them. They wanted automation that surfaced the right options faster so they could make better decisions themselves. That's a different product. The first version of our brief had assumed we were building a replacement system. The dispatchers told us we were building a recommendation system.</p>
+
+    <blockquote>
+      <p>The best discovery question isn't "what do you want the product to do?" It's "what's the decision you're making, and what would make it easier to make well?"</p>
+    </blockquote>
+
+    <p>That distinction shaped the entire product design. We built a ranked recommendation engine that surfaced the top three dispatch options for each active load, with reasoning shown for each recommendation. Dispatchers could override any recommendation with one click and their override fed back into the model as a training signal. Adoption was dramatically better than we'd projected — because the product was designed to augment a judgment call, not replace one.</p>
+
+    <h2>Project 2: AI invoice classification at 90% accuracy</h2>
+
+    <p>The invoice project is the one I think about most when I explain AI products to non-technical stakeholders, because it illustrates the gap between accuracy as a benchmark metric and accuracy as a product requirement.</p>
+
+    <p>The problem: Vorto's finance team processed thousands of invoices per month. Each invoice had to be classified — by type, vendor, facility, cost category — before it could be routed for payment or reconciliation. The team was doing this manually, which meant a significant portion of their time went to categorization rather than analysis or exception handling.</p>
+
+    <p>After several months of model iteration, we hit <strong>90% classification accuracy in production</strong>. That's a strong result for this use case. But 90% accuracy means 10% of invoices need manual review — which, at Vorto's invoice volume, meant hundreds of invoices per month still needed human eyes on them. The model wasn't the product. The product was the model plus the review workflow that handled the exceptions.</p>
+
+    <p>We built confidence scores displayed on every classified invoice. Invoices above a threshold confidence were auto-routed. Invoices below the threshold went into an audit queue, sorted by the model's confidence score so reviewers could triage highest-uncertainty items first. We also built manual override flows that were faster than the original manual process — so the 10% that needed review was handled more efficiently than the previous 100% had been.</p>
+
+    <div class="callout">
+      <p><strong>AI product lesson:</strong> Model accuracy is a range, not a number. The product design question isn't "how accurate is the model?" — it's "what happens when the model is wrong, and how does the product make that recoverable?" Build for the tail before you celebrate the mean.</p>
+    </div>
+
+    <p>The outcome: financial processing velocity improved 5x. The finance team reclaimed meaningful capacity for higher-value work. And the feedback loop from manual overrides became a training signal that incrementally improved classification accuracy over time.</p>
+
+    <h2>Project 3: The R&M automation 0→1</h2>
+
+    <p>Midway through my time at Vorto, I picked up a second initiative: digitizing and automating the Repair & Maintenance organization. Twenty-plus facilities, entirely paper-based processes, no existing digital systems to integrate with. This was the most technically unsophisticated project I worked on — and one of the hardest.</p>
+
+    <p>Genuine 0→1 work is different from shipping an AI feature onto an existing platform. There were no users to do research with in the traditional sense because the users had never experienced a digital version of their workflow. Discovery meant shadowing maintenance coordinators at facilities, watching the physical handoff of work orders between drivers and facility staff, understanding the sequence of events from "vehicle flagged for service" to "vehicle cleared and returned to network."</p>
+
+    <p>What we found was a cascade of small coordination failures: work orders written on paper getting lost between shifts, follow-ups not happening because no one knew who was responsible, vendors not getting timely notification of incoming service requests. No single failure was catastrophic. The cumulative effect was enormous friction and unpredictable turnaround time across the whole organization.</p>
+
+    <p>The product we built was closer to a lightweight operations management system than an AI product — a service orchestration workflow that connected drivers, facility staff, and vendors in real time. Work orders digitized. Notifications automated. Status visible to all parties without phone calls.</p>
+
+    <p>Time-to-value improved by 70%. Operational velocity across the R&M org went up 50%. More importantly, we eliminated a class of failures — lost work orders, missed follow-ups, coordination delays — that had previously been invisible in any reporting system because they happened in the gaps between systems.</p>
+
+    <h2>What I learned about AI product ownership</h2>
+
+    <p>Running two AI initiatives in parallel clarified a pattern that I've carried forward. The highest-leverage PM work in AI products isn't writing the feature brief. It's the work that happens upstream and downstream of the model:</p>
+
+    <ul>
+      <li><strong>Upstream:</strong> Defining the right problem boundary. Setting data quality standards before model training starts. Deciding what "good enough" means for model performance in this specific use case — because 90% is good enough for invoice classification and catastrophically bad for fraud detection.</li>
+      <li><strong>Downstream:</strong> Designing the human-in-the-loop workflow for model errors. Building feedback loops that keep the model accurate as the data distribution shifts over time. Deciding how errors are surfaced, how they're corrected, and who owns the correction process.</li>
+    </ul>
+
+    <p>Most AI product failures I've seen in the wild aren't model failures. The model did its job. The product didn't know what to do with the output — especially with uncertain or incorrect output. That's a product design problem, not a data science problem.</p>
+
+    <h2>On pace: startup vs. large company</h2>
+
+    <p>Coming from Mercedes-Benz, the biggest adjustment at Vorto wasn't the pace — it was the ownership model. At Mercedes, stakeholder management was a full-time coordination job: 55+ stakeholders, quarterly review cycles, structured escalation paths. At Vorto, a smaller team meant faster decisions and faster feedback loops. But it also meant more ambiguity about who owned what, and more risk of two teams building toward incompatible assumptions.</p>
+
+    <p>The PLM framework I helped establish at Vorto — standardized discovery gates, requirement review checkpoints, post-launch review cycles — wasn't process for its own sake. It was the scaffolding that let a small team run multiple product initiatives simultaneously without creating coordination debt that would compound later. At a startup, that scaffolding has to be lighter than at a large company. But it still has to exist.</p>
+
+    <hr>
+
+    <p><em>This account covers my work as Product Manager at Vorto.ai (July–October 2025), where I focused on AI workflow automation across the dispatching, finance, and R&M organizations. Views are my own.</em></p>
+
+  </main>
+
+  <footer class="article-footer">
+    <p>Written by Sneha Chelimilla · PM & Product Operations Leader</p>
+    <a href="../index.html#past-projects" class="footer-back">← Back to Past Projects</a>
+  </footer>
+
+</body>
+</html>

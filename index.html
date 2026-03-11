@@ -501,6 +501,10 @@
     }
     .bcard-link:hover { gap: 0.55rem; }
 
+    /* ── BLOG GRID 2-COL ── */
+    .blog-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 960px) { .blog-grid.two-col { grid-template-columns: 1fr; } }
+
     /* ── CONTACT ── */
     #contact {
       background: var(--dark);
@@ -578,7 +582,9 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
 
-      <li><a href="#blog">Project Deep-dives and Career Blog</a></li>
+      <li><a href="#past-projects">Past Projects</a></li>
+      <li><a href="#side-projects">Side Projects</a></li>
+      <li><a href="#blog">Blog</a></li>
       <li><a href="#contact" class="nav-cta">Contact</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -895,13 +901,91 @@
 </section>
 
 
-<!-- ── BLOG ── -->
-<section id="blog">
+<!-- ── PAST PROJECTS ── -->
+<section id="past-projects" style="background: var(--off-white);">
   <div class="inner">
-    <div class="eyebrow">PM Insights</div>
-    <h2 class="heading">Project Deep-dives and Career Blog</h2>
-    <p class="subhead">Perspectives on product management, AI products, career transitions, and building at the intersection of data and business.</p>
-    <div class="blog-grid">
+    <div class="eyebrow">Past Projects</div>
+    <h2 class="heading">Professional Work Deep-Dives</h2>
+    <p class="subhead">Behind-the-scenes case studies on the products I've built — the strategy, the hard calls, and what I'd do differently.</p>
+    <div class="blog-grid two-col" style="margin-top: 3rem;">
+
+      <div class="bcard">
+        <div class="bcard-top c3">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🏭</span>
+            <span class="bcard-top-cat">Product Deep-Dive</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">0→1 Build</span>
+            <span class="bcard-time">8 min read</span>
+          </div>
+          <h3>Building Mercedes-Benz's AI Solutions Division from Scratch</h3>
+          <p>From a mandate with no roadmap to 400% adoption and $5M/year in efficiencies — what the five-year build actually looked like from inside a Fortune 500.</p>
+          <a href="blog/mercedes-ai-division.html" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard-top c4">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🚚</span>
+            <span class="bcard-top-cat">Product Deep-Dive</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">AI Product</span>
+            <span class="bcard-time">6 min read</span>
+          </div>
+          <h3>Field Notes: Shipping AI Automation at a Supply Chain Startup</h3>
+          <p>Six months inside Vorto.ai's product team — what we built, what broke, and what 90% AI accuracy actually means when you're the PM shipping it.</p>
+          <a href="blog/vorto-ai-field-notes.html" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SIDE PROJECTS ── -->
+<section id="side-projects" style="background: var(--white);">
+  <div class="inner">
+    <div class="eyebrow">Side Projects</div>
+    <h2 class="heading">Things I Built on My Own Time</h2>
+    <p class="subhead">Personal experiments at the intersection of PM craft and engineering curiosity — tools I built because I needed them.</p>
+    <div class="blog-grid" style="margin-top: 3rem;">
+
+      <div class="bcard">
+        <div class="bcard-top c5">
+          <div class="bcard-top-inner">
+            <span class="bcard-top-icon">🛠️</span>
+            <span class="bcard-top-cat">Side Project</span>
+          </div>
+        </div>
+        <div class="bcard-body">
+          <div class="bcard-meta">
+            <span class="bcard-tag">LLM / Tools</span>
+            <span class="bcard-time">7 min read</span>
+          </div>
+          <h3>I Built a PRD Generator with LLMs — Here's What It Actually Does Well</h3>
+          <p>A Kellogg side project turned into my most-used PM tool. The honest account of what works, what doesn't, and what building it taught me about writing requirements.</p>
+          <a href="blog/llm-prd-builder.html" class="bcard-link">Read More →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── BLOG ── -->
+<section id="blog" style="background: var(--off-white);">
+  <div class="inner">
+    <div class="eyebrow">Blog</div>
+    <h2 class="heading">Career &amp; PM Writing</h2>
+    <p class="subhead">Perspectives on product management, career transitions, and building at the intersection of data and business.</p>
+    <div class="blog-grid" style="margin-top: 3rem;">
 
       <div class="bcard">
         <div class="bcard-top c1">
@@ -920,7 +1004,6 @@
           <a href="blog/engineer-to-pm.html" class="bcard-link">Read More →</a>
         </div>
       </div>
-
 
     </div>
   </div>
