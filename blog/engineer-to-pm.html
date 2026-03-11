@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="The transition from engineer to product manager isn't just a title change — it's a full mental model shift. What I learned going from IIT to building AI products at Mercedes-Benz." />
+  <meta name="description" content="What the transition from software engineer to product manager actually requires — the mental model shift, the skills that transfer, and what I'd tell myself before making the move. From IIT engineering to AI product management at Mercedes-Benz." />
   <title>From Engineer to Product Manager: What No One Tells You | Sneha Chelimilla</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,233 +20,189 @@
       --muted:      #64748b;
       --dim:        #94a3b8;
       --border:     #dce8d4;
-      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
-      --header-bg:  linear-gradient(135deg, #eef4e8, #d6e8c0); /* c1 sage */
+      --header-bg:  linear-gradient(135deg, #eef4e8, #d6e8c0);
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; }
 
-    .top-bar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 56px;
-    }
-    .back-link {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.875rem; font-weight: 600; color: var(--blue);
-      transition: gap 0.15s;
-    }
+    .top-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; font-weight: 600; color: var(--blue); transition: gap 0.15s; }
     .back-link:hover { gap: 0.65rem; }
-    .site-name {
-      font-size: 0.8rem; font-weight: 700; color: var(--muted);
-      letter-spacing: 0.04em; text-transform: uppercase;
-    }
+    .site-name { font-size: 0.8rem; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
 
-    .article-hero {
-      background: var(--header-bg);
-      padding: 4rem 2rem 3rem;
-      text-align: center;
-    }
+    .article-hero { background: var(--header-bg); padding: 4rem 2rem 3rem; text-align: center; }
     .article-hero-inner { max-width: 720px; margin: 0 auto; }
     .article-icon { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
-    .article-category {
-      display: inline-block;
-      background: rgba(37,99,235,0.09); color: var(--blue-dark);
-      border: 1px solid rgba(37,99,235,0.18);
-      padding: 0.22rem 0.7rem; border-radius: 999px;
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
-      text-transform: uppercase; margin-bottom: 1.25rem;
-    }
-    .article-title {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800; line-height: 1.25;
-      color: var(--text); margin-bottom: 1rem;
-    }
-    .article-subtitle {
-      font-size: 1.05rem; color: var(--muted);
-      line-height: 1.65; margin-bottom: 1.75rem;
-    }
-    .article-meta {
-      display: flex; align-items: center; justify-content: center;
-      gap: 1.25rem; font-size: 0.8rem; color: var(--muted);
-      flex-wrap: wrap;
-    }
+    .article-category { display: inline-block; background: rgba(107,143,74,0.12); color: var(--blue-dark); border: 1px solid rgba(107,143,74,0.25); padding: 0.22rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.25; color: var(--text); margin-bottom: 1rem; }
+    .article-subtitle { font-size: 1.05rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.75rem; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 1.25rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
 
-    .article-body {
-      max-width: 720px; margin: 0 auto;
-      padding: 3.5rem 2rem 5rem;
-    }
-    .article-body h2 {
-      font-size: 1.35rem; font-weight: 800;
-      color: var(--text); margin: 2.5rem 0 0.875rem;
-      line-height: 1.3;
-    }
-    .article-body h3 {
-      font-size: 1.1rem; font-weight: 700;
-      color: var(--text); margin: 2rem 0 0.625rem;
-    }
-    .article-body p {
-      font-size: 1rem; color: #334155;
-      line-height: 1.8; margin-bottom: 1.25rem;
-    }
-    .article-body ul, .article-body ol {
-      margin: 0 0 1.25rem 1.5rem;
-    }
-    .article-body li {
-      font-size: 1rem; color: #334155;
-      line-height: 1.75; margin-bottom: 0.4rem;
-    }
-    .article-body blockquote {
-      border-left: 3px solid var(--blue);
-      margin: 1.75rem 0; padding: 0.75rem 1.5rem;
-      background: rgba(37,99,235,0.04);
-      border-radius: 0 8px 8px 0;
-    }
-    .article-body blockquote p {
-      font-size: 1.05rem; font-style: italic;
-      color: var(--muted); margin: 0;
-    }
+    .article-body { max-width: 720px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+    .article-body h2 { font-size: 1.35rem; font-weight: 800; color: var(--text); margin: 2.75rem 0 0.875rem; line-height: 1.3; }
+    .article-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 1.75rem 0 0.5rem; }
+    .article-body p { font-size: 1rem; color: #334155; line-height: 1.8; margin-bottom: 1.25rem; }
+    .article-body ul, .article-body ol { margin: 0 0 1.25rem 1.5rem; }
+    .article-body li { font-size: 1rem; color: #334155; line-height: 1.75; margin-bottom: 0.4rem; }
     .article-body strong { color: var(--text); font-weight: 700; }
-    .article-body hr {
-      border: none; border-top: 1px solid var(--border);
-      margin: 2.5rem 0;
-    }
-    .callout {
-      background: rgba(37,99,235,0.06);
-      border: 1px solid rgba(37,99,235,0.18);
-      border-radius: 10px; padding: 1.25rem 1.5rem;
-      margin: 1.75rem 0;
-    }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    .article-body em { font-style: italic; }
+
+    .callout { background: rgba(107,143,74,0.07); border: 1px solid rgba(107,143,74,0.2); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.75rem 0; }
     .callout p { margin: 0; font-size: 0.95rem; color: var(--blue-dark); }
 
-    .article-footer {
-      border-top: 1px solid var(--border);
-      background: var(--off-white);
-      padding: 2.5rem 2rem; text-align: center;
-    }
-    .article-footer p {
-      font-size: 0.875rem; color: var(--muted);
-      margin-bottom: 1rem;
-    }
-    .footer-back {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.875rem; font-weight: 700; color: var(--blue);
-      border: 1px solid rgba(37,99,235,0.25);
-      padding: 0.625rem 1.25rem; border-radius: 8px;
-      transition: all 0.15s;
-    }
-    .footer-back:hover {
-      background: rgba(37,99,235,0.06);
-      border-color: var(--blue);
-    }
+    .article-body blockquote { border-left: 3px solid var(--blue); margin: 1.75rem 0; padding: 0.75rem 1.5rem; background: rgba(107,143,74,0.05); border-radius: 0 8px 8px 0; }
+    .article-body blockquote p { font-size: 1.05rem; font-style: italic; color: var(--muted); margin: 0; }
+
+    /* Before/After mindset shift */
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 1.75rem 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .ba-col { padding: 1.5rem; }
+    .ba-before { background: #f0f4ff; border-right: 1px solid #c7d7fd; }
+    .ba-after  { background: rgba(107,143,74,0.05); }
+    .ba-label  { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.875rem; }
+    .ba-before .ba-label { color: #3b5bdb; }
+    .ba-after  .ba-label { color: var(--blue-dark); }
+    .ba-col ul { list-style: none; padding: 0; margin: 0; }
+    .ba-col li { font-size: 0.875rem; color: #334155; padding: 0.375rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5; }
+    .ba-col li:last-child { border-bottom: none; }
+    .ba-before li::before { content: '→'; color: #3b5bdb; font-weight: 700; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1rem; }
+    .ba-after  li::before { content: '→'; color: var(--blue); font-weight: 700; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1rem; }
+
+    .article-footer { border-top: 1px solid var(--border); background: var(--off-white); padding: 2.5rem 2rem; text-align: center; }
+    .article-footer p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem; }
+    .footer-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; font-weight: 700; color: var(--blue); border: 1px solid rgba(107,143,74,0.3); padding: 0.625rem 1.25rem; border-radius: 8px; transition: all 0.15s; }
+    .footer-back:hover { background: rgba(107,143,74,0.07); border-color: var(--blue); }
 
     @media (max-width: 600px) {
       .article-hero { padding: 3rem 1.25rem 2.25rem; }
       .article-body { padding: 2.5rem 1.25rem 4rem; }
       .top-bar { padding: 0 1.25rem; }
+      .ba-grid { grid-template-columns: 1fr; }
+      .ba-before { border-right: none; border-bottom: 1px solid #c7d7fd; }
     }
   </style>
 </head>
 <body>
 
-  <nav class="top-bar">
-    <a href="../index.html#blog" class="back-link">← Back to Blog</a>
-    <span class="site-name">Sneha Chelimilla</span>
-  </nav>
+<nav class="top-bar">
+  <a href="../index.html#blog" class="back-link">← Back to Blog</a>
+  <span class="site-name">Sneha Chelimilla</span>
+</nav>
 
-  <header class="article-hero">
-    <div class="article-hero-inner">
-      <div class="article-icon">🗺️</div>
-      <span class="article-category">Career</span>
-      <h1 class="article-title">From Engineer to Product Manager: What No One Tells You</h1>
-      <p class="article-subtitle">The transition isn't just a title change — it's a full mental model shift. Here's what I learned going from IIT to building AI products at Mercedes-Benz.</p>
-      <div class="article-meta">
-        <span>📅 March 2026</span>
-        <span>⏱ 5 min read</span>
-      </div>
+<header class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-icon">🗺️</div>
+    <span class="article-category">Career · PM Transition</span>
+    <h1 class="article-title">From Engineer to Product Manager: What No One Tells You</h1>
+    <p class="article-subtitle">The transition isn't just a title change — it's a full mental model shift. What I actually learned going from IIT engineering to building AI products at Mercedes-Benz.</p>
+    <div class="article-meta">
+      <span>📅 March 2026</span>
+      <span>⏱ 5 min read</span>
+      <span>🏷 Career · Product Management · Engineering Background</span>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main class="article-body">
+<main class="article-body">
 
-    <p>When I made the jump from software engineering to product management, everyone gave me the same advice: "You'll be great — you already think like a PM." What they didn't tell me was how deeply wrong I was about what that actually meant.</p>
+  <p>When I made the jump from software engineering to product management, everyone gave me the same advice: <em>"You'll be great — you already think like a PM."</em> What they didn't tell me was how completely wrong I was about what that actually meant, or how long it would take to unlearn the habits that had made me a good engineer.</p>
 
-    <p>The engineering mindset is about certainty. You have specs, constraints, a definition of done. A good solution is one that compiles, passes tests, and ships. The product mindset is the opposite — it's about making the best call you can with incomplete information, and then staying open to being wrong.</p>
+  <p>I made this transition at Mercedes-Benz in 2017, stepping into a newly created PM role on what would become an AI Solutions division. I had an IIT engineering degree, strong technical instincts, and almost no preparation for the actual job I was walking into.</p>
 
-    <h2>The mental model you have to unlearn</h2>
+  <h2>The Mental Model You Have to Unlearn First</h2>
 
-    <p>As an engineer, I optimized for correctness. In product, the goal is outcomes — which means correctness is often the wrong thing to optimize for. A perfectly engineered feature nobody uses is a failure. A scrappy MVP that unlocks real user value is a win.</p>
+  <p>Engineering trains you to optimize for correctness. There is a definition of done. A good solution is one that compiles, passes tests, and meets the spec. The measure of your work is the work itself.</p>
 
-    <p>This sounds obvious in retrospect. It wasn't obvious at all when I was living it. I spent the first few months of my PM role writing requirements with engineering-level specificity, getting frustrated when stakeholders moved goalposts, and mistaking "we built what we said we'd build" for success.</p>
+  <p>Product management has no equivalent. The measure of your work is what happens because of it — user behavior, business outcomes, adoption rates. A perfectly engineered feature that nobody uses is a failure. A scrappy MVP that changes how 70% of an organization makes decisions is a win. These two frames for success are structurally incompatible, and moving between them requires active, uncomfortable rewiring.</p>
 
-    <blockquote>
-      <p>The hardest thing wasn't learning new skills. It was giving myself permission to ship before things felt ready.</p>
-    </blockquote>
+  <blockquote>
+    <p>The hardest thing wasn't learning new skills. It was giving myself permission to ship before things felt ready — and accepting that "ready" is a feeling, not a state.</p>
+  </blockquote>
 
-    <h2>What actually changes</h2>
+  <h2>The Engineer's Mindset vs. The PM's Mindset</h2>
 
-    <p>Here are the three biggest shifts I experienced, and what helped me navigate each one:</p>
-
-    <h3>1. From "how" to "why"</h3>
-
-    <p>Engineers own the how. PMs own the why and the what. I had to retrain myself to stop jumping to solutions and spend more time in the problem space. The discipline of writing a problem statement before touching a solution was career-changing for me — it sounds obvious but almost nobody does it consistently.</p>
-
-    <h3>2. From individual output to team output</h3>
-
-    <p>As an engineer, your contribution is measurable: lines of code, features shipped, bugs fixed. As a PM, your job is to make everyone else more effective. That means your biggest wins are often invisible — the meeting that didn't go off the rails, the requirement you clarified before it became a two-week detour, the stakeholder alignment you built before anyone asked for it.</p>
-
-    <div class="callout">
-      <p><strong>Practical tip:</strong> Keep a weekly "PM wins" log for the first six months. Write down every time you prevented confusion, unblocked a team, or made a decision that saved rework. This builds your intuition for what good PM work actually looks like.</p>
+  <div class="ba-grid">
+    <div class="ba-col ba-before">
+      <div class="ba-label">Engineering Mindset</div>
+      <ul>
+        <li>Optimize for correctness and completeness</li>
+        <li>Success = the solution works as specified</li>
+        <li>Ambiguity is a problem to eliminate before starting</li>
+        <li>Individual output is measurable and attributable</li>
+        <li>Authority comes from technical expertise</li>
+        <li>A requirement is a constraint to satisfy</li>
+        <li>Ship when it's ready</li>
+      </ul>
     </div>
+    <div class="ba-col ba-after">
+      <div class="ba-label">Product Mindset</div>
+      <ul>
+        <li>Optimize for user outcomes and business impact</li>
+        <li>Success = behavior changed, problem solved</li>
+        <li>Ambiguity is the starting condition — make good calls anyway</li>
+        <li>Your biggest wins are often invisible (rework prevented, alignment built)</li>
+        <li>Authority comes from consistently being right about what matters</li>
+        <li>A requirement is a hypothesis about what users need</li>
+        <li>Ship to learn, then iterate</li>
+      </ul>
+    </div>
+  </div>
 
-    <h3>3. From technical authority to cross-functional influence</h3>
+  <h2>Three Shifts That Actually Happened</h2>
 
-    <p>I was used to being the expert in the room. In product, you're rarely the expert — you're the connector. You need engineers to trust your technical judgment enough to follow your roadmap, designers to believe you understand their constraints, and executives to trust your data. None of that comes from authority. It comes from consistently doing your homework and being right about the things that matter.</p>
+  <h3>1. From "how" to "why" — and holding that frame longer than feels comfortable</h3>
 
-    <h2>What my engineering background actually gave me</h2>
+  <p>Engineers own the how. PMs own the why and the what. I had to train myself to stop jumping to solutions and spend more time in the problem space — which meant sitting with ambiguity for longer than felt productive. The discipline of writing a problem statement before touching a solution was career-changing for me. Not because it's a profound technique, but because almost nobody does it consistently under time pressure. At Mercedes, I made it a mandatory first step for every product initiative, and it changed the quality of the solutions my team built.</p>
 
-    <p>It wasn't what I expected. The most valuable thing wasn't being able to review code or estimate complexity (though that helped). It was credibility with engineering teams.</p>
+  <p>Concretely: when I was handed the mandate to "leverage AI across the organization," the engineering instinct was to look for technically interesting AI applications. The PM discipline was to spend 90 days asking: <em>where is a decision being made badly, and what would make it better?</em> That reframe is what led us to warranty analytics — an unglamorous use case that produced $5M/year in operational efficiencies.</p>
 
-    <p>When I asked "why will this take three weeks instead of one?" I wasn't bluffing. Engineers knew I understood the answer and would push back if the reasoning didn't hold up. That changed the whole dynamic of planning conversations — it made them collaborative instead of adversarial.</p>
+  <h3>2. From individual output to team output — and making invisible work visible</h3>
 
-    <ul>
-      <li><strong>Technical empathy:</strong> I knew what it felt like to ship under pressure, so I didn't create artificial urgency</li>
-      <li><strong>Debugging instincts:</strong> When something went wrong in production, I could dig into data and logs alongside the team</li>
-      <li><strong>Systems thinking:</strong> I naturally thought about edge cases and second-order effects</li>
-      <li><strong>Estimation intuition:</strong> I had a gut sense for when a timeline was real vs. aspirational</li>
-    </ul>
+  <p>As an engineer, your contribution is measurable: features shipped, bugs closed, tests written. As a PM, your most valuable work is often invisible. The meeting that didn't derail. The requirement you clarified before it became a two-week detour. The stakeholder alignment you built six weeks before anyone asked for it. None of that shows up in a sprint report.</p>
 
-    <h2>What I'd tell my past self</h2>
+  <div class="callout">
+    <p><strong>Practical tip:</strong> Keep a weekly "PM wins" log for the first six months. Write down every time you prevented confusion, unblocked a team, or made a decision that saved rework. This builds your intuition for what good PM work actually looks like — and gives you concrete examples to articulate your impact in performance reviews and interviews.</p>
+  </div>
 
-    <p>The transition from engineer to PM is not a promotion. It's a career change that happens to use some of the same vocabulary. Go in expecting to be a beginner again.</p>
+  <h3>3. From technical authority to cross-functional influence — without losing your technical grounding</h3>
 
-    <p>Find a PM mentor early — not to learn frameworks, but to get a gut check on your instincts. Read customer interviews obsessively. Get comfortable with ambiguity faster than feels natural. And stop waiting to feel ready before you make a call, because that feeling never comes.</p>
+  <p>I was used to being the expert in the room. In product, you're rarely the expert on any single dimension — you're the integrator across all of them. You need engineers to trust your technical judgment, designers to believe you understand their constraints, and business stakeholders to trust your data. None of that comes from authority. It comes from doing your homework and being right about the things that matter.</p>
 
-    <p>The engineers who make the best PMs aren't the ones who know the most about product. They're the ones who are most willing to unlearn.</p>
+  <p>At Mercedes, managing 55+ stakeholders across engineering, finance, and IT meant I had to understand enough about each domain to have a credible conversation — not to be the expert, but to be the translator. My engineering background gave me the ability to have real conversations with the engineering team, which in turn gave me credibility with the business stakeholders when I pushed back on timelines or scope.</p>
 
-    <hr>
+  <h2>What My Engineering Background Actually Gave Me</h2>
 
-    <p><em>This article draws from my own experience transitioning from IIT to PM roles in AI and data products. If you're thinking about making a similar transition, feel free to reach out — I'm always happy to share more.</em></p>
+  <p>Not what I expected. The most valuable thing wasn't being able to review code or estimate complexity (though that helped). It was credibility with engineering teams — and the specific things that credibility enabled:</p>
 
-  </main>
+  <ul>
+    <li><strong>Technical empathy:</strong> I knew what it felt like to ship under pressure, so I didn't create artificial urgency or treat engineering estimates as negotiable without a real reason</li>
+    <li><strong>Debugging instincts:</strong> When something went wrong in production, I could dig into data and logs alongside the team instead of waiting for a summary</li>
+    <li><strong>Systems thinking:</strong> I naturally thought about edge cases, dependencies, and second-order effects — which made my PRDs more complete and my sprint planning more realistic</li>
+    <li><strong>Estimation intuition:</strong> I had a gut sense for when a three-week estimate was real versus aspirational, which made planning conversations more honest</li>
+  </ul>
 
-  <footer class="article-footer">
-    <p>Written by Sneha Chelimilla · PM & Product Operations Leader</p>
-    <a href="../index.html#blog" class="footer-back">← Back to All Articles</a>
-  </footer>
+  <p>When I asked "why will this take three weeks instead of one?" — engineers knew I understood the answer and would push back if the reasoning didn't hold up. That changed planning conversations from adversarial to collaborative.</p>
+
+  <h2>What I'd Tell My Past Self</h2>
+
+  <p>The transition from engineer to PM is not a promotion. It's a career change that happens to use some of the same vocabulary. Go in expecting to be a beginner again — because you are.</p>
+
+  <p>The engineers who make the best PMs aren't the ones who know the most about product management frameworks. They're the ones who are most willing to unlearn the habits that made them good engineers. The most dangerous trap is thinking that your engineering rigor is an asset in every context — sometimes it is; sometimes it makes you slow where you should be fast, or certain where you should be experimental.</p>
+
+  <p>Find a PM mentor early — not to learn frameworks, but to get a gut check on your instincts in the first six months. Read customer interviews obsessively. Get comfortable with making a call on incomplete information faster than feels natural. And stop waiting until the product feels ready before you ship it, because that feeling never comes, and the only information that moves the needle is what real users tell you about the real product.</p>
+
+  <hr>
+
+  <p><em>This piece draws from my own experience transitioning from an IIT engineering background to PM roles in AI and data products — first at Mercedes-Benz, then in consulting, and now in high-growth startups. If you're considering a similar transition, I'm always happy to talk through what the path actually looks like.</em></p>
+
+</main>
+
+<footer class="article-footer">
+  <p>Written by Sneha Chelimilla · PM & Product Operations Leader · AI & Data Products</p>
+  <a href="../index.html#blog" class="footer-back">← Back to Blog</a>
+</footer>
 
 </body>
 </html>
