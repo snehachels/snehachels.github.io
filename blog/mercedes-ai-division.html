@@ -1,307 +1,785 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="How I founded and scaled Mercedes-Benz's AI Solutions division from zero — product discovery across 55+ stakeholders, roadmap strategy for 7+ ML products, and what drove 400% adoption across 70% of the org. A PM case study covering user research, product lifecycle management, and AI product development at a Fortune 500." />
+  <meta name="description"
+    content="How I founded and scaled Mercedes-Benz's AI Solutions division from zero — product discovery across 55+ stakeholders, roadmap strategy for 7+ ML products, and what drove 400% adoption across 70% of the org. A PM case study covering user research, product lifecycle management, and AI product development at a Fortune 500." />
   <title>Building Mercedes-Benz's AI Solutions Division from Scratch | PM Case Study | Sneha Chelimilla</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
 
   <style>
     :root {
-      --blue:       #6b8f4a;
+      --blue: #6b8f4a;
       --blue-light: #9fbb80;
-      --blue-dark:  #4e6b33;
-      --white:      #ffffff;
-      --off-white:  #f5f8f1;
-      --text:       #0f172a;
-      --muted:      #64748b;
-      --dim:        #94a3b8;
-      --border:     #dce8d4;
-      --header-bg:  linear-gradient(135deg, #ddebd0, #c4dca8);
+      --blue-dark: #4e6b33;
+      --white: #ffffff;
+      --off-white: #f5f8f1;
+      --text: #0f172a;
+      --muted: #64748b;
+      --dim: #94a3b8;
+      --border: #dce8d4;
+      --header-bg: linear-gradient(135deg, #ddebd0, #c4dca8);
     }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    a { text-decoration: none; }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+    }
 
     /* ── TOP BAR ── */
     .top-bar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
     }
-    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; font-weight: 600; color: var(--blue); transition: gap 0.15s; }
-    .back-link:hover { gap: 0.65rem; }
-    .site-name { font-size: 0.8rem; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--blue);
+      transition: gap 0.15s;
+    }
+
+    .back-link:hover {
+      gap: 0.65rem;
+    }
+
+    .site-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
 
     /* ── HERO ── */
-    .article-hero { background: var(--header-bg); padding: 4rem 2rem 3rem; text-align: center; }
-    .article-hero-inner { max-width: 720px; margin: 0 auto; }
-    .article-icon { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
-    .article-category {
-      display: inline-block; background: rgba(107,143,74,0.12); color: var(--blue-dark);
-      border: 1px solid rgba(107,143,74,0.25); padding: 0.22rem 0.7rem; border-radius: 999px;
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.25rem;
+    .article-hero {
+      background: var(--header-bg);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
     }
-    .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.25; color: var(--text); margin-bottom: 1rem; }
-    .article-subtitle { font-size: 1.05rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.75rem; }
-    .article-meta { display: flex; align-items: center; justify-content: center; gap: 1.25rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+
+    .article-hero-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .article-icon {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .article-category {
+      display: inline-block;
+      background: rgba(107, 143, 74, 0.12);
+      color: var(--blue-dark);
+      border: 1px solid rgba(107, 143, 74, 0.25);
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .article-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
 
     /* ── BODY ── */
-    .article-body { max-width: 720px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
-    .article-body h2 { font-size: 1.35rem; font-weight: 800; color: var(--text); margin: 2.75rem 0 0.875rem; line-height: 1.3; }
-    .article-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 1.75rem 0 0.5rem; }
-    .article-body p { font-size: 1rem; color: #334155; line-height: 1.8; margin-bottom: 1.25rem; }
-    .article-body ul, .article-body ol { margin: 0 0 1.25rem 1.5rem; }
-    .article-body li { font-size: 1rem; color: #334155; line-height: 1.75; margin-bottom: 0.4rem; }
-    .article-body strong { color: var(--text); font-weight: 700; }
-    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
-    .article-body em { font-style: italic; }
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    .article-body h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 2.75rem 0 0.875rem;
+      line-height: 1.3;
+    }
+
+    .article-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 1.75rem 0 0.5rem;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-body ul,
+    .article-body ol {
+      margin: 0 0 1.25rem 1.5rem;
+    }
+
+    .article-body li {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 0.4rem;
+    }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .article-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    .article-body em {
+      font-style: italic;
+    }
 
     /* ── CALLOUT ── */
-    .callout { background: rgba(107,143,74,0.07); border: 1px solid rgba(107,143,74,0.2); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.75rem 0; }
-    .callout p { margin: 0; font-size: 0.95rem; color: var(--blue-dark); }
+    .callout {
+      background: rgba(107, 143, 74, 0.07);
+      border: 1px solid rgba(107, 143, 74, 0.2);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--blue-dark);
+    }
 
     /* ── BLOCKQUOTE ── */
-    .article-body blockquote { border-left: 3px solid var(--blue); margin: 1.75rem 0; padding: 0.75rem 1.5rem; background: rgba(107,143,74,0.05); border-radius: 0 8px 8px 0; }
-    .article-body blockquote p { font-size: 1.05rem; font-style: italic; color: var(--muted); margin: 0; }
+    .article-body blockquote {
+      border-left: 3px solid var(--blue);
+      margin: 1.75rem 0;
+      padding: 0.75rem 1.5rem;
+      background: rgba(107, 143, 74, 0.05);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .article-body blockquote p {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--muted);
+      margin: 0;
+    }
 
     /* ── STAT STRIP ── */
-    .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; background: var(--off-white); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
-    .stat-item { text-align: center; }
-    .stat-item .num { font-size: 1.75rem; font-weight: 800; color: var(--blue); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.25rem; }
-    .stat-item .label { font-size: 0.72rem; color: var(--muted); font-weight: 500; line-height: 1.4; }
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .num {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-item .label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.4;
+    }
 
     /* ── PHASE LABEL ── */
-    .phase-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); border: 1px solid rgba(107,143,74,0.3); background: rgba(107,143,74,0.07); padding: 0.25rem 0.625rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
+    .phase-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1px solid rgba(107, 143, 74, 0.3);
+      background: rgba(107, 143, 74, 0.07);
+      padding: 0.25rem 0.625rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
 
     /* ── BEFORE / AFTER ── */
-    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 1.75rem 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .ba-col { padding: 1.5rem; }
-    .ba-before { background: #fef2f2; border-right: 1px solid #fecaca; }
-    .ba-after  { background: rgba(107,143,74,0.05); }
-    .ba-label  { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.875rem; }
-    .ba-before .ba-label { color: #dc2626; }
-    .ba-after  .ba-label { color: var(--blue-dark); }
-    .ba-col ul { list-style: none; padding: 0; margin: 0; }
-    .ba-col li { font-size: 0.875rem; color: #334155; padding: 0.375rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5; }
-    .ba-col li:last-child { border-bottom: none; }
-    .ba-before li::before { content: '✗'; color: #dc2626; font-weight: 700; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1rem; }
-    .ba-after  li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1rem; }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 1.75rem 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .ba-col {
+      padding: 1.5rem;
+    }
+
+    .ba-before {
+      background: #fef2f2;
+      border-right: 1px solid #fecaca;
+    }
+
+    .ba-after {
+      background: rgba(107, 143, 74, 0.05);
+    }
+
+    .ba-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.875rem;
+    }
+
+    .ba-before .ba-label {
+      color: #dc2626;
+    }
+
+    .ba-after .ba-label {
+      color: var(--blue-dark);
+    }
+
+    .ba-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ba-col li {
+      font-size: 0.875rem;
+      color: #334155;
+      padding: 0.375rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .ba-col li:last-child {
+      border-bottom: none;
+    }
+
+    .ba-before li::before {
+      content: '✗';
+      color: #dc2626;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      margin-top: 0.1rem;
+    }
+
+    .ba-after li::before {
+      content: '✓';
+      color: var(--blue);
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      margin-top: 0.1rem;
+    }
 
     /* ── METHOD GRID ── */
-    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1.5rem 0; }
-    .method-card { background: var(--off-white); border: 1px solid var(--border); border-radius: 10px; padding: 1.125rem; text-align: center; }
-    .method-card .m-num { font-size: 1.5rem; font-weight: 800; color: var(--blue); letter-spacing: -0.04em; line-height: 1; }
-    .method-card .m-label { font-size: 0.78rem; font-weight: 700; color: var(--text); margin: 0.3rem 0 0.2rem; }
-    .method-card .m-detail { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .method-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.125rem;
+      text-align: center;
+    }
+
+    .method-card .m-num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .method-card .m-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0.3rem 0 0.2rem;
+    }
+
+    .method-card .m-detail {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
 
     /* ── PROCESS FLOW ── */
-    .process-flow { display: flex; flex-direction: column; gap: 0; margin: 1.75rem 0; border-left: 2px solid var(--border); padding-left: 1.5rem; }
-    .pf-step { position: relative; padding: 0.75rem 0 0.75rem 0.5rem; }
-    .pf-step::before { content: ''; position: absolute; left: -1.75rem; top: 1.15rem; width: 10px; height: 10px; border-radius: 50%; background: var(--blue); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--blue); }
-    .pf-step .pf-meta { font-size: 0.7rem; color: var(--blue); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
-    .pf-step h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
-    .pf-step p { font-size: 0.85rem; color: var(--muted); margin: 0; line-height: 1.6; }
+    .process-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 1.75rem 0;
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+    }
+
+    .pf-step {
+      position: relative;
+      padding: 0.75rem 0 0.75rem 0.5rem;
+    }
+
+    .pf-step::before {
+      content: '';
+      position: absolute;
+      left: -1.75rem;
+      top: 1.15rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--blue);
+    }
+
+    .pf-step .pf-meta {
+      font-size: 0.7rem;
+      color: var(--blue);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .pf-step h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .pf-step p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
 
     /* ── ARTIFACT CARDS ── */
-    .artifact-row { display: flex; flex-wrap: wrap; gap: 0.625rem; margin: 1.25rem 0; }
-    .artifact-card { display: flex; align-items: center; gap: 0.625rem; background: var(--off-white); border: 1px solid var(--border); border-radius: 8px; padding: 0.625rem 0.875rem; }
-    .artifact-icon { font-size: 1.25rem; line-height: 1; }
-    .artifact-type { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.1rem; }
-    .artifact-name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
-    .artifact-detail { font-size: 0.72rem; color: var(--muted); }
+    .artifact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+      margin: 1.25rem 0;
+    }
+
+    .artifact-card {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.625rem 0.875rem;
+    }
+
+    .artifact-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .artifact-type {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.1rem;
+    }
+
+    .artifact-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .artifact-detail {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
 
     /* ── FOOTER ── */
-    .article-footer { border-top: 1px solid var(--border); background: var(--off-white); padding: 2.5rem 2rem; text-align: center; }
-    .article-footer p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem; }
-    .footer-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; font-weight: 700; color: var(--blue); border: 1px solid rgba(107,143,74,0.3); padding: 0.625rem 1.25rem; border-radius: 8px; transition: all 0.15s; }
-    .footer-back:hover { background: rgba(107,143,74,0.07); border-color: var(--blue); }
+    .article-footer {
+      border-top: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .article-footer p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .footer-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--blue);
+      border: 1px solid rgba(107, 143, 74, 0.3);
+      padding: 0.625rem 1.25rem;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+
+    .footer-back:hover {
+      background: rgba(107, 143, 74, 0.07);
+      border-color: var(--blue);
+    }
 
     @media (max-width: 600px) {
-      .article-hero { padding: 3rem 1.25rem 2.25rem; }
-      .article-body { padding: 2.5rem 1.25rem 4rem; }
-      .top-bar { padding: 0 1.25rem; }
-      .stat-strip { grid-template-columns: repeat(2, 1fr); }
-      .ba-grid { grid-template-columns: 1fr; }
-      .ba-before { border-right: none; border-bottom: 1px solid #fecaca; }
-      .method-grid { grid-template-columns: 1fr 1fr; }
+      .article-hero {
+        padding: 3rem 1.25rem 2.25rem;
+      }
+
+      .article-body {
+        padding: 2.5rem 1.25rem 4rem;
+      }
+
+      .top-bar {
+        padding: 0 1.25rem;
+      }
+
+      .stat-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ba-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ba-before {
+        border-right: none;
+        border-bottom: 1px solid #fecaca;
+      }
+
+      .method-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<nav class="top-bar">
-  <a href="../index.html#past-projects" class="back-link">← Back to Past Projects</a>
-  <span class="site-name">Sneha Chelimilla</span>
-</nav>
+  <nav class="top-bar">
+    <a href="../index.html#past-projects" class="back-link">← Back to Past Projects</a>
+    <span class="site-name">Sneha Chelimilla</span>
+  </nav>
 
-<header class="article-hero">
-  <div class="article-hero-inner">
-    <div class="article-icon">🏭</div>
-    <h1 class="article-title">Building Mercedes-Benz's AI Solutions Division from Scratch</h1>
-    <p class="article-subtitle">From a mandate with no roadmap to 400% adoption across 70% of the org — what the five-year build actually looked like from the inside.</p>
-    <div class="article-meta">
-      <span>⏱ 8 min read</span>
+  <header class="article-hero">
+    <div class="article-hero-inner">
+      <div class="article-icon">🏭</div>
+      <h1 class="article-title">Building Mercedes-Benz's AI Solutions Division</h1>
+      <p class="article-subtitle">From just an idea with no roadmap to 70% adoption across the org </p>
+      <div class="article-meta">
+        <span>⏱ 8 min read</span>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="article-body">
+  <main class="article-body">
 
-  <p>In 2017, I joined Mercedes-Benz in Bengaluru as an engineer who had decided she wanted to build products. The mandate I was handed was simultaneously exciting and paralyzing: <strong>"leverage AI and data to drive better decisions across the organization."</strong> No team. No budget template. No product map. No prior art internally to copy from.</p>
+    <p>In 2017, I joined Mercedes-Benz's Bengaluru engineering center as a program manager responsible for fixing
+      engineering quality issues across multiple carlines. However, I noticed that the engineer workflows were pretty
+      constrained: manual trial-and-error testing of design points, manual research, and long simulation cycles. The
+      bottleneck was obvious - we were running hundreds of simulations to isolate which design combinations might
+      reproduce a given issue, when our
+      own historical measurement and testing data could have
+      predicted the likely candidates.</p>
+    <p>This encouraged me to learn about data manipulation, ML techniques and applications in engineering usecases. I
+      started building out business cases and PoCs for different problem statements and slowly built a team of AI
+      enthusiasts interested in being part of this initiative.</p>
+    <p>Three years later, the AI Solutions division had 7+ ML-based analytics products in production, 70% of the
+      organization actively using the app relevant to them, and $5M/year in documented operational efficiencies. </p>
 
-  <p>Five years later, the AI Solutions division had 7+ ML-based analytics products in production, 70% of the organization actively using at least one of them, and $5M/year in documented operational efficiencies. This is how it happened.</p>
-
-  <div class="stat-strip">
-    <div class="stat-item"><div class="num">400%</div><div class="label">product adoption growth over 5 years</div></div>
-    <div class="stat-item"><div class="num">70%</div><div class="label">org-wide reach across departments</div></div>
-    <div class="stat-item"><div class="num">$5M</div><div class="label">in operational efficiencies per year</div></div>
-    <div class="stat-item"><div class="num">7+</div><div class="label">ML analytics products shipped</div></div>
-  </div>
-
-  <!-- SECTION 1: PROBLEM STATEMENT -->
-  <div class="phase-label">1 — Problem Statement</div>
-  <h2>The Business Problem: Decisions Made Without Data</h2>
-
-  <p>The Bengaluru engineering center operated across warranty, procurement, manufacturing quality, and after-sales. Each function was making high-stakes decisions using SAP exports, Excel pivot tables, and institutional memory.</p>
-
-  <p>The operational cost was significant:</p>
-  <ul>
-    <li><strong>Delayed escalations:</strong> 3–4 days to surface a quality issue from raw data</li>
-    <li><strong>Inconsistent analysis:</strong> each analyst structured Excel models differently, leading to conflicting conclusions</li>
-    <li><strong>Engineering overhead:</strong> 27% of senior engineering capacity consumed by manual data prep ($1.8M/year)</li>
-    <li><strong>No proactivity:</strong> quality issues caught reactively after escalation, not before</li>
-  </ul>
-
-  <p>The data existed. What didn't exist was the intelligence layer to turn it into fast, consistent insight.</p>
-
-  <!-- SECTION 2: RESEARCH & DISCOVERY -->
-  <div class="phase-label">2 — Research & Discovery</div>
-  <h2>Three Months of Structured Discovery</h2>
-
-  <p>My first decision as a first-time PM was to not write requirements for 90 days. Instead, I ran structured discovery across the organization to find where AI could provide clear, attributable value.</p>
-
-  <div class="method-grid">
-    <div class="method-card">
-      <div class="m-num">50+</div>
-      <div class="m-label">Stakeholder Interviews</div>
-      <div class="m-detail">Ops, Finance, Engineering, Procurement, After-Sales, IT</div>
+    <div class="stat-strip">
+      <div class="stat-item">
+        <div class="num">400%</div>
+        <div class="label">product adoption growth over 5 years</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">70%</div>
+        <div class="label">org-wide reach across departments</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">$5M</div>
+        <div class="label">in operational efficiencies per year</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">7+</div>
+        <div class="label">ML analytics products shipped</div>
+      </div>
     </div>
-    <div class="method-card">
-      <div class="m-num">6</div>
-      <div class="m-label">Business Units Mapped</div>
-      <div class="m-detail">Process shadowing + workflow documentation in each</div>
+
+    <br>
+    <!-- SECTION 1: PROBLEM STATEMENT -->
+    <div class="phase-label">1 - Problem Statement</div>
+    <h2>The Business Problem: Decisions Made Without Data</h2>
+
+    <p>The Bengaluru engineering center operated across warranty, procurement, manufacturing quality, and after-sales.
+      Each function was making high-stakes decisions using domain expertise of the research engineers and their
+      capability of reaching the solution through tril-and-error.
+    </p>
+
+    <p>The operational cost was significant:</p>
+    <ul>
+      <li><strong>Delayed escalations:</strong> 3–4 days to surface a quality issue from raw data</li>
+
+      <li><strong>Engineering overhead:</strong> 27% of senior engineering capacity consumed by manual data prep and
+        running simulations</li>
+      <li><strong>No proactivity:</strong> quality issues caught reactively after escalation, not before</li>
+    </ul>
+
+    <p>The data existed. What didn't exist was the intelligence layer to turn it into fast, consistent and proactive
+      insights.</p>
+    <br>
+    <!-- SECTION 2: RESEARCH & DISCOVERY -->
+    <div class="phase-label">2 - Research & Discovery</div>
+    <h2>Five Months of Structured Discovery</h2>
+
+    <p>My first decision as a first-time PM was to run structured
+      discovery across the organization to find where AI could provide clear, attributable value.</p>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="m-num">55+</div>
+        <div class="m-label">Stakeholder Interviews</div>
+        <div class="m-detail">Engineering, Ops, Finance, Manufacturing, After-Sales, IT</div>
+      </div>
+      <div class="method-card">
+        <div class="m-num">6</div>
+        <div class="m-label">Business Units Mapped</div>
+        <div class="m-detail">Process shadowing + workflow documentation in each</div>
+      </div>
+      <div class="method-card">
+        <div class="m-num">5</div>
+        <div class="m-label">Months of Discovery</div>
+        <div class="m-detail">Before any requirements were written</div>
+      </div>
     </div>
-    <div class="method-card">
-      <div class="m-num">3</div>
-      <div class="m-label">Months of Discovery</div>
-      <div class="m-detail">Before any requirements were written</div>
+
+    <p>For each research lead, I asked: <em>What's the most important decision you make weekly? What information do you
+        need?
+        How long does it take to get? What happens when you make it on incomplete data?</em></p>
+    <p>And for each function, I asked: <em>What's the most important metric you need to deliver? What are your
+        requirements and constraints for a new initiative? </em></p>
+
+    <p>The insight: Most of the extended simulation time based problems could be fixed with calibrated ML models
+      customized to the research probelm they were working on. A simple solution - but the before state was so
+      inefficient that the modest ML improvement would create disproportinate value.</p>
+    <br>
+    <!-- SECTION 3: SOLUTION & PROCESS -->
+    <div class="phase-label">3 - Solution & Process</div>
+    <h2>Building the Division in Phases</h2>
+
+    <div class="process-flow">
+      <div class="pf-step">
+        <div class="pf-meta">Phase 1 · Months 1–3</div>
+        <h4>User Workflow Research and Prioritization</h4>
+        <p>Identified high-frequency, high-impact workflows across the org. Pioritized the build order and devised a
+          roadmap. Shadowed the workflows to identify edge cases and constraints. Accessed and built the data pipelines
+          and tested data manipulatio pipelines. Researched various tech providers and established a tech vendor
+          relationship on a trial basis.</p>
+      </div>
+      <div class="pf-step">
+        <div class="pf-meta">Phase 2 · Months 3–6</div>
+        <h4>MVP and Validation</h4>
+        <p>Built clustering and analomy detection based models for various workflows to validate the hypothesis that ML
+          could move the needle on business outcomes. Presented results to executives and in townhall meetings to build
+          a champions team to push the work forward.</p>
+      </div>
+      <div class="pf-step">
+        <div class="pf-meta">Phase 3 · Months 6–12</div>
+        <h4>Pilot Launch + User Research Loop & Iteration</h4>
+        <p>Launched the first two products to a few engineers. Weekly feedback cycles. Discovered users wanted less
+          complexity, not more features and tools to learn. Reduced core workflow to
+          just a few clicks. Result: WAU +300%, NPS +35 within 2 months.</p>
+      </div>
+      <div class="pf-step">
+        <div class="pf-meta">Phase 4 · Years 2–3</div>
+        <h4>Platform Expansion: 7+ Products</h4>
+        <p>Scaled to different research and post-sales teams. Coached multiple engineers to experiment with new builds,
+          gather user feedback and iterate on new usecases.</p>
+      </div>
+      <div class="pf-step">
+        <div class="pf-meta">Phase 5 · Year 3</div>
+        <h4>Low-Code Platform Migration</h4>
+        <p>Adopted Dataiku (a low-code automation platform) as the standardized platform all AI solutions in the
+          company. This strategic shift meant more engineers could build and scale products.</p>
+      </div>
+      <div class="pf-step">
+        <div class="pf-meta">Phase 6 · Years 4–5</div>
+        <h4>Scale & Adoption Operations</h4>
+        <p>Established division-wide PLM governance: standardized PRD template, quarterly roadmap reviews, post-launch
+          NPS tracking. Ensured quality checks of results were in place.</p>
+      </div>
     </div>
-  </div>
 
-  <p>For each function, I asked: <em>What's the most important decision you make weekly? What information do you need? How long does it take to get? What happens when you make it on incomplete data?</em></p>
 
-  <p>The insight: <strong>the highest-value use cases weren't the most technically interesting ones.</strong> Warranty analytics was unglamorous — but the before-state was so bad that a modest ML improvement would create disproportionate value.</p>
+    <br>
+    <!-- SECTION 4: IMPACT & METRICS -->
+    <div class="phase-label">4 - Impact & Metrics</div>
+    <h2>Before vs. After</h2>
 
-  <blockquote>
-    <p>The best first product in a division-building context is one where the before-and-after story tells itself in a single demo. Flashy AI is easy to build. Attributable impact is hard to argue with.</p>
-  </blockquote>
-
-  <!-- SECTION 3: SOLUTION & PROCESS -->
-  <div class="phase-label">3 — Solution & Process</div>
-  <h2>Building the Division in Phases</h2>
-
-  <div class="process-flow">
-    <div class="pf-step">
-      <div class="pf-meta">Phase 1 · Months 1–6</div>
-      <h4>MVP: Warranty Analytics</h4>
-      <p>Anomaly detection in warranty claims, surfacing unusual failure patterns. Proof point that AI could move the needle on real business problems.</p>
+    <div class="ba-grid">
+      <div class="ba-col ba-before">
+        <div class="ba-label">Before (2017 Baseline)</div>
+        <ul>
+          <li>Data export → Excel → manual pivot tables</li>
+          <li>3–4 days to surface a customer issue</li>
+          <li>No consistent data model across analysts</li>
+          <li>Quality issues identified reactively post-escalation</li>
+          <li>30% of senior engineering capacity consumed by data prepand simulations</li>
+          <li>Zero ML-based analytics products in production</li>
+        </ul>
+      </div>
+      <div class="ba-col ba-after">
+        <div class="ba-label">After (2022, 5-Year Build)</div>
+        <ul>
+          <li>ML-powered dashboards with automated anomaly detection</li>
+          <li>On-demand insights - 10x improvement</li>
+          <li>Standardized data model across 7 products</li>
+          <li>Proactive quality monitoring across all carlines</li>
+          <li>Engineering overhead reduced → $5M/year recovered</li>
+          <li>7+ ML analytics products used by 70% every week</li>
+        </ul>
+      </div>
     </div>
-    <div class="pf-step">
-      <div class="pf-meta">Phase 2 · Months 6–18</div>
-      <h4>User Research Loop & Iteration</h4>
-      <p>Monthly feedback cycles. Discovered users wanted less complexity, not more features. Reduced core workflow to 3 clicks. Result: WAU +300%, NPS +35 within 2 months.</p>
+
+    <div class="callout">
+      <p><strong>Adoption driver:</strong> We treated onboarding as a product deliverable. Every product had a
+        structured first-use experience designed to get users to their first real insight within 15 minutes. Adoption
+        dies in the gap between launch and actual workflow change.</p>
     </div>
-    <div class="pf-step">
-      <div class="pf-meta">Phase 3 · Years 2–3</div>
-      <h4>Platform Expansion: 7+ Products</h4>
-      <p>Scaled to procurement, quality, after-sales. Each PRD went through 55+ stakeholder review cycles. Learned that building a division is itself a product problem: the operating model matters as much as the software.</p>
-    </div>
-    <div class="pf-step">
-      <div class="pf-meta">Phase 4 · Year 3</div>
-      <h4>Low-Code Platform Migration</h4>
-      <p>Adopted Dataiku to reduce marginal engineering cost. This strategic shift meant we could scale products without proportionally scaling headcount.</p>
-    </div>
-    <div class="pf-step">
-      <div class="pf-meta">Phase 5 · Years 4–5</div>
-      <h4>Scale & Adoption Operations</h4>
-      <p>Established division-wide PLM governance: standardized PRD template, quarterly roadmap reviews, post-launch NPS tracking. Formalization was critical — informal relationships couldn't survive leadership changes.</p>
-    </div>
-  </div>
+    <br>
+    <!-- SECTION 5: REFLECTION -->
+    <div class="phase-label">5 - Reflection</div>
+    <h2>What I'd Do Differently</h2>
 
-  <h3>The Prioritization Decision That Mattered Most</h3>
-  <p>Year two: breadth (new business units) vs. depth (stronger existing products). Stakeholders wanted breadth. I chose depth — investing in a 50-interview discovery sprint that surfaced that users were abandoning workflows due to UX friction. Fixing that yielded +300% WAU and +35 NPS before we shipped a single new product. This earned the trust to move into breadth.</p>
+    <h3>Mistake: Delayed formalization of governance</h3>
+    <p>For two years, stakeholder buy-in was informal - good relationships, monthly emails. However, when it was time to
+      scale through the org and engage multiple engineers in the division, governance based credibility was missing.
+      Built a formalized PLM governance for the division which helped immensely in enhancing the products.</p>
 
-  <!-- SECTION 4: IMPACT & METRICS -->
-  <div class="phase-label">4 — Impact & Metrics</div>
-  <h2>Before vs. After</h2>
+    <h3>Trade-off: Speed over data quality standards</h3>
+    <p>Two products underperformed in production not because the ML model was wrong, but because the underlying SAP data
+      had consistency issues we hadn't audited before scoping. We prioritized shipping speed over rigorous data quality
+      review. Today I build data quality assessment into discovery as a first-class requirement, not an engineering task
+      to handle later.</p>
 
-  <div class="ba-grid">
-    <div class="ba-col ba-before">
-      <div class="ba-label">Before (2017 Baseline)</div>
-      <ul>
-        <li>SAP export → Excel → manual pivot tables</li>
-        <li>3–4 days to surface a warranty anomaly</li>
-        <li>No consistent data model across analysts</li>
-        <li>Quality issues identified reactively post-escalation</li>
-        <li>27% of senior engineering capacity consumed by data prep</li>
-        <li>Zero ML-based analytics products in production</li>
-      </ul>
-    </div>
-    <div class="ba-col ba-after">
-      <div class="ba-label">After (2022, 5-Year Build)</div>
-      <ul>
-        <li>ML-powered dashboards with automated anomaly detection</li>
-        <li>Same-day warranty anomaly surfacing — 10x improvement</li>
-        <li>Standardized data model across 7 products</li>
-        <li>Proactive quality monitoring across 10+ carlines</li>
-        <li>Engineering overhead reduced → $1.8M/year recovered</li>
-        <li>7+ ML analytics products used by 70% daily</li>
-      </ul>
-    </div>
-  </div>
+    <h3>The bigger lesson</h3>
+    <p>Building an entrepreneurial division inside a large company is itself a product problem. The product isn't just
+      the software —
+      it's the operating model: who reviews the roadmap, how data quality gets owned, what happens when a model
+      degrades, how new use cases get discovered and prioritized. This experience helped me become good at designing
+      systems.</p>
 
-  <div class="callout">
-    <p><strong>Adoption driver:</strong> We treated onboarding as a product deliverable. Every product had a structured first-use experience designed to get users to their first real insight within 15 minutes. Adoption dies in the gap between launch and actual workflow change.</p>
-  </div>
+    <hr>
 
-  <!-- SECTION 5: REFLECTION -->
-  <div class="phase-label">5 — Reflection</div>
-  <h2>What I'd Do Differently</h2>
+    <p><em>This case study covers my work as Product Manager, AI and Data Product Development at Mercedes-Benz
+        (2017–2022), where I founded and led the AI Solutions division in Bengaluru, India. All metrics are from
+        internal reporting. Views are my own.</em></p>
 
-  <h3>Mistake: Delayed formalization of governance</h3>
-  <p>For two years, stakeholder buy-in was informal — good relationships, monthly emails. That worked until a leadership change in a major business unit. The new leader had no context, no review history, no reason to prioritize our products. We lost three months rebuilding credibility. I should have formalized the quarterly review process in year one.</p>
+  </main>
 
-  <h3>Trade-off: Speed over data quality standards</h3>
-  <p>Two products underperformed in production not because the ML model was wrong, but because the underlying SAP data had consistency issues we hadn't audited before scoping. We prioritized shipping speed over rigorous data quality review. Today I build data quality assessment into discovery as a first-class requirement, not an engineering task to handle later.</p>
-
-  <h3>The bigger lesson</h3>
-  <p>Building a division inside a large company is itself a product problem. The product isn't just the software — it's the operating model: who reviews the roadmap, how data quality gets owned, what happens when a model degrades, how new use cases get discovered and prioritized. The PM who thrives here isn't just good at writing PRDs. They're good at designing systems.</p>
-
-  <hr>
-
-  <p><em>This case study covers my work as Product Manager, AI and Data Product Development at Mercedes-Benz (2017–2022), where I founded and led the AI Solutions division in Bengaluru, India. All metrics are from internal reporting. Views are my own.</em></p>
-
-</main>
-
-<footer class="article-footer">
-  <a href="../index.html#past-projects" class="footer-back">← Back to Past Projects</a>
-</footer>
+  <footer class="article-footer">
+    <a href="../index.html#past-projects" class="footer-back">← Back to Past Projects</a>
+  </footer>
 
 </body>
+
 </html>
