@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Building QA and governance for AI invoice classification in production — from model accuracy metrics to audit queue design to feedback loops. A PM case study on maintaining AI reliability at scale for financial operations." />
+  <title>AI Invoice Processing at Scale: QA, Governance, & Financial Accountability | Sneha Chelimilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:       #6b8f4a;
+      --blue-light: #9fbb80;
+      --blue-dark:  #4e6b33;
+      --white:      #ffffff;
+      --off-white:  #f5f8f1;
+      --text:       #0f172a;
+      --muted:      #64748b;
+      --dim:        #94a3b8;
+      --border:     #dce8d4;
+      --header-bg:  linear-gradient(135deg, #d4e4c4, #bcd498);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
+
+    .top-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; font-weight: 600; color: var(--blue); transition: gap 0.15s; }
+    .back-link:hover { gap: 0.65rem; }
+    .site-name { font-size: 0.8rem; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+
+    .article-hero { background: var(--header-bg); padding: 4rem 2rem 3rem; text-align: center; }
+    .article-hero-inner { max-width: 720px; margin: 0 auto; }
+    .article-icon { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
+    .article-category { display: inline-block; background: rgba(107,143,74,0.12); color: var(--blue-dark); border: 1px solid rgba(107,143,74,0.25); padding: 0.22rem 0.7rem; border-radius: 999px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.25rem; }
+    .article-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.25; color: var(--text); margin-bottom: 1rem; }
+    .article-subtitle { font-size: 1.05rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.75rem; }
+    .article-meta { display: flex; align-items: center; justify-content: center; gap: 1.25rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+
+    .article-body { max-width: 720px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+    .article-body h2 { font-size: 1.35rem; font-weight: 800; color: var(--text); margin: 2.75rem 0 0.875rem; line-height: 1.3; }
+    .article-body h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 1.75rem 0 0.5rem; }
+    .article-body p { font-size: 1rem; color: #334155; line-height: 1.8; margin-bottom: 1.25rem; }
+    .article-body ul, .article-body ol { margin: 0 0 1.25rem 1.5rem; }
+    .article-body li { font-size: 1rem; color: #334155; line-height: 1.75; margin-bottom: 0.4rem; }
+    .article-body strong { color: var(--text); font-weight: 700; }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    .article-body em { font-style: italic; }
+
+    .callout { background: rgba(107,143,74,0.07); border: 1px solid rgba(107,143,74,0.2); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1.75rem 0; }
+    .callout p { margin: 0; font-size: 0.95rem; color: var(--blue-dark); }
+
+    .article-body blockquote { border-left: 3px solid var(--blue); margin: 1.75rem 0; padding: 0.75rem 1.5rem; background: rgba(107,143,74,0.05); border-radius: 0 8px 8px 0; }
+    .article-body blockquote p { font-size: 1.05rem; font-style: italic; color: var(--muted); margin: 0; }
+
+    .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; background: var(--off-white); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .stat-item { text-align: center; }
+    .stat-item .num { font-size: 1.75rem; font-weight: 800; color: var(--blue); letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.25rem; }
+    .stat-item .label { font-size: 0.72rem; color: var(--muted); font-weight: 500; line-height: 1.4; }
+
+    .phase-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); border: 1px solid rgba(107,143,74,0.3); background: rgba(107,143,74,0.07); padding: 0.25rem 0.625rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
+
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 1.75rem 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .ba-col { padding: 1.5rem; }
+    .ba-before { background: #fef2f2; border-right: 1px solid #fecaca; }
+    .ba-after  { background: rgba(107,143,74,0.05); }
+    .ba-label  { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.875rem; }
+    .ba-before .ba-label { color: #dc2626; }
+    .ba-after  .ba-label { color: var(--blue-dark); }
+    .ba-col ul { list-style: none; padding: 0; margin: 0; }
+    .ba-col li { font-size: 0.875rem; color: #334155; padding: 0.375rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5; }
+    .ba-col li:last-child { border-bottom: none; }
+    .ba-before li::before { content: '✗'; color: #dc2626; font-weight: 700; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1rem; }
+    .ba-after  li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1rem; }
+
+    .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1.5rem 0; }
+    .method-card { background: var(--off-white); border: 1px solid var(--border); border-radius: 10px; padding: 1.125rem; text-align: center; }
+    .method-card .m-num { font-size: 1.5rem; font-weight: 800; color: var(--blue); letter-spacing: -0.04em; line-height: 1; }
+    .method-card .m-label { font-size: 0.78rem; font-weight: 700; color: var(--text); margin: 0.3rem 0 0.2rem; }
+    .method-card .m-detail { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+    .article-footer { border-top: 1px solid var(--border); background: var(--off-white); padding: 2.5rem 2rem; text-align: center; }
+    .article-footer p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem; }
+    .footer-back { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; font-weight: 700; color: var(--blue); border: 1px solid rgba(107,143,74,0.3); padding: 0.625rem 1.25rem; border-radius: 8px; transition: all 0.15s; }
+    .footer-back:hover { background: rgba(107,143,74,0.07); border-color: var(--blue); }
+
+    @media (max-width: 600px) {
+      .article-hero { padding: 3rem 1.25rem 2.25rem; }
+      .article-body { padding: 2.5rem 1.25rem 4rem; }
+      .top-bar { padding: 0 1.25rem; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .ba-grid { grid-template-columns: 1fr; }
+      .ba-before { border-right: none; border-bottom: 1px solid #fecaca; }
+      .method-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <a href="../index.html#past-projects" class="back-link">← Back to Past Projects</a>
+  <span class="site-name">Sneha Chelimilla</span>
+</nav>
+
+<header class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-icon">💾</div>
+    <span class="article-category">AI Governance · Financial Operations</span>
+    <h1 class="article-title">AI Invoice Processing at Scale: QA, Governance, & Financial Accountability</h1>
+    <p class="article-subtitle">How to build QA and governance frameworks for financial AI systems — from accuracy thresholds to audit queue design to feedback loops that maintain trust at scale.</p>
+    <div class="article-meta">
+      <span>📅 March 2026</span>
+      <span>⏱ 8 min read</span>
+      <span>🏷 AI Governance · Financial Systems · Quality Assurance</span>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+
+  <p>90% accuracy sounds like a win. It is — until you realize that 10% error rate on thousands of invoices per month means hundreds of manual reviews. The model isn't the product. The governance infrastructure around the model is.</p>
+
+  <p>At Vorto, I launched an AI invoice classification system that achieved 90% accuracy — and then spent the next months building the operational machinery that made that 90% actually useful. This is the story of moving from "impressive model metrics" to "reliable financial automation."</p>
+
+  <div class="stat-strip">
+    <div class="stat-item"><div class="num">90%</div><div class="label">auto-classification accuracy maintained</div></div>
+    <div class="stat-item"><div class="num">85%</div><div class="label">of invoices processed without human review</div></div>
+    <div class="stat-item"><div class="num">5x</div><div class="label">faster processing velocity vs. manual</div></div>
+    <div class="stat-item"><div class="num">100%</div><div class="label">audit trail coverage on all classified invoices</div></div>
+  </div>
+
+  <div class="phase-label">1 — The 90% Accuracy Problem</div>
+  <h2>Why Model Metrics Don't Tell The Whole Story</h2>
+
+  <p>The ML team shipped a model with 90% classification accuracy. Marketing highlights the metric. The finance team encounters a different reality: 10% of Vorto's invoice volume still requires manual review. At 200+ invoices per day, that's 20+ invoices daily that need human categorization. The problem you were trying to solve didn't disappear — it just transformed.</p>
+
+  <p>The real question isn't "is the model good?" It's "is the system that handles the 10% better than manually processing everything?" If the exception path is slower than the baseline, users will route everything through exceptions. If errors aren't caught until reconciliation, you've just delayed the problem.</p>
+
+  <blockquote>
+    <p>The product is the model plus the audit queue plus the feedback loop plus the monitoring. Miss any piece and the system fails in production.</p>
+  </blockquote>
+
+  <div class="phase-label">2 — Accuracy Thresholds & Exception Handling</div>
+  <h2>Defining "Good Enough" for Financial Systems</h2>
+
+  <h3>Accuracy Thresholds: What Gets Auto-Routed vs. What Gets Audited</h3>
+
+  <p>Not all classification is equal. An invoice classified by 3 different vendors, multiple cost categories, and historical precedent is lower confidence. One classified against a single, clear precedent is higher confidence.</p>
+
+  <ul>
+    <li><strong>High confidence (>90% model confidence):</strong> Auto-route to payment immediately. Audit queue skipped. Still captured for feedback loop.</li>
+    <li><strong>Medium confidence (70-90%):</strong> Surfaced in priority audit queue. Human reviewer makes final decision in <5 minutes (faster than baseline manual categorization).</li>
+    <li><strong>Low confidence (<70%):</strong> Prioritized for immediate review. Flagged for human categorization. If multiple low-confidence invoices cluster (same vendor, same type), triggers investigation into training data gaps.</li>
+  </ul>
+
+  <h3>Audit Queue Design: Humans Make Fast Decisions on Uncertain Cases</h3>
+
+  <p>The breakthrough insight: don't design the audit queue by case complexity. Design it by reviewer capacity and decision friction. Reviewers need to make 20+ decisions per hour. If each decision takes >2 minutes, the queue backs up and manual categorization becomes faster.</p>
+
+  <p>Audit queue prioritization:</p>
+  <ol>
+    <li>Invoices with closest confidence scores to the threshold (50-50 cases that the model is genuinely uncertain about).</li>
+    <li>Invoices from new vendors or with new cost categories (edge cases that the model hasn't seen much of).</li>
+    <li>High-volume invoice types from vendors where we've made recent errors (model drift signals).</li>
+  </ol>
+
+  <p>Every decision in the queue is logged with the reviewer's choice and their reasoning (when provided). This becomes the training signal for the next model iteration.</p>
+
+  <div class="phase-label">3 — Feedback Loops That Close</div>
+  <h2>Turning Corrections Into Model Improvements</h2>
+
+  <h3>The Three Types of Feedback</h3>
+
+  <p><strong>Type 1: Overrides</strong> (reviewer disagrees with model classification). Captured automatically. Tagged with reason if provided. Highest signal for model retraining.</p>
+
+  <p><strong>Type 2: Escalations</strong> (invoice is ambiguous, requires policy clarification). Sent to finance leadership. When resolved, decision becomes a new training example for edge cases.</p>
+
+  <p><strong>Type 3: Patterns</strong> (same type of error recurring). Automatically flagged when error rate on a specific vendor or invoice type exceeds threshold. Triggers investigation: Is this a data quality issue? A gap in training data? A policy ambiguity?</p>
+
+  <h3>Model Retraining Cadence</h3>
+
+  <ul>
+    <li><strong>Weekly:</strong> Evaluate model on holdout test set + newly labeled feedback. Does accuracy drift? Has the distribution of invoices changed?</li>
+    <li><strong>Monthly:</strong> If accuracy drops >2%, retrain on expanded dataset (current month's labeled feedback + historical training data). A/B test new model version on 10% of audit queue before full rollout.</li>
+    <li><strong>Quarterly:</strong> Comprehensive analysis of failure modes. Are we making mistakes systematically on vendors we've never seen before? On cost categories that changed since training? On seasonal patterns?</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>Critical detail:</strong> The feedback loop dies if the lag is >1 week. If a reviewer catches an error but retraining doesn't happen for a month, they stop believing in the system. Make retraining frequent enough that users see the system actually improving.</p>
+  </div>
+
+  <div class="phase-label">4 — Governance Checkpoints</div>
+  <h2>Who Owns What, and How Decisions Get Made</h2>
+
+  <h3>Daily Monitoring</h3>
+  <p>Automated alerts: classification accuracy anomalies, audit queue backing up, vendor performance diverging unexpectedly, critical payment deadlines approaching with unresolved invoices.</p>
+
+  <h3>Weekly Finance Review</h3>
+  <p>Finance lead reviews: volume processed, accuracy by vendor, escalation reasons, emerging patterns. Decision: proceed or flag for investigation.</p>
+
+  <h3>Monthly Governance Review</h3>
+  <p>Cross-functional (product, finance, engineering): accuracy trends, feedback loop health, retraining results, adoption metrics. Prioritize improvements: retrain on new data? Adjust confidence thresholds? Add new cost categories?</p>
+
+  <h3>Quarterly Business Review</h3>
+  <p>With leadership: cost savings achieved, error rates, vendor SLA compliance, forward roadmap. Ensures the system remains aligned with business priorities.</p>
+
+  <div class="phase-label">5 — Out-of-Scope for Automation</div>
+  <h2>Decisions That Require Human Judgment</h2>
+
+  <ul>
+    <li><strong>Policy disputes:</strong> When a cost category is genuinely ambiguous (should this be COGS or overhead?), that's a policy question, not a classification question. Escalate to finance leadership.</li>
+    <li><strong>Fraud signals:</strong> If an invoice's amount, vendor, or pattern triggers audit concern, route to compliance team regardless of classification confidence.</li>
+    <li><strong>Vendor disputes:</strong> When a vendor claims incorrect payment processing, investigate separately. Don't auto-route disputed invoices through standard classification.</li>
+    <li><strong>New vendor onboarding:</strong> First invoices from new vendors should have higher human review rate (lower automation threshold) until we build confidence.</li>
+  </ul>
+
+  <div class="phase-label">6 — Metrics That Matter</div>
+  <h2>What Gets Measured, What Gets Improved</h2>
+
+  <h3>System Health Metrics</h3>
+  <ul>
+    <li>Model accuracy (overall, and by vendor/invoice type/cost category).</li>
+    <li>False positive rate (invoices incorrectly classified with high confidence).</li>
+    <li>Audit queue processing time (how long does it take from flagging to resolution?).</li>
+    <li>Manual override rate (what % of reviewed invoices does the human override the model?).</li>
+  </ul>
+
+  <h3>Business Outcome Metrics</h3>
+  <ul>
+    <li>Processing time per invoice (vs. pre-automation baseline).</li>
+    <li>Cost per transaction (cost of processing divided by invoice count).</li>
+    <li>Payment SLA compliance (% of invoices processed and paid on time).</li>
+    <li>Error discovery lag (how long from invoice receipt to error detection?).</li>
+  </ul>
+
+  <h3>Adoption Metrics</h3>
+  <ul>
+    <li>% of invoices auto-classified without review.</li>
+    <li>% of reviewers consistently using audit queue (vs. choosing manual review).</li>
+    <li>Feedback loop engagement (% of decisions logged with reviewer reasoning).</li>
+  </ul>
+
+  <div class="phase-label">7 — Before & After</div>
+  <h2>What Changed</h2>
+
+  <div class="ba-grid">
+    <div class="ba-col ba-before">
+      <div class="ba-label">Before Automation</div>
+      <ul>
+        <li>100% of invoices manually reviewed and categorized</li>
+        <li>4-5 days average processing time per batch</li>
+        <li>No consistency across analysts (subjective categorization)</li>
+        <li>Errors discovered weeks later at reconciliation</li>
+        <li>Finance team capacity consumed by categorization</li>
+        <li>No visibility into which vendors cause delays</li>
+        <li>High error rate on complex multi-category invoices</li>
+      </ul>
+    </div>
+    <div class="ba-col ba-after">
+      <div class="ba-label">With AI Classification & Governance</div>
+      <ul>
+        <li>90% auto-classified without human review</li>
+        <li>Same-day processing for 90% of volume (5x improvement)</li>
+        <li>Consistent categorization model across all invoices</li>
+        <li>Errors surfaced in real-time via audit queue</li>
+        <li>Finance team reallocated to strategic analysis</li>
+        <li>Per-vendor accuracy dashboards identify problem areas</li>
+        <li>System improves over time (feedback loops)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Key insight:</strong> The 10% that requires review is faster than the baseline not because the model is smart, but because the governance system is well-designed. A poorly designed audit queue makes automation worse than manual processing.</p>
+  </div>
+
+  <hr>
+
+  <p><em>This case study covers the governance and QA infrastructure I built for AI invoice classification at Vorto.ai (2025). The frameworks are applicable to any financial AI system requiring accuracy, auditability, and continuous improvement. Views are my own.</em></p>
+
+</main>
+
+<footer class="article-footer">
+  <p>Written by Sneha Chelimilla · PM & Product Operations Leader · AI & Data Products</p>
+  <a href="../index.html#past-projects" class="footer-back">← Back to Past Projects</a>
+</footer>
+
+</body>
+</html>
