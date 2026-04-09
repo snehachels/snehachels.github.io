@@ -148,7 +148,7 @@
     <p class="article-subtitle">From a mandate with no roadmap to 400% adoption across 70% of the org — what the five-year build actually looked like from the inside.</p>
     <div class="article-meta">
       <span>📅 March 2026</span>
-      <span>⏱ 9 min read</span>
+      <span>⏱ 8 min read</span>
       <span>🏷 Mercedes-Benz · AI Products · 0→1 · Fortune 500</span>
     </div>
   </div>
@@ -156,9 +156,9 @@
 
 <main class="article-body">
 
-  <p>In 2017, I joined Mercedes-Benz in Bengaluru as an engineer who had decided she wanted to build products. The mandate I was handed was simultaneously exciting and paralyzing: <strong>"leverage AI and data to drive better decisions across the organization."</strong> No team. No budget template. No product map. No prior art internally to copy from. My first job was to define the problem before touching the solution.</p>
+  <p>In 2017, I joined Mercedes-Benz in Bengaluru as an engineer who had decided she wanted to build products. The mandate I was handed was simultaneously exciting and paralyzing: <strong>"leverage AI and data to drive better decisions across the organization."</strong> No team. No budget template. No product map. No prior art internally to copy from.</p>
 
-  <p>Five years later, the AI Solutions division had 7+ ML-based analytics products in production, 70% of the organization actively using at least one of them, and $5M/year in documented operational efficiencies. This is the unvarnished account of how that happened — the product decisions, the missteps, and what I'd do differently.</p>
+  <p>Five years later, the AI Solutions division had 7+ ML-based analytics products in production, 70% of the organization actively using at least one of them, and $5M/year in documented operational efficiencies. This is how it happened.</p>
 
   <div class="stat-strip">
     <div class="stat-item"><div class="num">400%</div><div class="label">product adoption growth over 5 years</div></div>
@@ -171,23 +171,23 @@
   <div class="phase-label">1 — Problem Statement</div>
   <h2>The Business Problem: Decisions Made Without Data</h2>
 
-  <p>Mercedes-Benz's Bengaluru engineering center operated across multiple business units — warranty, procurement, manufacturing quality, after-sales. Each had significant operational complexity, and each was making high-stakes decisions using a combination of SAP exports, Excel pivot tables built manually by analysts, and institutional memory held by a handful of senior managers.</p>
+  <p>The Bengaluru engineering center operated across warranty, procurement, manufacturing quality, and after-sales. Each function was making high-stakes decisions using SAP exports, Excel pivot tables, and institutional memory.</p>
 
-  <p>The cost of this wasn't visible in a single line item. It showed up as:</p>
+  <p>The operational cost was significant:</p>
   <ul>
-    <li><strong>Delayed warranty escalations:</strong> analysts spent 3–4 days building reports before quality issues could be escalated, by which point problems had compounded</li>
-    <li><strong>Inconsistent procurement decisions:</strong> different analysts running the same parts analysis would reach different conclusions based on how they'd structured their Excel model</li>
-    <li><strong>Engineering overhead:</strong> senior engineers were pulled into manual data preparation work instead of engineering work — estimated at 27% of their capacity</li>
-    <li><strong>No proactive quality monitoring:</strong> quality issues were identified reactively, after complaints escalated, not before</li>
+    <li><strong>Delayed escalations:</strong> 3–4 days to surface a quality issue from raw data</li>
+    <li><strong>Inconsistent analysis:</strong> each analyst structured Excel models differently, leading to conflicting conclusions</li>
+    <li><strong>Engineering overhead:</strong> 27% of senior engineering capacity consumed by manual data prep ($1.8M/year)</li>
+    <li><strong>No proactivity:</strong> quality issues caught reactively after escalation, not before</li>
   </ul>
 
-  <p>The opportunity was clear: the data existed in SAP and other systems. The intelligence layer — the ability to turn that data into fast, consistent, proactive insight — didn't.</p>
+  <p>The data existed. What didn't exist was the intelligence layer to turn it into fast, consistent insight.</p>
 
   <!-- SECTION 2: RESEARCH & DISCOVERY -->
   <div class="phase-label">2 — Research & Discovery</div>
-  <h2>Three Months of Discovery Before Writing a Single PRD</h2>
+  <h2>Three Months of Structured Discovery</h2>
 
-  <p>My first decision as a first-time PM was to not write any product requirements for 90 days. Instead, I ran a structured discovery sprint across the organization to understand where decision-making pain was most concentrated and where AI could provide clear, attributable value — not just impressive demos.</p>
+  <p>My first decision as a first-time PM was to not write requirements for 90 days. Instead, I ran structured discovery across the organization to find where AI could provide clear, attributable value.</p>
 
   <div class="method-grid">
     <div class="method-card">
@@ -203,139 +203,98 @@
     <div class="method-card">
       <div class="m-num">3</div>
       <div class="m-label">Months of Discovery</div>
-      <div class="m-detail">Before any requirements were written or solutions proposed</div>
+      <div class="m-detail">Before any requirements were written</div>
     </div>
   </div>
 
-  <p>The interviews weren't about product ideas — they were about understanding the decision. For each function, I asked: <em>What is the most important decision you make each week? What information do you need to make it well? How long does it take to get that information right now? What happens when you make it on incomplete data?</em></p>
+  <p>For each function, I asked: <em>What's the most important decision you make weekly? What information do you need? How long does it take to get? What happens when you make it on incomplete data?</em></p>
 
-  <p>The most important insight from discovery: <strong>the highest-value use cases weren't the most technically interesting ones.</strong> Warranty analytics was an unglamorous problem — but the before-state was so bad (days to insight, inconsistent outputs, no anomaly detection) that a modest ML improvement would create disproportionate value. We started there.</p>
+  <p>The insight: <strong>the highest-value use cases weren't the most technically interesting ones.</strong> Warranty analytics was unglamorous — but the before-state was so bad that a modest ML improvement would create disproportionate value.</p>
 
   <blockquote>
-    <p>The best first product in a division-building context is the one where the before-and-after story tells itself in a single demo. Flashy AI is easy to build. Attributable impact is hard to argue with.</p>
+    <p>The best first product in a division-building context is one where the before-and-after story tells itself in a single demo. Flashy AI is easy to build. Attributable impact is hard to argue with.</p>
   </blockquote>
 
   <!-- SECTION 3: SOLUTION & PROCESS -->
   <div class="phase-label">3 — Solution & Process</div>
-  <h2>How We Built: The Product Development Lifecycle</h2>
+  <h2>Building the Division in Phases</h2>
 
   <div class="process-flow">
     <div class="pf-step">
       <div class="pf-meta">Phase 1 · Months 1–6</div>
-      <h4>MVP: Warranty Analytics Application</h4>
-      <p>First product targeting the highest-pain, most attributable use case. ML model for anomaly detection in warranty claims, surfacing unusual failure patterns by carline. Demo-able in a single meeting against the SAP-Excel baseline.</p>
+      <h4>MVP: Warranty Analytics</h4>
+      <p>Anomaly detection in warranty claims, surfacing unusual failure patterns. Proof point that AI could move the needle on real business problems.</p>
     </div>
     <div class="pf-step">
       <div class="pf-meta">Phase 2 · Months 6–18</div>
-      <h4>User Research Loop & Product Iteration</h4>
-      <p>Monthly structured feedback cycles (10–15 interviews per cycle). Discovered users wanted less complexity, not more features. Reduced the core workflow to 3 clicks. Result: WAU +300%, NPS +35 points within 2 months of the iteration.</p>
+      <h4>User Research Loop & Iteration</h4>
+      <p>Monthly feedback cycles. Discovered users wanted less complexity, not more features. Reduced core workflow to 3 clicks. Result: WAU +300%, NPS +35 within 2 months.</p>
     </div>
     <div class="pf-step">
       <div class="pf-meta">Phase 3 · Years 2–3</div>
       <h4>Platform Expansion: 7+ Products</h4>
-      <p>Defined vision, roadmap, and feature strategy for 6 additional ML analytics products across procurement, quality, and after-sales. Each PRD went through 55+ stakeholder review cycles across Engineering, Finance, and IT.</p>
+      <p>Scaled to procurement, quality, after-sales. Each PRD went through 55+ stakeholder review cycles. Learned that building a division is itself a product problem: the operating model matters as much as the software.</p>
     </div>
     <div class="pf-step">
       <div class="pf-meta">Phase 4 · Year 3</div>
-      <h4>The Low-Code Platform Bet (Dataiku Migration)</h4>
-      <p>Identified that marginal engineering cost of each new product was too high. Drove the organizational adoption of a low-code analytics platform — 6-month internal sales cycle, rigorous build-vs-buy analysis, executive business case.</p>
+      <h4>Low-Code Platform Migration</h4>
+      <p>Adopted Dataiku to reduce marginal engineering cost. This strategic shift meant we could scale products without proportionally scaling headcount.</p>
     </div>
     <div class="pf-step">
       <div class="pf-meta">Phase 5 · Years 4–5</div>
       <h4>Scale & Adoption Operations</h4>
-      <p>Established division-wide PLM governance: standardized PRD template, quarterly roadmap reviews, post-launch NPS tracking. Implemented adoption playbook: exec sponsorship digest, business unit champions, onboarding built into every launch.</p>
-    </div>
-  </div>
-
-  <h3>PM Artifacts Produced</h3>
-  <div class="artifact-row">
-    <div class="artifact-card">
-      <div class="artifact-icon">📋</div>
-      <div class="artifact-info">
-        <div class="artifact-type">PRD</div>
-        <div class="artifact-name">7+ Feature Specifications</div>
-        <div class="artifact-detail">55+ stakeholder sign-offs per cycle</div>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <div class="artifact-icon">🗺️</div>
-      <div class="artifact-info">
-        <div class="artifact-type">Roadmap</div>
-        <div class="artifact-name">Annual Product Roadmap</div>
-        <div class="artifact-detail">Quarterly reviewed · C-suite aligned</div>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <div class="artifact-icon">📊</div>
-      <div class="artifact-info">
-        <div class="artifact-type">Framework</div>
-        <div class="artifact-name">Division-Wide PLM Governance</div>
-        <div class="artifact-detail">Discovery → launch → post-launch ops</div>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <div class="artifact-icon">💼</div>
-      <div class="artifact-info">
-        <div class="artifact-type">Business Case</div>
-        <div class="artifact-name">Dataiku Platform Migration</div>
-        <div class="artifact-detail">Executive approval · $5M/yr ROI</div>
-      </div>
+      <p>Established division-wide PLM governance: standardized PRD template, quarterly roadmap reviews, post-launch NPS tracking. Formalization was critical — informal relationships couldn't survive leadership changes.</p>
     </div>
   </div>
 
   <h3>The Prioritization Decision That Mattered Most</h3>
-  <p>In year two, we had two competing roadmap directions: build more products for new business units (breadth), or go deeper on the existing warranty and procurement products with advanced ML features (depth). Stakeholders in new business units were vocal. The depth case was quieter but financially stronger.</p>
-  <p>I made a call to hold breadth and invest in the user research loop for the existing products first. The 50-interview discovery sprint surfaced that existing users were abandoning workflows midway due to UX friction — which meant our adoption numbers were flattering our actual retention. Fixing that yielded +300% WAU and +35 NPS before we shipped a single new product. It was the right call. But it required saying no to executive stakeholders who wanted to see new logos on the division's portfolio.</p>
+  <p>Year two: breadth (new business units) vs. depth (stronger existing products). Stakeholders wanted breadth. I chose depth — investing in a 50-interview discovery sprint that surfaced that users were abandoning workflows due to UX friction. Fixing that yielded +300% WAU and +35 NPS before we shipped a single new product. This earned the trust to move into breadth.</p>
 
   <!-- SECTION 4: IMPACT & METRICS -->
   <div class="phase-label">4 — Impact & Metrics</div>
-  <h2>Before vs. After: What the Division Actually Changed</h2>
+  <h2>Before vs. After</h2>
 
   <div class="ba-grid">
     <div class="ba-col ba-before">
       <div class="ba-label">Before (2017 Baseline)</div>
       <ul>
-        <li>SAP export → Excel → manual pivot tables → email to manager</li>
-        <li>3–4 days to surface a warranty anomaly from raw data</li>
-        <li>No consistent data model — each analyst built their own</li>
-        <li>Quality issues identified reactively, post-complaint escalation</li>
+        <li>SAP export → Excel → manual pivot tables</li>
+        <li>3–4 days to surface a warranty anomaly</li>
+        <li>No consistent data model across analysts</li>
+        <li>Quality issues identified reactively post-escalation</li>
         <li>27% of senior engineering capacity consumed by data prep</li>
-        <li>No feedback loop from operational data back into product decisions</li>
-        <li>Zero ML-based analytics products in production across the org</li>
+        <li>Zero ML-based analytics products in production</li>
       </ul>
     </div>
     <div class="ba-col ba-after">
       <div class="ba-label">After (2022, 5-Year Build)</div>
       <ul>
-        <li>ML-powered dashboards with automated anomaly detection and alerts</li>
-        <li>Same-day warranty anomaly surfacing — 10x improvement in time-to-insight</li>
-        <li>Standardized data model across 7 products — consistent, auditable outputs</li>
-        <li>Proactive quality monitoring across 10+ carlines — issues caught before escalation</li>
-        <li>Engineering overhead reduced 27% → $1.8M/year in recovered capacity</li>
-        <li>Monthly NPS tracking and structured A/B testing built into every product</li>
-        <li>7+ ML analytics products used by 70% of the organization daily</li>
+        <li>ML-powered dashboards with automated anomaly detection</li>
+        <li>Same-day warranty anomaly surfacing — 10x improvement</li>
+        <li>Standardized data model across 7 products</li>
+        <li>Proactive quality monitoring across 10+ carlines</li>
+        <li>Engineering overhead reduced → $1.8M/year recovered</li>
+        <li>7+ ML analytics products used by 70% daily</li>
       </ul>
     </div>
   </div>
 
   <div class="callout">
-    <p><strong>Adoption driver that gets underestimated:</strong> We treated onboarding as a product deliverable, not a post-launch activity. Every product had a structured first-use experience designed to get a user to their first real insight within 15 minutes. Adoption dies in the gap between a launch announcement and a user changing their actual workflow.</p>
+    <p><strong>Adoption driver:</strong> We treated onboarding as a product deliverable. Every product had a structured first-use experience designed to get users to their first real insight within 15 minutes. Adoption dies in the gap between launch and actual workflow change.</p>
   </div>
 
   <!-- SECTION 5: REFLECTION -->
   <div class="phase-label">5 — Reflection</div>
   <h2>What I'd Do Differently</h2>
 
-  <p>I'm proud of what we built. I'm also honest about where we left value on the table.</p>
+  <h3>Mistake: Delayed formalization of governance</h3>
+  <p>For two years, stakeholder buy-in was informal — good relationships, monthly emails. That worked until a leadership change in a major business unit. The new leader had no context, no review history, no reason to prioritize our products. We lost three months rebuilding credibility. I should have formalized the quarterly review process in year one.</p>
 
-  <h3>Mistake: Delayed formalization of the PLM framework</h3>
-  <p>For the first two years, stakeholder buy-in was largely informal — good relationships with key people, monthly emails to senior leaders. That worked until there was a leadership change in one of our major business units. The new leader had no context on the division's work, no review history, and no reason to prioritize our products. We lost three months rebuilding credibility that a formalized review cadence would have preserved. I formalized the quarterly stakeholder review process in year three. Should have done it in year one.</p>
+  <h3>Trade-off: Speed over data quality standards</h3>
+  <p>Two products underperformed in production not because the ML model was wrong, but because the underlying SAP data had consistency issues we hadn't audited before scoping. We prioritized shipping speed over rigorous data quality review. Today I build data quality assessment into discovery as a first-class requirement, not an engineering task to handle later.</p>
 
-  <h3>Trade-off I'd reconsider: Speed over data quality standards</h3>
-  <p>Two of our seven products underperformed in production — not because the ML model was wrong, but because the underlying SAP data had consistency issues we hadn't audited before scoping the model. We prioritized shipping speed over a rigorous data quality review. Today I build data quality assessment into the discovery phase as a first-class requirement, not an engineering task to handle later.</p>
-
-  <h3>What the five years taught me</h3>
-  <p>Building a division inside a large company is itself a product problem. The product isn't just the software — it's the operating model: who reviews the roadmap, how data quality gets owned, what happens when a model degrades in production, how new use cases get discovered and prioritized. The PM who thrives in this environment isn't just good at writing PRDs. They're good at designing systems.</p>
+  <h3>The bigger lesson</h3>
+  <p>Building a division inside a large company is itself a product problem. The product isn't just the software — it's the operating model: who reviews the roadmap, how data quality gets owned, what happens when a model degrades, how new use cases get discovered and prioritized. The PM who thrives here isn't just good at writing PRDs. They're good at designing systems.</p>
 
   <hr>
 
