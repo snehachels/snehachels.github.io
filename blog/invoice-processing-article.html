@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Building an AI-powered invoice processing system that reduced costs by 96% and processing time by 83%. A case study on LLM evaluation, prompt engineering, and production ML systems." />
+  <meta name="description"
+    content="Building an AI-powered invoice processing system that reduced costs by 96% and processing time by 83%. A case study on LLM evaluation, prompt engineering, and production ML systems." />
   <title>Building an AI Invoice Processing System | Sneha Chelimilla</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
 
   <style>
     /* ── DESIGN TOKENS (matches main site) ── */
     :root {
-      --blue:       #6b8f4a;
+      --blue: #6b8f4a;
       --blue-light: #9fbb80;
-      --blue-dark:  #4e6b33;
-      --white:      #ffffff;
-      --off-white:  #f5f8f1;
-      --text:       #0f172a;
-      --muted:      #64748b;
-      --dim:        #94a3b8;
-      --border:     #dce8d4;
-      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
-      --shadow-md:  0 4px 20px rgba(0,0,0,0.08);
+      --blue-dark: #4e6b33;
+      --white: #ffffff;
+      --off-white: #f5f8f1;
+      --text: #0f172a;
+      --muted: #64748b;
+      --dim: #94a3b8;
+      --border: #dce8d4;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     :root {
-      --header-bg: linear-gradient(135deg, #ddebd0, #c4dca8); /* c3 */
+      --header-bg: linear-gradient(135deg, #ddebd0, #c4dca8);
+      /* c3 */
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text);
@@ -38,28 +52,50 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    a { text-decoration: none; }
+
+    a {
+      text-decoration: none;
+    }
 
     /* ── TOP NAV BAR ── */
     .top-bar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       height: 56px;
     }
+
     .back-link {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.875rem; font-weight: 600; color: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--blue);
       transition: gap 0.15s;
     }
-    .back-link:hover { gap: 0.65rem; }
-    .back-arrow { font-size: 1rem; }
+
+    .back-link:hover {
+      gap: 0.65rem;
+    }
+
+    .back-arrow {
+      font-size: 1rem;
+    }
+
     .site-name {
-      font-size: 0.8rem; font-weight: 700; color: var(--muted);
-      letter-spacing: 0.04em; text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     /* ── ARTICLE HEADER ── */
@@ -68,74 +104,128 @@
       padding: 4rem 2rem 3rem;
       text-align: center;
     }
+
     .article-hero-inner {
-      max-width: 720px; margin: 0 auto;
+      max-width: 720px;
+      margin: 0 auto;
     }
-    .article-icon { font-size: 3rem; line-height: 1; margin-bottom: 1rem; }
+
+    .article-icon {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
     .article-category {
       display: inline-block;
-      background: rgba(107, 143, 74, 0.09); color: var(--blue-dark);
+      background: rgba(107, 143, 74, 0.09);
+      color: var(--blue-dark);
       border: 1px solid rgba(107, 143, 74, 0.18);
-      padding: 0.22rem 0.7rem; border-radius: 999px;
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
-      text-transform: uppercase; margin-bottom: 1.25rem;
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
     }
+
     .article-title {
       font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800; line-height: 1.25;
-      color: var(--text); margin-bottom: 1rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 1rem;
     }
+
     .article-subtitle {
-      font-size: 1.05rem; color: var(--muted);
-      line-height: 1.65; margin-bottom: 1.75rem;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
     }
+
     .article-meta {
-      display: flex; align-items: center; justify-content: center;
-      gap: 1.25rem; font-size: 0.8rem; color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--muted);
       flex-wrap: wrap;
     }
-    .article-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .article-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
 
     /* ── ARTICLE BODY ── */
     .article-body {
-      max-width: 720px; margin: 0 auto;
+      max-width: 720px;
+      margin: 0 auto;
       padding: 3.5rem 2rem 5rem;
     }
 
     /* Typography */
     .article-body h2 {
-      font-size: 1.35rem; font-weight: 800;
-      color: var(--text); margin: 2.5rem 0 0.875rem;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 2.5rem 0 0.875rem;
       line-height: 1.3;
     }
+
     .article-body h3 {
-      font-size: 1.1rem; font-weight: 700;
-      color: var(--text); margin: 2rem 0 0.625rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 2rem 0 0.625rem;
     }
+
     .article-body p {
-      font-size: 1rem; color: #334155;
-      line-height: 1.8; margin-bottom: 1.25rem;
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
     }
-    .article-body ul, .article-body ol {
+
+    .article-body ul,
+    .article-body ol {
       margin: 0 0 1.25rem 1.5rem;
     }
+
     .article-body li {
-      font-size: 1rem; color: #334155;
-      line-height: 1.75; margin-bottom: 0.4rem;
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 0.4rem;
     }
+
     .article-body blockquote {
       border-left: 3px solid var(--blue);
-      margin: 1.75rem 0; padding: 0.75rem 1.5rem;
+      margin: 1.75rem 0;
+      padding: 0.75rem 1.5rem;
       background: rgba(107, 143, 74, 0.04);
       border-radius: 0 8px 8px 0;
     }
+
     .article-body blockquote p {
-      font-size: 1.05rem; font-style: italic;
-      color: var(--muted); margin: 0;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--muted);
+      margin: 0;
     }
-    .article-body strong { color: var(--text); font-weight: 700; }
+
+    .article-body strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
     .article-body hr {
-      border: none; border-top: 1px solid var(--border);
+      border: none;
+      border-top: 1px solid var(--border);
       margin: 2.5rem 0;
     }
 
@@ -143,10 +233,16 @@
     .callout {
       background: rgba(107, 143, 74, 0.06);
       border: 1px solid rgba(107, 143, 74, 0.18);
-      border-radius: 10px; padding: 1.25rem 1.5rem;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
       margin: 1.75rem 0;
     }
-    .callout p { margin: 0; font-size: 0.95rem; color: var(--blue-dark); }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--blue-dark);
+    }
 
     /* Code blocks */
     .article-body code {
@@ -158,7 +254,7 @@
       font-size: 0.9rem;
       color: #e11d48;
     }
-    
+
     .article-body pre {
       background: #1e293b;
       color: #e2e8f0;
@@ -210,32 +306,54 @@
     .article-footer {
       border-top: 1px solid var(--border);
       background: var(--off-white);
-      padding: 2.5rem 2rem; text-align: center;
+      padding: 2.5rem 2rem;
+      text-align: center;
     }
+
     .article-footer p {
-      font-size: 0.875rem; color: var(--muted);
+      font-size: 0.875rem;
+      color: var(--muted);
       margin-bottom: 1rem;
     }
+
     .footer-back {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.875rem; font-weight: 700; color: var(--blue);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--blue);
       border: 1px solid rgba(107, 143, 74, 0.25);
-      padding: 0.625rem 1.25rem; border-radius: 8px;
+      padding: 0.625rem 1.25rem;
+      border-radius: 8px;
       transition: all 0.15s;
     }
+
     .footer-back:hover {
       background: rgba(107, 143, 74, 0.06);
       border-color: var(--blue);
     }
 
     @media (max-width: 600px) {
-      .article-hero { padding: 3rem 1.25rem 2.25rem; }
-      .article-body { padding: 2.5rem 1.25rem 4rem; }
-      .top-bar { padding: 0 1.25rem; }
-      .metric-box { grid-template-columns: 1fr; }
+      .article-hero {
+        padding: 3rem 1.25rem 2.25rem;
+      }
+
+      .article-body {
+        padding: 2.5rem 1.25rem 4rem;
+      }
+
+      .top-bar {
+        padding: 0 1.25rem;
+      }
+
+      .metric-box {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ── TOP NAV ── -->
@@ -252,9 +370,10 @@
       <div class="article-icon">💼</div>
 
 
-      <h1 class="article-title">Building an AI Invoice Processing System: From $8.50 to $0.32 Per Invoice</h1>
+      <h1 class="article-title">Building an AI-powered Invoice Processing Automation System</h1>
 
-      <p class="article-subtitle">How I built an end-to-end ML system that reduced invoice processing costs by 96% while maintaining 92% accuracy.</p>
+      <p class="article-subtitle">How I built an end-to-end ML system that reduced invoice processing costs by 96% while
+        maintaining 92% accuracy.</p>
 
       <div class="article-meta">
         <span>⏱ 12 min read</span>
@@ -265,9 +384,34 @@
   <!-- ── ARTICLE BODY ── -->
   <main class="article-body">
 
-    <p>At Vorto, we were drowning in invoices. Every month, 150,000 supplier invoices came through in 20+ different formats. Finance teams manually extracted data, coded them to GL accounts, routed for approval, and processed payment. The entire cycle took 18–22 days and cost $8.50 per invoice.</p>
+    <div class="callout">
 
-    <p>This was a classic problem ripe for automation. But invoice processing isn't simple. Each vendor has a different format. Line items are messy. You have to catch fraud, prevent duplicates, and maintain audit trails. I built a system that handles it all—using LLMs, OCR, validation logic, and continuous learning. The result: 78% auto-approval, 3.2-day processing, $0.32 per invoice, and $2.1M annual savings.</p>
+      <h2> At a Glance</h2>
+      <ul>
+        <li>Role: Senior Product Manager</li>
+        <li>Starting State: 150K monthly invoices, 19-day cycle, $8.50/invoice, 12-15% error rate</li>
+        <li>Outcome: 78% auto-approval, 3.2-day cycle, $0.32/invoice, 92% accuracy</li>
+        <li>Key Skills: End-to-end system design, ML validation, LLM-based extraction, ERP integration</li>
+        <li>Business Impact: $2.1M annual savings, 7.8x ROI </li>
+        <!--<li>Role evolution on this project: Year 1: Problem Identifier → First-Time PM, Year 2: Product Leader →
+          Organizational Designer, Year 3+: Individual Contributor → Division Leader</li>-->
+    </div>
+    At a Glance
+
+    Role: [Your role - Engineer? PM? Technical Lead?] (dates)
+    Starting State: 150K monthly invoices, 19-day cycle, $8.50/invoice, 12-15% error rate
+    Outcome: 78% auto-approval, 3.2-day cycle, $0.32/invoice, 92% accuracy
+    Key Skills: End-to-end system design, ML validation, LLM-based extraction, ERP integration
+    Business Impact: $2.1M annual savings, 7.8x ROI
+
+    <p>At Vorto, we were drowning in invoices. Every month, 150,000 supplier invoices came through in 20+ different
+      formats. Finance teams manually extracted data, coded them to GL accounts, routed for approval, and processed
+      payment. The entire cycle took 18–22 days and cost $8.50 per invoice.</p>
+
+    <p>This was a classic problem ripe for automation. But invoice processing isn't simple. Each vendor has a different
+      format. Line items are messy. You have to catch fraud, prevent duplicates, and maintain audit trails. I built a
+      system that handles it all—using LLMs, OCR, validation logic, and continuous learning. The result: 78%
+      auto-approval, 3.2-day processing, $0.32 per invoice, and $2.1M annual savings.</p>
 
     <p>Here's how I did it, what went wrong, and what I'd do differently next time.</p>
 
@@ -307,9 +451,12 @@
       </div>
     </div>
 
-    <p>Errors were expensive. Missing GL codes caused reconciliation delays. Duplicate invoices went undetected (costing thousands in overpayments). Slow processing meant missed early-payment discounts (worth ~2% on the invoice amount).</p>
+    <p>Errors were expensive. Missing GL codes caused reconciliation delays. Duplicate invoices went undetected (costing
+      thousands in overpayments). Slow processing meant missed early-payment discounts (worth ~2% on the invoice
+      amount).</p>
 
-    <p>We needed an intelligent system that could extract structured data from messy, diverse invoices, validate them, catch anomalies, and route for approval. And it had to integrate with NetSuite.</p>
+    <p>We needed an intelligent system that could extract structured data from messy, diverse invoices, validate them,
+      catch anomalies, and route for approval. And it had to integrate with NetSuite.</p>
 
     <h2>The Solution: LLM-Powered Extraction with ML Validation</h2>
 
@@ -317,23 +464,71 @@
 
     <h3>Layer 1: OCR & Text Extraction</h3>
 
-    <p>Invoices came in as PDFs, scanned images, and email attachments—many in poor quality. The first step was converting them to machine-readable text. I used AWS Textract for OCR, but added preprocessing: image enhancement, deskewing, denoising. This got us to ~94% successful text extraction on the first try.</p>
+    <p>Invoices came in as PDFs, scanned images, and email attachments—many in poor quality. The first step was
+      converting them to machine-readable text. I used AWS Textract for OCR, but added preprocessing: image enhancement,
+      deskewing, denoising. This got us to ~94% successful text extraction on the first try.</p>
 
     <h3>Layer 2: LLM-Based Data Extraction</h3>
 
-    <p>Raw text from OCR isn't structured. I used GPT-4 with few-shot prompting to extract key fields: vendor name, invoice number, date, due date, line items, totals, and payment terms. The model returned clean JSON.</p>
+    <p>Raw text from OCR isn't structured. I used GPT-4 with few-shot prompting to extract key fields: vendor name,
+      invoice number, date, due date, line items, totals, and payment terms. The model returned clean JSON.</p>
 
     <div class="callout">
-      <p><strong>Why GPT-4 over cheaper models?</strong> I evaluated Claude (94% accuracy, cheaper) and Gemini (91% accuracy, cheapest). The 2% accuracy improvement in GPT-4 meant ~2% fewer manual reviews, worth ~$300K/year in labor savings. The API cost was $50K/year. Net benefit: $250K/year. Always measure ROI on accuracy gains.</p>
+      <p><strong>Why GPT-4 over cheaper models?</strong> I evaluated Claude (94% accuracy, cheaper) and Gemini (91%
+        accuracy, cheapest). The 2% accuracy improvement in GPT-4 meant ~2% fewer manual reviews, worth ~$300K/year in
+        labor savings. The API cost was $50K/year. Net benefit: $250K/year. Always measure ROI on accuracy gains.</p>
     </div>
 
     <h3>Layer 3: Validation + Anomaly Detection</h3>
 
     <p>Even perfect extraction can fail if the invoice itself is problematic. I built two validation layers:</p>
 
-    <p><strong>Rule-based checks:</strong> Do totals add up? Are dates reasonable? Are all required fields present? These catch obvious errors.</p>
+    <p><strong>Rule-based checks:</strong> Do totals add up? Are dates reasonable? Are all required fields present?
+      These catch obvious errors.</p>
 
-    <p><strong>ML-based anomaly detection:</strong> I trained a lightweight classifier on historical data to flag suspicious invoices: duplicates (same vendor, same amount within 6 months), unknown vendors, amounts 2x above historical average, or unusual payment terms. This caught ~85% of fraudulent/duplicate invoices before approval.</p>
+    <p><strong>ML-based anomaly detection:</strong> I trained a lightweight classifier on historical data to flag
+      suspicious invoices: duplicates (same vendor, same amount within 6 months), unknown vendors, amounts 2x above
+      historical average, or unusual payment terms. This caught ~85% of fraudulent/duplicate invoices before approval.
+    </p>
+
+    <h3> Layer 1: Ingestion Layer</h3>
+    <ul>
+      <li>Pulling invoices from emails, portals, scanners</li>
+      <li>Built preprocessing: image enhancement, deskewing, denoising</li>
+      <li>Got us to ~94% successful text extraction on first try</li>
+    </ul>
+    <h3> Layer 2: Extraction Layer</h3>
+    <ul>
+      <li>Using GPT-4 with few-shot prompting</li>
+      <li>Identifying key data: vendor name, tax ID, line items, totals</li>
+      <li>Handles 20+ different invoice formats</li>
+      <li>Returns clean JSON output</li>
+    </ul>
+    <h3> Layer 3: Validation & Matching Layer</h3>
+    <ul>
+      <li>Rule-based checks (totals add up, dates reasonable, required fields present)</li>
+      <li>ML-based anomaly detection (duplicates, unknown vendors, suspicious amounts)</li>
+      <li>3-way matching: invoice vs. ticket data vs. service data</li>
+      <li>Caught ~85% of fraudulent/duplicate invoices before approval</li>
+    </ul>
+    <h3> Layer 4: Approval Workflow Layer</h3>
+    <ul>
+      <li>Intelligent routing to correct manager based on amount</li>
+      <li>Confidence-based auto-approval (threshold tuning based on ROI math)</li>
+      <li>78% auto-approval rate, remaining 22% routed for human review</li>
+      <li>Monthly retraining on corrections</li>
+    </ul>
+    <h3> Layer 5: ERP Integration Layer</h3>
+    <ul>
+      <li>Automatically posting data to bill.com and Workday</li>
+      <li>Scheduling payment based on terms and discount analysis</li>
+      <li>Audit trail maintenance for compliance</li>
+      <li>Full integration with existing accounting infrastructure</li>
+    </ul>
+
+
+
+
 
     <h2>Implementation: 3 Phases Over 6 Months</h2>
 
@@ -341,7 +536,8 @@
 
     <p>Goal: Show that it's feasible.</p>
 
-    <p>I collected 500 invoices (20 vendors, 5 formats) and built the core extraction system. Finance team manually verified results (ground truth). Accuracy: 88%. Cost per invoice: $0.02 in API calls. Speed: 1.5 seconds.</p>
+    <p>I collected 500 invoices (20 vendors, 5 formats) and built the core extraction system. Finance team manually
+      verified results (ground truth). Accuracy: 88%. Cost per invoice: $0.02 in API calls. Speed: 1.5 seconds.</p>
 
     <p><strong>Decision:</strong> Proceed to pilot.</p>
 
@@ -349,12 +545,14 @@
 
     <p>Goal: Validate in production on a small set.</p>
 
-    <p>Processed 10K invoices (small vendors, <$5K each). Set high confidence threshold: only auto-approve if model score >0.95. Manual review queue for everything else. Monthly retraining on corrections.</p>
+    <p>Processed 10K invoices (small vendors, <$5K each). Set high confidence threshold: only auto-approve if model
+        score>0.95. Manual review queue for everything else. Monthly retraining on corrections.</p>
 
     <p><strong>Key learnings:</strong></p>
 
     <ul>
-      <li>Vendor-specific performance varied wildly. Amazon invoices: 96% accuracy (consistent format). Small suppliers: 82% (inconsistent).</li>
+      <li>Vendor-specific performance varied wildly. Amazon invoices: 96% accuracy (consistent format). Small suppliers:
+        82% (inconsistent).</li>
       <li>Line item extraction was the hardest part, especially with wrapped text.</li>
       <li>Approval routing rules were too rigid. Added ML predictor based on historical patterns.</li>
       <li>Anomaly detector had 20% false positive rate. Retrained it, dropped to 5%.</li>
@@ -366,7 +564,8 @@
 
     <p>Goal: Process all 150K monthly invoices.</p>
 
-    <p>Gradual rollout: 3 vendors → 12 vendors → all vendors. Confidence thresholds evolved: new vendors (>0.98), known vendors (>0.92).</p>
+    <p>Gradual rollout: 3 vendors → 12 vendors → all vendors. Confidence thresholds evolved: new vendors (>0.98), known
+      vendors (>0.92).</p>
 
     <p><strong>Final Results:</strong></p>
 
@@ -395,11 +594,27 @@
 
     <p><strong>Error prevention:</strong> Fewer duplicates and rework = $900K/year savings.</p>
 
-    <p><strong>Cash flow optimization:</strong> 3-day processing (vs. 19 days) meant capturing early-payment discounts (2% on 30% of invoices) = $800K/year.</p>
+    <p><strong>Cash flow optimization:</strong> 3-day processing (vs. 19 days) meant capturing early-payment discounts
+      (2% on 30% of invoices) = $800K/year.</p>
 
     <blockquote>
       <p><strong>Total impact: $2.9M annually.</strong> System cost: $370K/year. <strong>ROI: 7.8x.</strong></p>
     </blockquote>
+
+    <h2>What This Meant for Your Team/Organization</h2>
+    <p>Finanace team shifted from data entry to analysis. Instead of 12 FTE manually processing invoices, they could
+      focus on:</p>
+    <ul>
+      <li>Strategic vendor negotiations (discounts, payment terms)</li>
+      <li>Anomaly investigation (suspicious patterns, fraud)</li>
+      <li>Process improvement (why are certain vendors slow?)</li>
+    </ul>
+    <p>The system reduced manual review queue from 100% to 22%, freeing capacity for higher-value work.</p>
+    <p>New vendors could be onboarded in 24 hours (collect 20 samples, retrain, phased rollout). No longer bottlenecked
+      on engineering capacity.</p>
+
+    <p>Finance team's trust increased over time (shown in feedback scores 3/5 → 5/5) as we added explainability and
+      transparency to the system.</p>
 
     <hr>
 
@@ -407,29 +622,35 @@
 
     <h3>Decision 1: Confidence Thresholds</h3>
 
-    <p>I could have set thresholds at 0.75 (90% auto-approve, 5% error) or 0.98 (conservative, 40% auto-approve, 0.1% error). I chose 0.90 (balanced).</p>
+    <p>I could have set thresholds at 0.75 (90% auto-approve, 5% error) or 0.98 (conservative, 40% auto-approve, 0.1%
+      error). I chose 0.90 (balanced).</p>
 
-    <p>The math: Cost of one false approval ~$500 (rework + compliance risk). Cost of one manual review = $12.50. Break-even point: error rate < 2.5%. At 0.90 threshold, I achieved 1.2% error rate. Worth it.</p>
+    <p>The math: Cost of one false approval ~$500 (rework + compliance risk). Cost of one manual review = $12.50.
+      Break-even point: error rate < 2.5%. At 0.90 threshold, I achieved 1.2% error rate. Worth it.</p>
 
-    <h3>Decision 2: Retraining Frequency</h3>
+        <h3>Decision 2: Retraining Frequency</h3>
 
-    <p>Monthly retraining on corrections was the sweet spot. Weekly was noisy, quarterly was slow. Each month we captured ~5K corrected invoices, retrained, A/B tested new model vs. old, and deployed if >2% improvement. First 4 months: 1-2% monthly improvement. Then plateau at 96%.</p>
+        <p>Monthly retraining on corrections was the sweet spot. Weekly was noisy, quarterly was slow. Each month we
+          captured ~5K corrected invoices, retrained, A/B tested new model vs. old, and deployed if >2% improvement.
+          First 4 months: 1-2% monthly improvement. Then plateau at 96%.</p>
 
-    <h3>Decision 3: In-House vs. Vendor Solution</h3>
+        <h3>Decision 3: In-House vs. Vendor Solution</h3>
 
-    <p>I could have bought an off-the-shelf AP automation tool. But they cost $500K+/year and lack customization. I built this for $370K and owned the IP. For a company at Vorto's scale, building was cheaper and better.</p>
+        <p>I could have bought an off-the-shelf AP automation tool. But they cost $500K+/year and lack customization. I
+          built this for $370K and owned the IP. For a company at Vorto's scale, building was cheaper and better.</p>
 
-    <h2>Quality Evaluation: How I Measured Success</h2>
+        <h2>Quality Evaluation: How I Measured Success</h2>
 
-    <p>The hardest part wasn't building the system—it was knowing if it was working.</p>
+        <p>The hardest part wasn't building the system—it was knowing if it was working.</p>
 
-    <h3>Building Ground Truth</h3>
+        <h3>Building Ground Truth</h3>
 
-    <p>I built a manually-verified dataset of 1,000 invoices where the finance team extracted "correct" data. Blind to model predictions. This became my test set for all accuracy measurements.</p>
+        <p>I built a manually-verified dataset of 1,000 invoices where the finance team extracted "correct" data. Blind
+          to model predictions. This became my test set for all accuracy measurements.</p>
 
-    <h3>Accuracy by Field</h3>
+        <h3>Accuracy by Field</h3>
 
-    <pre><code>Vendor name:        96% (hard to get wrong)
+        <pre><code>Vendor name:        96% (hard to get wrong)
 Invoice number:     99% (consistent format)
 Invoice date:       94% (formats vary)
 Line items:         89% (most complex)
@@ -438,67 +659,126 @@ GL coding:          87% (requires logic)
 
 Overall:            92% (weighted)</code></pre>
 
-    <h3>Failure Mode Analysis</h3>
+        <h3>Failure Mode Analysis</h3>
 
-    <p>Why did 8% of extractions fail? I categorized them:</p>
+        <p>Why did 8% of extractions fail? I categorized them:</p>
 
-    <ul>
-      <li><strong>OCR failure (2%):</strong> Blurry images, non-English text. Solution: Route to manual review.</li>
-      <li><strong>LLM confusion (3%):</strong> Non-standard layout, merged columns. Solution: Manual review + feedback for retraining.</li>
-      <li><strong>Business logic (2%):</strong> Wrong GL codes, wrong approver. Solution: Better rules + ML training.</li>
-      <li><strong>Data quality (1%):</strong> Incomplete invoice. Solution: Alert vendor.</li>
-    </ul>
+        <ul>
+          <li><strong>OCR failure (2%):</strong> Blurry images, non-English text. Solution: Route to manual review.</li>
+          <li><strong>LLM confusion (3%):</strong> Non-standard layout, merged columns. Solution: Manual review +
+            feedback for retraining.</li>
+          <li><strong>Business logic (2%):</strong> Wrong GL codes, wrong approver. Solution: Better rules + ML
+            training.</li>
+          <li><strong>Data quality (1%):</strong> Incomplete invoice. Solution: Alert vendor.</li>
+        </ul>
 
-    <h2>What I'd Do Differently</h2>
+        <h2>What I'd Do Differently</h2>
 
-    <h3>Start with Smaller Scope</h3>
+        <h3>Start with Smaller Scope</h3>
 
-    <p>I tried to handle all 150K invoices from day one. Better approach: master 10 high-volume vendors (80K invoices) first. Then expand incrementally. This would have avoided overengineering.</p>
+        <p>I tried to handle all 150K invoices from day one. Better approach: master 10 high-volume vendors (80K
+          invoices) first. Then expand incrementally. This would have avoided overengineering.</p>
 
-    <h3>Involve Finance Team Earlier</h3>
+        <h3>Involve Finance Team Earlier</h3>
 
-    <p>I built the system, then showed it to finance. They had requirements I missed: audit trails, export for audits, vendor-specific performance tracking. Co-design from week 1 is better.</p>
+        <p>I built the system, then showed it to finance. They had requirements I missed: audit trails, export for
+          audits, vendor-specific performance tracking. Co-design from week 1 is better.</p>
 
-    <h3>Plan for New Vendors</h3>
+        <h3>Plan for New Vendors</h3>
 
-    <p>When a new vendor joined, accuracy dropped to 75%. Better approach: template system for onboarding. Collect 20 sample invoices, quick retraining, phased rollout.</p>
+        <p>When a new vendor joined, accuracy dropped to 75%. Better approach: template system for onboarding. Collect
+          20 sample invoices, quick retraining, phased rollout.</p>
 
-    <h3>Build Explainability</h3>
+        <h3>Build Explainability</h3>
 
-    <p>The system was a black box: "92% accurate." Finance team didn't trust it. Better approach: explain each extraction. "Vendor name = Amazon (confidence 0.98 based on logo + formatting)." This doubled user confidence.</p>
+        <p>The system was a black box: "92% accurate." Finance team didn't trust it. Better approach: explain each
+          extraction. "Vendor name = Amazon (confidence 0.98 based on logo + formatting)." This doubled user confidence.
+        </p>
 
-    <hr>
+        <hr>
 
-    <h2>Key Lessons</h2>
+        <h2>Key Lessons</h2>
 
-    <h3>1. Accuracy Isn't Everything</h3>
+        <h3>1. Accuracy Isn't Everything</h3>
 
-    <p>A 92% accurate system that catches fraud is better than a 98% accurate system that misses it. Measure what matters: false negatives (errors that slip through), false positives (false alarms), and business impact (money saved).</p>
+        <p>A 92% accurate system that catches fraud is better than a 98% accurate system that misses it. Measure what
+          matters: false negatives (errors that slip through), false positives (false alarms), and business impact
+          (money saved).</p>
 
-    <h3>2. Evaluation is Hard</h3>
+        <h3>2. Evaluation is Hard</h3>
 
-    <p>Building ground truth is expensive and tedious. But it's the only way to know if you're improving. Invest early in measurement infrastructure.</p>
+        <p>Building ground truth is expensive and tedious. But it's the only way to know if you're improving. Invest
+          early in measurement infrastructure.</p>
 
-    <h3>3. Feedback Loops Drive Improvement</h3>
+        <h3>3. Feedback Loops Drive Improvement</h3>
 
-    <p>Monthly retraining on corrections led to 1-2% monthly improvement. Trying to get a "perfect" model upfront would have failed. Ship fast, iterate, learn.</p>
+        <p>Monthly retraining on corrections led to 1-2% monthly improvement. Trying to get a "perfect" model upfront
+          would have failed. Ship fast, iterate, learn.</p>
 
-    <h2>The Numbers That Matter</h2>
+        <h2>What This Work Prepared Me For</h2>
 
-    <p>When evaluating AI projects, ask:</p>
+        <p>End-to-End System Thinking</p>
+        <ul>
+          <li>This wasn't just a machine learning problem. It was OCR + LLM + validation logic + approval workflow + ERP
+            integration. I learned to think about systems holistically: where does data come from, how does it flow,
+            what checks do we add, what gets prioritized. This translates to any complex automation or data pipeline
+            project.</li>
+        </ul>
 
-    <ul>
-      <li><strong>Before/After:</strong> Was 19 days → 3.2 days. Was $8.50/invoice → $0.32/invoice. Was 12-15% error → 1.2% error.</li>
-      <li><strong>Trade-offs:</strong> 92% accuracy (1.2% false negative), 78% auto-approval (22% still need human), $370K/year cost, 7.8x ROI.</li>
-      <li><strong>Risk:</strong> If accuracy drops to 85%, auto-approval drops to 55%. Acceptable. If fraud slips through, loss ~$100K. Caught by audits.</li>
-      <li><strong>Scaling:</strong> Handles 150K invoices now. Tested to 300K. New vendors: 24-hour onboarding. Works.</li>
-    </ul>
+        <p>Measuring What Matters</p>
+        <ul>
+          <li>It's easy to optimize for model accuracy. Harder to optimize for business impact. I learned to measure:
+            false negatives (errors that slip through), false positives (false alarms), and business value. This
+            discipline transfers to any AI/ML project.</li>
+        </ul>
 
-    <h2>Conclusion</h2>
+        <p>Stakeholder Trust in AI</p>
+        <ul>
+          <li>Finance teams don't adopt AI systems if they don't trust them. I learned that accuracy metrics alone don't
+            build trust. Explainability does. Transparency does. Involving stakeholders in evaluation does. This is
+            critical for any AI rollout in a regulated or high-stakes environment.</li>
+        </ul>
 
-    <p>Invoice processing isn't glamorous. But it's high-volume, error-prone, and expensive. Perfect for AI. I built a system that extracts structured data from messy documents, validates it, routes it intelligently, and learns from every correction. The result is faster, cheaper, more accurate processing—and it freed up finance team to focus on strategy instead of data entry.</p>
+        <p>Iterative Improvement</p>
+        <ul>
+          <li>We didn't ship a perfect system in month 1. We shipped a 88% accurate PoC, learned monthly on 5K
+            corrections, and improved to 92% in production. The discipline of monthly feedback loops and A/B testing is
+            something I apply to every project now.</li>
+        </ul>
 
-    <p>If you're considering an AI automation project, here's the playbook: understand the business case first. Start with a pilot. Measure rigorously. Iterate monthly. Involve stakeholders early. And always remember—good enough AI that ships is better than perfect AI that never launches.</p>
+        <p>Financial Rigor in Engineering Decisions</p>
+        <ul>
+          <li>Every technical choice had a business case. Which LLM model? Calculate ROI. What confidence threshold? Do
+            the math. What retraining frequency? Measure impact. This financial discipline separates good engineers from
+            great ones.</li>
+        </ul>
+
+
+        <h2>The Numbers That Matter</h2>
+
+        <p>When evaluating AI projects, ask:</p>
+
+        <ul>
+          <li><strong>Before/After:</strong> Was 19 days → 3.2 days. Was $8.50/invoice → $0.32/invoice. Was 12-15% error
+            → 1.2% error.</li>
+          <li><strong>Trade-offs:</strong> 92% accuracy (1.2% false negative), 78% auto-approval (22% still need human),
+            $370K/year cost, 7.8x ROI.</li>
+          <li><strong>Risk:</strong> If accuracy drops to 85%, auto-approval drops to 55%. Acceptable. If fraud slips
+            through, loss ~$100K. Caught by audits.</li>
+          <li><strong>Scaling:</strong> Handles 150K invoices now. Tested to 300K. New vendors: 24-hour onboarding.
+            Works.</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+
+        <p>Invoice processing isn't glamorous. But it's high-volume, error-prone, and expensive. Perfect for AI. I built
+          a system that extracts structured data from messy documents, validates it, routes it intelligently, and learns
+          from every correction. The result is faster, cheaper, more accurate processing—and it freed up finance team to
+          focus on strategy instead of data entry.</p>
+
+        <p>If you're considering an AI automation project, here's the playbook: understand the business case first.
+          Start with a pilot. Measure rigorously. Iterate monthly. Involve stakeholders early. And always remember—good
+          enough AI that ships is better than perfect AI that never launches.</p>
 
   </main>
 
@@ -508,4 +788,5 @@ Overall:            92% (weighted)</code></pre>
   </footer>
 
 </body>
+
 </html>
