@@ -488,24 +488,20 @@
       historical average, or unusual payment terms. This caught majority of fraudulent/duplicate invoices before
       approval.
     </p>
+    <h3>Layer 4: Approval Workflow Layer</h3>
+    <p>Once an invoice passed validation, it entered an intelligent routing layer. Rather than applying a single
+      approval
+      threshold, the system routed based on invoice amount -> small invoices went to internal finance, larger or
+      insurance-related ones escalated to the appropriate parties. Confidence scores determined whether an invoice was
+      auto-approved or queued for human review. This produced a 78% auto-approval rate, with the remaining 22% reviewed
+      by the team. Every correction from manual review fed back into monthly retraining, steadily improving the model
+      over time.</p>
 
 
-    <h3> Layer 4: Approval Workflow Layer</h3>
-    <ul>
-      <li>Intelligent routing to correct agent based on amount (routing to insurance or internal finance or other
-        parties)</li>
-      <li>Confidence-based auto-approval </li>
-      <li>78% auto-approval rate, remaining 22% routed for human review</li>
-      <li>Monthly retraining on corrections</li>
-    </ul>
-
-    <h3> Layer 5: ERP Integration Layer</h3>
-    <ul>
-      <li>Automatically posting data to Workday</li>
-      <li>Scheduling payment based on terms</li>
-      <li>Audit trail maintenance for compliance</li>
-      <li>Full integration with existing accounting infrastructure</li>
-    </ul>
+    <h3>Layer 5: ERP Integration Layer</h3>
+    <p>Approved invoices didn't stop at a dashboard. They flowed directly into Workday, with GL codes assigned and
+      payment scheduled according to vendor terms. Every action was logged for audit trail compliance, giving finance
+      and legal a complete, timestamped record of each invoice's journey.</p>
 
 
 
