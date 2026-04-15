@@ -599,39 +599,22 @@
 
     <hr>
 
-    <h2>Technical Decisions & Tradeoffs</h2>
 
-    <h3>Decision 1: Confidence Thresholds</h3>
 
-    <p>I could have set thresholds at 0.75 (90% auto-approve, 5% error) or 0.98 (conservative, 40% auto-approve, 0.1%
-      error). I chose 0.90 (balanced).</p>
+    <h2>Quality Evaluation: How I Measured Success</h2>
 
-    <p>The math: Cost of one false approval ~$500 (rework + compliance risk). Cost of one manual review = $12.50.
-      Break-even point: error rate < 2.5%. At 0.90 threshold, I achieved 1.2% error rate. Worth it.</p>
+    <p>The hardest part wasn't building the system - it was knowing if it was working well and being used by the team.
+    </p>
 
-        <h3>Decision 2: Retraining Frequency</h3>
+    <h3>Building Ground Truth</h3>
 
-        <p>Monthly retraining on corrections was the sweet spot. Weekly was noisy, quarterly was slow. Each month we
-          captured ~5K corrected invoices, retrained, A/B tested new model vs. old, and deployed if >2% improvement.
-          First 4 months: 1-2% monthly improvement. Then plateau at 96%.</p>
+    <p>I built a diverse manually-verified dataset of 1,000 invoices where the finance team extracted "correct" data.
+      Blind
+      to model predictions. This became my test set for all accuracy measurements.</p>
 
-        <h3>Decision 3: In-House vs. Vendor Solution</h3>
+    <h3>Accuracy by Field</h3>
 
-        <p>I could have bought an off-the-shelf AP automation tool. But they cost $500K+/year and lack customization. I
-          built this for $370K and owned the IP. For a company at Vorto's scale, building was cheaper and better.</p>
-
-        <h2>Quality Evaluation: How I Measured Success</h2>
-
-        <p>The hardest part wasn't building the system—it was knowing if it was working.</p>
-
-        <h3>Building Ground Truth</h3>
-
-        <p>I built a manually-verified dataset of 1,000 invoices where the finance team extracted "correct" data. Blind
-          to model predictions. This became my test set for all accuracy measurements.</p>
-
-        <h3>Accuracy by Field</h3>
-
-        <pre><code>Vendor name:        96% (hard to get wrong)
+    <pre><code>Vendor name:        96% (hard to get wrong)
 Invoice number:     99% (consistent format)
 Invoice date:       94% (formats vary)
 Line items:         89% (most complex)
@@ -640,126 +623,116 @@ GL coding:          87% (requires logic)
 
 Overall:            92% (weighted)</code></pre>
 
-        <h3>Failure Mode Analysis</h3>
+    <h3>Failure Mode Analysis</h3>
 
-        <p>Why did 8% of extractions fail? I categorized them:</p>
+    <p>Why did 8% of extractions fail? I categorized them:</p>
 
-        <ul>
-          <li><strong>OCR failure (2%):</strong> Blurry images, non-English text. Solution: Route to manual review.</li>
-          <li><strong>LLM confusion (3%):</strong> Non-standard layout, merged columns. Solution: Manual review +
-            feedback for retraining.</li>
-          <li><strong>Business logic (2%):</strong> Wrong GL codes, wrong approver. Solution: Better rules + ML
-            training.</li>
-          <li><strong>Data quality (1%):</strong> Incomplete invoice. Solution: Alert vendor.</li>
-        </ul>
+    <ul>
+      <li><strong>OCR failure (2%):</strong> Blurry images, non-English text. Solution: Route to manual review.</li>
+      <li><strong>LLM confusion (3%):</strong> Non-standard layout, merged columns. Solution: Manual review +
+        feedback for retraining.</li>
+      <li><strong>Business logic (2%):</strong> Wrong GL codes, wrong approver. Solution: Better rules + ML
+        training.</li>
+      <li><strong>Data quality (1%):</strong> Incomplete invoice. Solution: Alert vendor.</li>
+    </ul>
 
-        <h2>What I'd Do Differently</h2>
-
-        <h3>Start with Smaller Scope</h3>
-
-        <p>I tried to handle all 150K invoices from day one. Better approach: master 10 high-volume vendors (80K
-          invoices) first. Then expand incrementally. This would have avoided overengineering.</p>
-
-        <h3>Involve Finance Team Earlier</h3>
-
-        <p>I built the system, then showed it to finance. They had requirements I missed: audit trails, export for
-          audits, vendor-specific performance tracking. Co-design from week 1 is better.</p>
-
-        <h3>Plan for New Vendors</h3>
-
-        <p>When a new vendor joined, accuracy dropped to 75%. Better approach: template system for onboarding. Collect
-          20 sample invoices, quick retraining, phased rollout.</p>
-
-        <h3>Build Explainability</h3>
-
-        <p>The system was a black box: "92% accurate." Finance team didn't trust it. Better approach: explain each
-          extraction. "Vendor name = Amazon (confidence 0.98 based on logo + formatting)." This doubled user confidence.
-        </p>
-
-        <hr>
-
-        <h2>Key Lessons</h2>
-
-        <h3>1. Accuracy Isn't Everything</h3>
-
-        <p>A 92% accurate system that catches fraud is better than a 98% accurate system that misses it. Measure what
-          matters: false negatives (errors that slip through), false positives (false alarms), and business impact
-          (money saved).</p>
-
-        <h3>2. Evaluation is Hard</h3>
-
-        <p>Building ground truth is expensive and tedious. But it's the only way to know if you're improving. Invest
-          early in measurement infrastructure.</p>
-
-        <h3>3. Feedback Loops Drive Improvement</h3>
-
-        <p>Monthly retraining on corrections led to 1-2% monthly improvement. Trying to get a "perfect" model upfront
-          would have failed. Ship fast, iterate, learn.</p>
-
-        <h2>What This Work Prepared Me For</h2>
-
-        <p>End-to-End System Thinking</p>
-        <ul>
-          <li>This wasn't just a machine learning problem. It was OCR + LLM + validation logic + approval workflow + ERP
-            integration. I learned to think about systems holistically: where does data come from, how does it flow,
-            what checks do we add, what gets prioritized. This translates to any complex automation or data pipeline
-            project.</li>
-        </ul>
-
-        <p>Measuring What Matters</p>
-        <ul>
-          <li>It's easy to optimize for model accuracy. Harder to optimize for business impact. I learned to measure:
-            false negatives (errors that slip through), false positives (false alarms), and business value. This
-            discipline transfers to any AI/ML project.</li>
-        </ul>
-
-        <p>Stakeholder Trust in AI</p>
-        <ul>
-          <li>Finance teams don't adopt AI systems if they don't trust them. I learned that accuracy metrics alone don't
-            build trust. Explainability does. Transparency does. Involving stakeholders in evaluation does. This is
-            critical for any AI rollout in a regulated or high-stakes environment.</li>
-        </ul>
-
-        <p>Iterative Improvement</p>
-        <ul>
-          <li>We didn't ship a perfect system in month 1. We shipped a 88% accurate PoC, learned monthly on 5K
-            corrections, and improved to 92% in production. The discipline of monthly feedback loops and A/B testing is
-            something I apply to every project now.</li>
-        </ul>
-
-        <p>Financial Rigor in Engineering Decisions</p>
-        <ul>
-          <li>Every technical choice had a business case. Which LLM model? Calculate ROI. What confidence threshold? Do
-            the math. What retraining frequency? Measure impact. This financial discipline separates good engineers from
-            great ones.</li>
-        </ul>
+    <h2>What I'd Do Differently</h2>
 
 
-        <h2>The Numbers That Matter</h2>
+    <h3>Involve Finance Team Earlier</h3>
 
-        <p>When evaluating AI projects, ask:</p>
+    <p>I built the system, then showed it to finance. They had requirements I missed: audit trails, export for
+      audits, vendor-specific performance tracking. Co-design from week 1 is better.</p>
 
-        <ul>
-          <li><strong>Before/After:</strong> Was 19 days → 3.2 days. Was $8.50/invoice → $0.32/invoice. Was 12-15% error
-            → 1.2% error.</li>
-          <li><strong>Trade-offs:</strong> 92% accuracy (1.2% false negative), 78% auto-approval (22% still need human),
-            $370K/year cost, 7.8x ROI.</li>
-          <li><strong>Risk:</strong> If accuracy drops to 85%, auto-approval drops to 55%. Acceptable. If fraud slips
-            through, loss ~$100K. Caught by audits.</li>
-          <li><strong>Scaling:</strong> Handles 150K invoices now. Tested to 300K. New vendors: 24-hour onboarding.
-            Works.</li>
-        </ul>
+    <h3>Plan for New Vendors</h3>
 
-        <h2>Conclusion</h2>
+    <p>When a new vendor joined, accuracy dropped to 75%. Better approach: template system for onboarding. Collect
+      20 sample invoices, quick retraining, phased rollout.</p>
 
-        <p>Invoice processing isn't glamorous. But it's high-volume, error-prone, and expensive. Perfect for AI. I built
-          a system that extracts structured data from messy documents, validates it, routes it intelligently, and learns
-          from every correction. The result is faster, cheaper, more accurate processing—and it freed up finance team to
-          focus on strategy instead of data entry.</p>
 
-        <p>If you're considering an AI automation project, here's the playbook: understand the business case first.
-          Start with a pilot. Measure rigorously. Iterate monthly. Involve stakeholders early. And always remember—good
-          enough AI that ships is better than perfect AI that never launches.</p>
+    <hr>
+
+    <h2>Key Lessons</h2>
+
+    <h3>1. Accuracy Isn't Everything</h3>
+
+    <p>A 92% accurate system that catches fraud is better than a 98% accurate system that misses it. Measure what
+      matters: false negatives (errors that slip through), false positives (false alarms), and business impact
+      (money saved).</p>
+
+    <h3>2. Evaluation is Hard</h3>
+
+    <p>Building ground truth is expensive and tedious. But it's the only way to know if you're improving. Invest
+      early in measurement infrastructure.</p>
+
+    <h3>3. Feedback Loops Drive Improvement</h3>
+
+    <p>Monthly retraining on corrections led to 1-2% improvement. Trying to get a "perfect" model upfront
+      would have failed. Ship fast, iterate, learn.</p>
+
+    <h2>What This Work Prepared Me For</h2>
+
+    <p><strong>End-to-End System Thinking</strong>
+  </main>p>
+  <ul>
+    <li>This wasn't just a machine learning problem. It was OCR + LLM + validation logic + approval workflow + ERP
+      integration. I learned to think about systems holistically: where does data come from, how does it flow,
+      what checks do we add, what gets prioritized. This translates to any complex automation or data pipeline
+      project.</li>
+  </ul>
+
+  <p><strong>Measuring What Matters</strong></p>
+  <ul>
+    <li>It's easy to optimize for model accuracy. Harder to optimize for business impact. I learned to measure:
+      false negatives (errors that slip through), false positives (false alarms), and business value. This
+      discipline transfers to any AI/ML project.</li>
+  </ul>
+
+  <p><strong>Stakeholder Trust in AI</strong></p>
+  <ul>
+    <li>Finance teams don't adopt AI systems if they don't trust them. I learned that accuracy metrics alone don't
+      build trust. Explainability does. Transparency does. Involving stakeholders in evaluation does. This is
+      critical for any AI rollout in a regulated or high-stakes environment.</li>
+  </ul>
+
+  <p><strong>Iterative Improvement</strong></p>
+  <ul>
+    <li>We didn't ship a perfect system in month 1. We shipped a 88% accurate PoC, learned monthly on 5K
+      corrections, and improved to 90% in production. The discipline of monthly feedback loops and A/B testing is
+      something I apply to every project now.</li>
+  </ul>
+
+  <p><strong>Financial Rigor in Engineering Decisions</strong></p>
+  <ul>
+    <li>Every technical choice had a business case. Which LLM model? Calculate ROI. What confidence threshold? Do
+      the math. What retraining frequency? Measure impact. This financial discipline separates good engineers from
+      great ones.</li>
+  </ul>
+
+
+  <h2>The Numbers That Matter</h2>
+
+  <p>When evaluating AI projects, ask:</p>
+
+  <ul>
+    <li><strong>Before/After:</strong> Was 19 days → 3.2 days. Was $2/invoice → $0.4/invoice. Was 12-15% error
+      → 1.2% error.</li>
+    <li><strong>Trade-offs:</strong> 90% accuracy (1.2% false negative), 78% auto-approval (22% still need human).</li>
+    <li><strong>Risk:</strong> If accuracy drops to 85%, auto-approval drops to 55%. Acceptable. If fraud slips
+      through, loss ~$100K. Caught by audits.</li>
+    <li><strong>Scaling:</strong> Handles 10K/month invoices now. New vendors: 24-hour onboarding process setup.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+
+  <p>Invoice processing isn't glamorous. But it's high-volume, error-prone, and expensive. Perfect for AI. I built
+    a system that extracts structured data from messy documents, validates it, routes it intelligently, and learns
+    from every correction. The result is faster, cheaper, more accurate processing and it freed up finance team to
+    focus on strategy instead of data entry.</p>
+
+  <p>Here's my AI automation project playbook: understand the business case first.
+    Start with a pilot. Measure rigorously. Iterate monthly. Involve stakeholders early. And always remember that good
+    enough AI that ships is better than perfect AI that never launches.</p>
 
   </main>
 
