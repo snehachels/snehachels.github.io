@@ -448,77 +448,61 @@
       </div>
     </div>
 
-    <p>Errors were expensive. Missing GL codes caused reconciliation delays. Duplicate invoices went undetected (costing
+    <p>Errors were time-consuming to rectify adn difficult to track. Missing GL codes caused reconciliation delays.
+      Duplicate invoices went undetected (costing
       thousands in overpayments). Slow processing meant missed early-payment discounts (worth ~2% on the invoice
       amount).</p>
 
     <p>We needed an intelligent system that could extract structured data from messy, diverse invoices, validate them,
-      catch anomalies, and route for approval. And it had to integrate with NetSuite.</p>
+      catch anomalies, and route to the right channels for approval. And it had to integrate with Bill.com and Workday.
+    </p>
 
-    <h2>The Solution: LLM-Powered Extraction with ML Validation</h2>
+    <h2>The Solution: LLM-Powered Extraction with Validation</h2>
 
-    <p>I designed an end-to-end system with three key layers:</p>
+    <p>I designed an end-to-end system with five key layers:</p>
 
-    <h3>Layer 1: OCR & Text Extraction</h3>
+    <h3>Layer 1: Ingestion Layer</h3>
 
-    <p>Invoices came in as PDFs, scanned images, and email attachments—many in poor quality. The first step was
-      converting them to machine-readable text. I used AWS Textract for OCR, but added preprocessing: image enhancement,
-      deskewing, denoising. This got us to ~94% successful text extraction on the first try.</p>
+    <p>Invoices came in as PDFs, scanned images, and email attachments with many in poor quality and incosistent
+      formats. The first step was
+      converting them to machine-readable text. I used Azure AI for OCR and got ~94% successful text extraction after a
+      bit of training.</p>
 
     <h3>Layer 2: LLM-Based Data Extraction</h3>
 
     <p>Raw text from OCR isn't structured. I used GPT-4 with few-shot prompting to extract key fields: vendor name,
-      invoice number, date, due date, line items, totals, and payment terms. The model returned clean JSON.</p>
+      invoice number, date, due date, line items, totals, components, issues, and payment terms. The model returned
+      clean JSON.</p>
 
-    <div class="callout">
-      <p><strong>Why GPT-4 over cheaper models?</strong> I evaluated Claude (94% accuracy, cheaper) and Gemini (91%
-        accuracy, cheapest). The 2% accuracy improvement in GPT-4 meant ~2% fewer manual reviews, worth ~$300K/year in
-        labor savings. The API cost was $50K/year. Net benefit: $250K/year. Always measure ROI on accuracy gains.</p>
-    </div>
 
     <h3>Layer 3: Validation + Anomaly Detection</h3>
 
     <p>Even perfect extraction can fail if the invoice itself is problematic. I built two validation layers:</p>
 
-    <p><strong>Rule-based checks:</strong> Do totals add up? Are dates reasonable? Are all required fields present?
+    <p><strong>Rule-based checks:</strong> Do totals add up? Are dates reasonable? Are all required fields present? Any
+      rounding errors? Is the ticket data matching with the invoice data and in line with the service follow-ups?
       These catch obvious errors.</p>
 
-    <p><strong>ML-based anomaly detection:</strong> I trained a lightweight classifier on historical data to flag
+    <p><strong>Anomaly detection:</strong> I built a model using historical data to flag
       suspicious invoices: duplicates (same vendor, same amount within 6 months), unknown vendors, amounts 2x above
-      historical average, or unusual payment terms. This caught ~85% of fraudulent/duplicate invoices before approval.
+      historical average, or unusual payment terms. This caught majority of fraudulent/duplicate invoices before
+      approval.
     </p>
 
-    <h3> Layer 1: Ingestion Layer</h3>
-    <ul>
-      <li>Pulling invoices from emails, portals, scanners</li>
-      <li>Built preprocessing: image enhancement, deskewing, denoising</li>
-      <li>Got us to ~94% successful text extraction on first try</li>
-    </ul>
-    <h3> Layer 2: Extraction Layer</h3>
-    <ul>
-      <li>Using GPT-4 with few-shot prompting</li>
-      <li>Identifying key data: vendor name, tax ID, line items, totals</li>
-      <li>Handles 20+ different invoice formats</li>
-      <li>Returns clean JSON output</li>
-    </ul>
-    <h3> Layer 3: Validation & Matching Layer</h3>
-    <ul>
-      <li>Rule-based checks (totals add up, dates reasonable, required fields present)</li>
-      <li>ML-based anomaly detection (duplicates, unknown vendors, suspicious amounts)</li>
-      <li>3-way matching: invoice vs. ticket data vs. service data</li>
-      <li>Caught ~85% of fraudulent/duplicate invoices before approval</li>
-    </ul>
+
     <h3> Layer 4: Approval Workflow Layer</h3>
     <ul>
-      <li>Intelligent routing to correct manager based on amount</li>
-      <li>Confidence-based auto-approval (threshold tuning based on ROI math)</li>
+      <li>Intelligent routing to correct agent based on amount (routing to insurance or internal finance or other
+        parties)</li>
+      <li>Confidence-based auto-approval </li>
       <li>78% auto-approval rate, remaining 22% routed for human review</li>
       <li>Monthly retraining on corrections</li>
     </ul>
+
     <h3> Layer 5: ERP Integration Layer</h3>
     <ul>
-      <li>Automatically posting data to bill.com and Workday</li>
-      <li>Scheduling payment based on terms and discount analysis</li>
+      <li>Automatically posting data to Workday</li>
+      <li>Scheduling payment based on terms</li>
       <li>Audit trail maintenance for compliance</li>
       <li>Full integration with existing accounting infrastructure</li>
     </ul>
