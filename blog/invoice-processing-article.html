@@ -509,50 +509,52 @@
 
     <h2>Implementation: 3 Phases Over 6 Months</h2>
 
-    <h3>Phase 1: Proof of Concept (Weeks 1–6)</h3>
+    <h3>Phase 1: Proof of Concept (Week 1-2)</h3>
 
-    <p>Goal: Show that it's feasible.</p>
+    <p><strong>Goal:</strong> Show that it's feasible.</p>
 
-    <p>I collected 500 invoices (20 vendors, 5 formats) and built the core extraction system. Finance team manually
-      verified results (ground truth). Accuracy: 88%. Cost per invoice: $0.02 in API calls. Speed: 1.5 seconds.</p>
+    <p>I collected 100 invoices (20 vendors, 5 formats) and built the core extraction system. Finance team manually
+      verified results (ground truth). The, built routing logics for the highest volume invoice types.
+      Overall accuracy: 88% -> 1 Team member could be 2x more productive.</p>
 
     <p><strong>Decision:</strong> Proceed to pilot.</p>
 
-    <h3>Phase 2: Pilot (Weeks 7–16)</h3>
+    <h3>Phase 2: Pilot (Weeks 3-6)</h3>
 
-    <p>Goal: Validate in production on a small set.</p>
+    <p><strong>Goal:</strong> Validate in production on a small set.</p>
 
-    <p>Processed 10K invoices (small vendors, <$5K each). Set high confidence threshold: only auto-approve if model
+    <p>Processed 1000 invoices (small vendors, <$500each). Set high confidence threshold: only auto-approve if model
         score>0.95. Manual review queue for everything else. Monthly retraining on corrections.</p>
 
     <p><strong>Key learnings:</strong></p>
 
     <ul>
-      <li>Vendor-specific performance varied wildly. Amazon invoices: 96% accuracy (consistent format). Small suppliers:
+      <li>Vendor-specific performance varied wildly. Large vendor invoices: 96% accuracy (consistent format). Small
+        vendors:
         82% (inconsistent).</li>
       <li>Line item extraction was the hardest part, especially with wrapped text.</li>
-      <li>Approval routing rules were too rigid. Added ML predictor based on historical patterns.</li>
+      <li>Approval routing rules were not sufficient to cover all cases</li>
       <li>Anomaly detector had 20% false positive rate. Retrained it, dropped to 5%.</li>
     </ul>
 
     <p><strong>Results:</strong> Accuracy 91%, Processing time 8 days, Auto-approval rate 72%.</p>
 
-    <h3>Phase 3: Full Rollout (Weeks 17–26)</h3>
+    <h3>Phase 3: Full Rollout (Weeks 7–12)</h3>
 
-    <p>Goal: Process all 150K monthly invoices.</p>
+    <p>Goal: Process all 10K monthly invoices.</p>
 
-    <p>Gradual rollout: 3 vendors → 12 vendors → all vendors. Confidence thresholds evolved: new vendors (>0.98), known
+    <p>Gradual rollout: 3 vendors → 10 vendors → all vendors. Confidence thresholds evolved: new vendors (>0.98), known
       vendors (>0.92).</p>
 
     <p><strong>Final Results:</strong></p>
 
     <div class="metric-box">
       <div class="metric-item">
-        <div class="metric-value">92%</div>
+        <div class="metric-value">90%</div>
         <div class="metric-label">Accuracy</div>
       </div>
       <div class="metric-item">
-        <div class="metric-value">$0.32</div>
+        <div class="metric-value">$0.4</div>
         <div class="metric-label">Cost Per Invoice</div>
       </div>
       <div class="metric-item">
@@ -565,18 +567,19 @@
       </div>
     </div>
 
-    <h2>Business Impact: $2.1M Annual Savings</h2>
+    <h2>Business Impact</h2>
 
-    <p><strong>Cost reduction:</strong> 150K invoices × ($8.50 - $0.32) = $1.227M/year in direct labor savings.</p>
+    <p><strong>Cost reduction:</strong> 3 FTEs saved </p>
 
-    <p><strong>Error prevention:</strong> Fewer duplicates and rework = $900K/year savings.</p>
+    <p><strong>Error prevention:</strong> Fewer duplicates and rework</p>
 
     <p><strong>Cash flow optimization:</strong> 3-day processing (vs. 19 days) meant capturing early-payment discounts
-      (2% on 30% of invoices) = $800K/year.</p>
+      (2% on 30% of invoices)</p>
 
-    <blockquote>
-      <p><strong>Total impact: $2.9M annually.</strong> System cost: $370K/year. <strong>ROI: 7.8x.</strong></p>
-    </blockquote>
+    <p><strong>Scaling:</strong> Automated processing resulted in increase in invoice processing capacity for business
+      expansion which otherwise would have required hiring more FTEs.</p>
+
+
 
     <h2>What This Meant for Your Team/Organization</h2>
     <p>Finanace team shifted from data entry to analysis. Instead of 12 FTE manually processing invoices, they could
